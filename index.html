@@ -3,74 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Yuqing (Jacky) Jiang" />
-  <title>Yuqing Jiang</title>
+  <meta name="description" content="Yuqing (Jacky) Jiang — machine learning researcher at UIUC. Projects in LLM adaptation, agentic systems, and applied ML." />
+  <title>Yuqing (Jacky) Jiang</title>
+  <link rel="preconnect" href="https://github.com" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="site-header">
     <nav class="nav container">
       <a class="brand" href="#home">Yuqing Jiang</a>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
     </nav>
   </header>
 
   <main>
+    <!-- Hero -->
     <section id="home" class="hero container">
-      <p class="hero-kicker">Hello, I&rsquo;m</p>
-      <h1>Yuqing (Jacky) Jiang</h1>
-      <p class="hero-tagline">
-        Machine learning researcher at UIUC. This site is under construction &mdash;
-        more coming soon.
-      </p>
-      <div class="hero-actions">
-        <a class="button primary" href="#projects">View Projects</a>
-        <a class="button" href="#contact">Get in Touch</a>
+      <div class="hero-inner">
+        <div class="avatar" aria-hidden="true">YJ</div>
+        <div class="hero-text">
+          <h1>Yuqing <span class="nowrap">(Jacky)</span> Jiang</h1>
+          <p class="hero-role">Machine Learning Researcher &middot; University of Illinois Urbana-Champaign</p>
+          <p class="hero-tagline">
+            I build and study intelligent systems &mdash; from inference-time
+            LLM adaptation and agentic pipelines to applied ML in finance and
+            accessibility. Currently a researcher with ulab @ UIUC.
+          </p>
+          <ul class="social-links">
+            <li><a href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="mailto:jiangyuqing0508@gmail.com">Email</a></li>
+            <li><a href="#" data-todo="linkedin">LinkedIn</a></li>
+            <li><a href="#contact">Resume</a></li>
+          </ul>
+        </div>
       </div>
     </section>
 
+    <!-- About -->
     <section id="about" class="section container">
       <h2>About</h2>
-      <p>
-        A short introduction will live here: background, research interests,
-        and what I&rsquo;m currently working on.
+      <p class="lead">
+        I'm an undergraduate machine learning researcher at UIUC. My work spans
+        the science of adapting large language models efficiently, agentic
+        systems that reason and act, and applied ML for real-world domains like
+        quantitative finance, credit risk, and real-time accessibility tools.
       </p>
+      <div class="interests">
+        <div class="interest">
+          <h3>LLM Adaptation</h3>
+          <p>Data-efficient, inference-time steering and adaptation of language models.</p>
+        </div>
+        <div class="interest">
+          <h3>Agentic Systems</h3>
+          <p>Multi-layer agents for research, decision-making, and automated pipelines.</p>
+        </div>
+        <div class="interest">
+          <h3>Applied ML</h3>
+          <p>Machine learning for finance, credit risk, user analytics, and accessibility.</p>
+        </div>
+      </div>
     </section>
 
+    <!-- Projects -->
     <section id="projects" class="section container">
       <h2>Projects</h2>
+      <p class="section-sub">Selected open-source work. See more on <a href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a>.</p>
       <div class="card-grid">
         <article class="card">
-          <h3>Coming Soon</h3>
-          <p>Project highlights will be added here.</p>
+          <div class="card-tag">Research &middot; LLM Adaptation</div>
+          <h3>Steer2Adapt</h3>
+          <p>
+            Data-efficient inference-time LLM adaptation by composing steering
+            vectors via Bayesian optimization over a semantic prior subspace.
+          </p>
+          <a class="card-link" href="https://github.com/JackyJiang08/NeurIPS-2026-Steer2Adapt" target="_blank" rel="noopener">View repository &rarr;</a>
         </article>
+
         <article class="card">
-          <h3>Coming Soon</h3>
-          <p>Project highlights will be added here.</p>
+          <div class="card-tag">Quant &middot; Credit Risk</div>
+          <h3>Market-Based Credit Rating</h3>
+          <p>
+            KMV/Merton credit-rating pipeline for public companies: EM asset
+            estimation, PIT/TTC probability of default, and S&amp;P-equivalent ratings.
+          </p>
+          <a class="card-link" href="https://github.com/JackyJiang08/market-based-credit-rating" target="_blank" rel="noopener">View repository &rarr;</a>
         </article>
+
         <article class="card">
-          <h3>Coming Soon</h3>
-          <p>Project highlights will be added here.</p>
+          <div class="card-tag">Agentic Systems</div>
+          <h3>Agentic Trading Sim</h3>
+          <p>
+            Architecture and engineering showcase of a three-layer agentic
+            trading system: research &rarr; production &rarr; experiment.
+          </p>
+          <a class="card-link" href="https://github.com/JackyJiang08/Agentic-Trading-Sim" target="_blank" rel="noopener">View repository &rarr;</a>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">Data Analytics</div>
+          <h3>Music-Streaming Analytics</h3>
+          <p>
+            End-to-end user analytics: SQL feature engineering, churn &amp;
+            conversion models, A/B testing, survival analysis, and uplift-based targeting.
+          </p>
+          <a class="card-link" href="https://github.com/JackyJiang08/music-streaming-user-behavior-analytics" target="_blank" rel="noopener">View repository &rarr;</a>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">Speech &middot; Accessibility</div>
+          <h3>ScribeAR Realtime Diarization</h3>
+          <p>
+            Real-time classroom captioning extended with live speaker
+            diarization: stable labels via overlap-voting, word-level attribution, WCAG-AA colors.
+          </p>
+          <a class="card-link" href="https://github.com/JackyJiang08/ScribeAR-Realtime-Diarization" target="_blank" rel="noopener">View repository &rarr;</a>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">Platform</div>
+          <h3>AI Monitor Platform</h3>
+          <p>
+            A real-time global map and dashboard tracking developments,
+            regulations, and market impacts across the AI industry.
+          </p>
+          <a class="card-link" href="https://github.com/JackyJiang08/AI-Monitor-Platform" target="_blank" rel="noopener">View repository &rarr;</a>
         </article>
       </div>
     </section>
 
+    <!-- Experience -->
+    <section id="experience" class="section container">
+      <h2>Experience &amp; Education</h2>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <div class="timeline-when">2024 &ndash; Present</div>
+          <div class="timeline-what">
+            <h3>Machine Learning Researcher &mdash; ulab @ UIUC</h3>
+            <p>Research on LLM adaptation and agentic systems. <em>(Edit with specifics.)</em></p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-when">Expected 20XX</div>
+          <div class="timeline-what">
+            <h3>B.S., University of Illinois Urbana-Champaign</h3>
+            <p>Computer Science / Statistics. <em>(Edit with major, honors, coursework.)</em></p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Contact -->
     <section id="contact" class="section container">
       <h2>Contact</h2>
-      <p>
-        Find me on <a href="https://github.com/JackyJiang08">GitHub</a>.
+      <p class="lead">
+        The best way to reach me is by email. I'm open to research
+        collaborations and opportunities in ML, data science, and quantitative work.
       </p>
+      <div class="contact-actions">
+        <a class="button primary" href="mailto:jiangyuqing0508@gmail.com">jiangyuqing0508@gmail.com</a>
+        <a class="button" href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2026 Yuqing Jiang</p>
+      <p>&copy; <span id="year">2026</span> Yuqing Jiang &middot; Built with plain HTML &amp; CSS</p>
     </div>
   </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
