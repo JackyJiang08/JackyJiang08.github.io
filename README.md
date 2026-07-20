@@ -1,6 +1,9 @@
-# Personal Website
+# jackyjiang08.github.io
 
-Personal website of Yuqing (Jacky) Jiang.
+Personal website of Yuqing (Jacky) Jiang — live at
+<https://jackyjiang08.github.io/>.
+
+Deployed automatically by GitHub Pages on every push to `main`.
 
 A lightweight single-page static site (plain HTML/CSS/JS), responsive on both
 desktop and mobile. Academic-portfolio layout: hero, about, projects,
