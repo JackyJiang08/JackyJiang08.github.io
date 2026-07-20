@@ -327,7 +327,79 @@ a:hover {
   text-decoration: none;
 }
 
+.section-note {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin-top: 1.5rem;
+}
+
+/* ---------- Publication ---------- */
+.pub {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  padding: 1.4rem 1.5rem;
+  max-width: 46rem;
+}
+
+.pub h3 {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-bottom: 0.6rem;
+}
+
+.pub-authors {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 0.4rem;
+}
+
+.pub-authors strong {
+  color: var(--text);
+}
+
+.pub-venue {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-style: italic;
+  margin-bottom: 0.8rem;
+}
+
+.pub-links {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.pub-links a {
+  display: inline-block;
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.pub-links a:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
 /* ---------- Timeline ---------- */
+.timeline-group {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-top: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-group:first-of-type {
+  margin-top: 1rem;
+}
+
 .timeline {
   list-style: none;
   margin-top: 0.5rem;
