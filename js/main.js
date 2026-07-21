@@ -49,20 +49,33 @@
   items.forEach((el) => io.observe(el));
 })();
 
-// Scrollspy: highlight the nav link for the section in view.
+// Scrollspy + scroll-progress bar. The section list is derived from the nav
+// links at runtime, so it always matches the current section order.
 (function () {
   const links = document.querySelectorAll("#nav-links a[href^='#']");
   const sections = Array.from(links)
     .map((a) => document.querySelector(a.getAttribute("href")))
     .filter(Boolean);
-  if (!sections.length) return;
+  const progress = document.querySelector(".scroll-progress");
+  if (!sections.length && !progress) return;
 
   function onScroll() {
+    const doc = document.documentElement;
+    const scrollable = doc.scrollHeight - window.innerHeight;
+    const atBottom = scrollable > 0 && window.scrollY >= scrollable - 2;
+
+    if (progress) {
+      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      progress.style.width = Math.min(100, Math.max(0, pct)) + "%";
+    }
+
     const y = window.scrollY + 90;
     let current = null;
     for (const s of sections) {
       if (s.offsetTop <= y) current = s;
     }
+    // when fully scrolled, the last section wins even if it is short
+    if (atBottom && sections.length) current = sections[sections.length - 1];
     links.forEach((a) => {
       const active = current && a.getAttribute("href") === "#" + current.id;
       a.classList.toggle("active", Boolean(active));
@@ -79,7 +92,85 @@
       ticking = true;
     }
   }, { passive: true });
+  window.addEventListener("resize", onScroll);
   onScroll();
+})();
+
+// Impact metrics: count up when scrolled into view. The DOM ships final
+// values, so reduced-motion users (and no-JS) simply see them as-is.
+(function () {
+  const nums = document.querySelectorAll(".metric-num[data-count]");
+  if (!nums.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+
+  function animate(el) {
+    const target = parseFloat(el.dataset.count);
+    const decimals = parseInt(el.dataset.decimals || "0", 10);
+    const prefix = el.dataset.prefix || "";
+    const suffix = el.dataset.suffix || "";
+    const duration = 1200;
+    const start = performance.now();
+
+    function frame(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+      if (t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        animate(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  nums.forEach((el) => io.observe(el));
+})();
+
+// Project filter chips: buttons toggle which cards are visible, matched via
+// data-domains on the cards. Keyboard: chips are real buttons (Enter/Space
+// native) and Left/Right arrows move focus within the toolbar.
+(function () {
+  const bar = document.getElementById("project-filters");
+  const grid = document.getElementById("project-grid");
+  if (!bar || !grid) return;
+  const chips = Array.from(bar.querySelectorAll(".chip"));
+  const cards = Array.from(grid.querySelectorAll(".card"));
+
+  function applyFilter(filter) {
+    chips.forEach((c) => {
+      const on = c.dataset.filter === filter;
+      c.classList.toggle("active", on);
+      c.setAttribute("aria-pressed", String(on));
+    });
+    cards.forEach((card) => {
+      const domains = (card.dataset.domains || "").split(/\s+/);
+      card.hidden = filter !== "all" && !domains.includes(filter);
+    });
+  }
+
+  bar.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (chip) applyFilter(chip.dataset.filter);
+  });
+
+  bar.addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const i = chips.indexOf(document.activeElement);
+    if (i === -1) return;
+    e.preventDefault();
+    const next = e.key === "ArrowRight"
+      ? (i + 1) % chips.length
+      : (i - 1 + chips.length) % chips.length;
+    chips[next].focus();
+  });
+
+  applyFilter("all");
 })();
 
 // Typing effect for the profile role line. The DOM ships the static

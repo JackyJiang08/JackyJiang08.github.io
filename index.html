@@ -24,6 +24,8 @@
   <div class="bg-glow" aria-hidden="true"></div>
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
+  <div class="scroll-progress" aria-hidden="true"></div>
+
   <header class="site-header">
     <nav class="nav container">
       <a class="brand" href="#top">YJ<span class="brand-dot">.</span></a>
@@ -83,6 +85,31 @@
 
     <!-- ============ Main content ============ -->
     <main class="content">
+      <!-- Impact metrics strip: final values are in the DOM; JS animates the
+           count-up on scroll into view (skipped under prefers-reduced-motion) -->
+      <div class="metrics-strip" role="list" aria-label="Impact highlights">
+        <div class="metric" role="listitem">
+          <span class="metric-num" data-count="40" data-decimals="0" data-prefix="+" data-suffix="%">+40%</span>
+          <span class="metric-label">organic traffic</span>
+        </div>
+        <div class="metric" role="listitem">
+          <span class="metric-num" data-count="40" data-decimals="0" data-prefix="&minus;" data-suffix="%">&minus;40%</span>
+          <span class="metric-label">stockouts</span>
+        </div>
+        <div class="metric" role="listitem">
+          <span class="metric-num" data-count="8.2" data-decimals="1" data-prefix="+" data-suffix="%">+8.2%</span>
+          <span class="metric-label">avg &middot; 9 tasks / 3 LLMs</span>
+        </div>
+        <div class="metric" role="listitem">
+          <span class="metric-num" data-count="0.788" data-decimals="3">0.788</span>
+          <span class="metric-label">ROC-AUC churn model</span>
+        </div>
+        <div class="metric" role="listitem">
+          <span class="metric-num" data-count="500" data-decimals="0" data-suffix="K+">500K+</span>
+          <span class="metric-label">records parsed</span>
+        </div>
+      </div>
+
       <!-- About -->
       <section id="about" class="section reveal">
         <h2><span class="section-index">01.</span> About</h2>
@@ -232,8 +259,16 @@
       <section id="projects" class="section reveal">
         <h2><span class="section-index">04.</span> Projects</h2>
         <p class="section-sub">Selected open-source work &mdash; more on <a href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a>.</p>
-        <div class="card-grid">
-          <article class="card">
+        <div class="filter-chips" role="toolbar" aria-label="Filter projects by domain" id="project-filters">
+          <button type="button" class="chip active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-filter="quant" aria-pressed="false">Quant</button>
+          <button type="button" class="chip" data-filter="causal" aria-pressed="false">Causal ML</button>
+          <button type="button" class="chip" data-filter="llm" aria-pressed="false">LLM</button>
+          <button type="button" class="chip" data-filter="fullstack" aria-pressed="false">Full-Stack</button>
+          <button type="button" class="chip" data-filter="accessibility" aria-pressed="false">Accessibility</button>
+        </div>
+        <div class="card-grid" id="project-grid">
+          <article class="card" data-domains="quant">
             <div class="card-top">
               <span class="card-tag">Quant Finance</span>
             </div>
@@ -245,7 +280,7 @@
             <ul class="tech-badges"><li>Python</li><li>pandas</li><li>Merton/KMV</li></ul>
           </article>
 
-          <article class="card">
+          <article class="card" data-domains="causal">
             <div class="card-top">
               <span class="card-tag">Causal ML</span>
             </div>
@@ -257,7 +292,7 @@
             <ul class="tech-badges"><li>scikit-learn</li><li>SQL</li><li>XGBoost</li></ul>
           </article>
 
-          <article class="card">
+          <article class="card" data-domains="quant llm">
             <div class="card-top">
               <span class="card-tag">Agentic Systems</span>
             </div>
@@ -269,7 +304,7 @@
             <ul class="tech-badges"><li>LLM Agents</li><li>System Design</li></ul>
           </article>
 
-          <article class="card">
+          <article class="card" data-domains="fullstack llm">
             <div class="card-top">
               <span class="card-tag">Full-Stack</span>
             </div>
@@ -281,7 +316,7 @@
             <ul class="tech-badges"><li>Next.js</li><li>React</li><li>OpenAI API</li></ul>
           </article>
 
-          <article class="card">
+          <article class="card" data-domains="llm">
             <div class="card-top">
               <span class="card-tag">Research</span>
             </div>
@@ -293,7 +328,7 @@
             <ul class="tech-badges"><li>PyTorch</li><li>LLMs</li><li>Bayesian Opt</li></ul>
           </article>
 
-          <article class="card">
+          <article class="card" data-domains="accessibility fullstack">
             <div class="card-top">
               <span class="card-tag">Accessibility</span>
             </div>

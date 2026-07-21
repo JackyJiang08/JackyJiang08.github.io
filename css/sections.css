@@ -163,6 +163,54 @@
   letter-spacing: 0.05em;
 }
 
+/* ---------- Impact metrics strip ---------- */
+.metrics-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2rem;
+  align-items: stretch;
+  padding: 1rem 1.4rem;
+  margin-bottom: 1.6rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+}
+
+.metric {
+  display: grid;
+  gap: 0.05rem;
+  align-content: center;
+}
+
+.metric-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.metric-label {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .metrics-strip {
+    gap: 0.8rem 1.4rem;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .metric-num {
+    font-size: 1.15rem;
+  }
+}
+
 /* ---------- Section scaffolding ---------- */
 .section {
   padding: 2.2rem 0 2.6rem;
