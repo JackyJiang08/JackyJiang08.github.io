@@ -136,6 +136,44 @@
   flex-grow: 1;
 }
 
+/* ---------- Segmented toggle (résumé variant) ---------- */
+.segmented {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+}
+
+.seg-btn {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.22rem 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.seg-btn:hover {
+  color: var(--accent);
+}
+
+.seg-btn.active {
+  color: var(--accent);
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+}
+
+/* Card emphasis applied by the résumé role toggle */
+.card.emph {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
 /* ---------- Scroll progress bar ---------- */
 .scroll-progress {
   position: fixed;

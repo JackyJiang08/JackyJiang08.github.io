@@ -137,6 +137,11 @@
   grid-column: 1 / -1;
 }
 
+.cta-seg {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
 .profile-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

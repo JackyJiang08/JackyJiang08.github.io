@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/utilities.css" />
   <link rel="stylesheet" href="css/background.css" />
   <script src="js/background.js" defer></script>
+  <script src="js/resume-toggle.js" defer></script>
 </head>
 <body>
   <!-- Canonical contact email: jiangyuqing0508@outlook.com — every section must
@@ -61,7 +62,11 @@
         <p class="status-pill"><span class="pulse-dot" aria-hidden="true"></span>Open to Summer 2027 Internships</p>
         <p class="profile-locator">CS &amp; Statistics @ UIUC &middot; Urbana-Champaign &middot; Expected May 2027</p>
         <div class="cta-grid">
-          <a class="button primary cta-resume" href="assets/resume/Jacky_Jiang_Resume_AI.pdf" target="_blank" rel="noopener">R&eacute;sum&eacute; (PDF)</a>
+          <a id="resume-btn" class="button primary cta-resume" href="assets/resume/Jacky_Jiang_Resume_AI.pdf" download aria-label="Download AI/ML r&eacute;sum&eacute; (PDF)">R&eacute;sum&eacute; (PDF)</a>
+          <div class="segmented cta-seg" id="resume-seg" role="group" aria-label="R&eacute;sum&eacute; variant">
+            <button type="button" class="seg-btn active" data-variant="ai" aria-pressed="true">AI / ML</button>
+            <button type="button" class="seg-btn" data-variant="da" aria-pressed="false">Data</button>
+          </div>
           <a class="button" href="mailto:jiangyuqing0508@outlook.com">Email</a>
           <a class="button" href="https://www.linkedin.com/in/yuqing-jacky-jiang/" target="_blank" rel="noopener">LinkedIn</a>
           <a class="button" href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a>
@@ -268,7 +273,7 @@
           <button type="button" class="chip" data-filter="accessibility" aria-pressed="false">Accessibility</button>
         </div>
         <div class="card-grid" id="project-grid">
-          <article class="card" data-domains="quant">
+          <article class="card" data-roles="da" data-domains="quant">
             <div class="card-top">
               <span class="card-tag">Quant Finance</span>
             </div>
@@ -280,7 +285,7 @@
             <ul class="tech-badges"><li>Python</li><li>pandas</li><li>Merton/KMV</li></ul>
           </article>
 
-          <article class="card" data-domains="causal">
+          <article class="card" data-roles="da" data-domains="causal">
             <div class="card-top">
               <span class="card-tag">Causal ML</span>
             </div>
@@ -292,7 +297,7 @@
             <ul class="tech-badges"><li>scikit-learn</li><li>SQL</li><li>XGBoost</li></ul>
           </article>
 
-          <article class="card" data-domains="quant llm">
+          <article class="card" data-roles="ai" data-domains="quant llm">
             <div class="card-top">
               <span class="card-tag">Agentic Systems</span>
             </div>
@@ -304,7 +309,7 @@
             <ul class="tech-badges"><li>LLM Agents</li><li>System Design</li></ul>
           </article>
 
-          <article class="card" data-domains="fullstack llm">
+          <article class="card" data-roles="ai" data-domains="fullstack llm">
             <div class="card-top">
               <span class="card-tag">Full-Stack</span>
             </div>
@@ -316,7 +321,7 @@
             <ul class="tech-badges"><li>Next.js</li><li>React</li><li>OpenAI API</li></ul>
           </article>
 
-          <article class="card" data-domains="llm">
+          <article class="card" data-roles="ai" data-domains="llm">
             <div class="card-top">
               <span class="card-tag">Research</span>
             </div>
@@ -328,7 +333,7 @@
             <ul class="tech-badges"><li>PyTorch</li><li>LLMs</li><li>Bayesian Opt</li></ul>
           </article>
 
-          <article class="card" data-domains="accessibility fullstack">
+          <article class="card" data-roles="ai" data-domains="accessibility fullstack">
             <div class="card-top">
               <span class="card-tag">Accessibility</span>
             </div>
