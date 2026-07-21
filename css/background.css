@@ -1,0 +1,12 @@
+/* ============================================================
+   background.css — interactive constellation background canvas.
+   Fixed behind all content; never intercepts pointer events, so
+   every link and button on the page stays clickable.
+   ============================================================ */
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}

@@ -54,8 +54,7 @@
     transform: none;
   }
 
-  .typed-cursor,
-  #particles {
+  .typed-cursor {
     display: none;
   }
 }

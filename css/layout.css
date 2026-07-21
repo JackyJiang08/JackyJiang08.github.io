@@ -14,14 +14,6 @@
     radial-gradient(circle at 88% 30%, var(--glow-2), transparent 45%);
 }
 
-/* Particle-network canvas (canvas-nest style) */
-#particles {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
