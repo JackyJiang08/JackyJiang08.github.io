@@ -5,6 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Yuqing (Jacky) Jiang — CS & Statistics @ UIUC. Building quantitative finance, data science, and ML systems. Open to Summer 2027 internships." />
   <title>Yuqing (Jacky) Jiang — Quant · Data Science · ML</title>
+  <link rel="canonical" href="https://jackyjiang08.github.io/" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Yuqing (Jacky) Jiang — Quant · Data Science · ML" />
+  <meta property="og:description" content="CS & Statistics @ UIUC. Building quantitative finance, data science, and ML systems. Open to Summer 2027 internships." />
+  <meta property="og:url" content="https://jackyjiang08.github.io/" />
+  <meta property="og:image" content="https://jackyjiang08.github.io/assets/img/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Yuqing (Jacky) Jiang — Quantitative Developer, Data Scientist, ML Engineer. CS & Statistics @ UIUC." />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yuqing (Jacky) Jiang — Quant · Data Science · ML" />
+  <meta name="twitter:description" content="CS & Statistics @ UIUC. Building quantitative finance, data science, and ML systems. Open to Summer 2027 internships." />
+  <meta name="twitter:image" content="https://jackyjiang08.github.io/assets/img/og-image.png" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Yuqing Jiang",
+    "alternateName": "Jacky Jiang",
+    "url": "https://jackyjiang08.github.io/",
+    "image": "https://jackyjiang08.github.io/assets/img/headshot.jpg",
+    "email": "mailto:jiangyuqing0508@outlook.com",
+    "jobTitle": "Quantitative Developer, Data Scientist, and ML Engineer (student)",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Illinois Urbana-Champaign",
+      "sameAs": "https://illinois.edu/"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/yuqing-jacky-jiang/",
+      "https://github.com/JackyJiang08"
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -24,6 +69,8 @@
 <body>
   <!-- Canonical contact email: jiangyuqing0508@outlook.com — every section must
        use this exact address (do not reintroduce the gmail variant). -->
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <div class="bg-glow" aria-hidden="true"></div>
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
@@ -59,6 +106,7 @@
       <div class="profile-card">
         <div class="avatar-ring">
           <img class="avatar-img" src="assets/img/headshot.jpg" alt="Yuqing (Jacky) Jiang"
+               width="800" height="1200" loading="lazy" decoding="async"
                onerror="this.closest('.avatar-ring').classList.add('img-failed'); this.remove();" />
           <div class="avatar avatar-fallback" aria-hidden="true">YJ</div>
         </div>
@@ -94,7 +142,7 @@
     </aside>
 
     <!-- ============ Main content ============ -->
-    <main class="content">
+    <main class="content" id="main-content">
       <!-- Impact metrics strip: final values are in the DOM; JS animates the
            count-up on scroll into view (skipped under prefers-reduced-motion) -->
       <div class="metrics-strip" role="list" aria-label="Impact highlights">
@@ -503,6 +551,6 @@
     </main>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

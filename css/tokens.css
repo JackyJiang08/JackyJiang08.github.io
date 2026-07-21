@@ -16,7 +16,7 @@
   --accent-2: #7c3aed;
   --accent-soft: rgba(79, 70, 229, 0.08);
   --venue: #9d174d;
-  --ok: #059669;
+  --ok: #047857; /* AA: ≥4.5:1 on bg, card, and the tinted status pill */
   --err: #dc2626;
   --border: #e3e8f0;
   --glow-1: rgba(79, 70, 229, 0.07);
