@@ -42,8 +42,18 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  object-position: 50% 30%;
   border: 3px solid var(--bg-card);
   display: block;
+}
+
+/* Monogram fallback shows only if the headshot fails to load */
+.avatar-ring .avatar-fallback {
+  display: none;
+}
+
+.avatar-ring.img-failed .avatar-fallback {
+  display: grid;
 }
 
 .profile-name {
@@ -72,33 +82,59 @@
   50% { opacity: 0; }
 }
 
-.profile-meta {
-  list-style: none;
-  text-align: left;
-  display: grid;
-  gap: 0.45rem;
-  margin: 0 auto 1.2rem;
-  width: fit-content;
-}
-
-.profile-meta li {
-  display: flex;
+/* Status pill: open-to-internships with pulsing dot */
+.status-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ok);
+  border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent);
+  background: color-mix(in srgb, var(--ok) 8%, transparent);
+  padding: 0.28rem 0.8rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.8rem;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  animation: pulse-dot 2s ease-out infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 45%, transparent); }
+  70% { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.profile-locator {
   color: var(--text-muted);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin-bottom: 1.15rem;
 }
 
-.profile-meta svg {
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.profile-links {
-  display: flex;
-  justify-content: center;
-  gap: 0.6rem;
+/* Hero CTA buttons: résumé spans the row, three compact below */
+.cta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
   margin-bottom: 1.35rem;
+}
+
+.cta-grid .button {
+  padding: 0.5rem 0.4rem;
+  font-size: 0.86rem;
+  text-align: center;
+  border-radius: var(--radius-md);
+}
+
+.cta-resume {
+  grid-column: 1 / -1;
 }
 
 .profile-stats {

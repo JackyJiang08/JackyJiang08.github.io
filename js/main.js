@@ -82,50 +82,46 @@
   onScroll();
 })();
 
-// Typing effect for the profile role line.
+// Typing effect for the profile role line. The DOM ships the static
+// "Quantitative Developer · Data Scientist · ML Engineer" line, which stays
+// as-is under prefers-reduced-motion; otherwise it is typed away and the
+// roles cycle one at a time.
 (function () {
   const el = document.getElementById("typed-role");
   if (!el) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const phrases = [
-    "Machine Learning Researcher",
-    "CS & Statistics @ UIUC",
-    "LLM Adaptation & Agents",
-    "Data Science & Quant Finance",
+    "Quantitative Developer",
+    "Data Scientist",
+    "ML Engineer",
   ];
   let phrase = 0;
-  let pos = phrases[0].length;
   let deleting = true;
-  let wait = 1600;
 
   function tick() {
-    const text = phrases[phrase];
-    if (wait > 0) {
-      const w = wait;
-      wait = 0;
-      setTimeout(tick, w);
-      return;
-    }
+    const current = el.textContent;
     if (deleting) {
-      pos -= 1;
-      el.textContent = text.slice(0, pos);
-      if (pos === 0) {
+      if (current.length > 0) {
+        el.textContent = current.slice(0, -1);
+        setTimeout(tick, 26);
+      } else {
         deleting = false;
-        phrase = (phrase + 1) % phrases.length;
+        setTimeout(tick, 320);
       }
-      setTimeout(tick, 34);
     } else {
-      pos += 1;
-      el.textContent = phrases[phrase].slice(0, pos);
-      if (pos === phrases[phrase].length) {
+      const target = phrases[phrase];
+      if (current.length < target.length) {
+        el.textContent = target.slice(0, current.length + 1);
+        setTimeout(tick, 62);
+      } else {
         deleting = true;
-        wait = 2100;
+        phrase = (phrase + 1) % phrases.length;
+        setTimeout(tick, 2100);
       }
-      setTimeout(tick, 62);
     }
   }
-  setTimeout(tick, 1600);
+  setTimeout(tick, 1500);
 })();
 
 // Particle-network background (canvas-nest style). Desktop only; respects

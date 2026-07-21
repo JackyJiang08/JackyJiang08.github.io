@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Yuqing (Jacky) Jiang — CS & Statistics @ UIUC. Machine learning researcher working on LLM adaptation, speech accessibility, and applied ML in finance." />
-  <title>Yuqing (Jacky) Jiang</title>
+  <meta name="description" content="Yuqing (Jacky) Jiang — CS & Statistics @ UIUC. Building quantitative finance, data science, and ML systems. Open to Summer 2027 internships." />
+  <title>Yuqing (Jacky) Jiang — Quant · Data Science · ML</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -28,11 +28,12 @@
       <div class="nav-scroll">
         <ul class="nav-links" id="nav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#news">News</a></li>
-          <li><a href="#publications">Publication</a></li>
-          <li><a href="#projects">Projects</a></li>
+          <li><a href="#highlights">Highlights</a></li>
           <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#publications">Publication</a></li>
           <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -43,38 +44,23 @@
   </header>
 
   <div class="layout container" id="top">
-    <!-- ============ Sidebar profile ============ -->
+    <!-- ============ Sidebar hero ============ -->
     <aside class="sidebar">
       <div class="profile-card">
         <div class="avatar-ring">
-          <div class="avatar" aria-hidden="true">YJ</div>
+          <img class="avatar-img" src="assets/img/headshot.jpg" alt="Yuqing (Jacky) Jiang"
+               onerror="this.closest('.avatar-ring').classList.add('img-failed'); this.remove();" />
+          <div class="avatar avatar-fallback" aria-hidden="true">YJ</div>
         </div>
         <h1 class="profile-name">Yuqing <span class="nowrap">(Jacky)</span> Jiang</h1>
-        <p class="profile-role"><span id="typed-role">Machine Learning Researcher</span><span class="typed-cursor" aria-hidden="true">|</span></p>
-        <ul class="profile-meta">
-          <li>
-            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Z"/></svg>
-            CS &amp; Statistics, UIUC
-          </li>
-          <li>
-            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="m12.596 11.596-3.535 3.536a1.5 1.5 0 0 1-2.122 0l-3.535-3.536a6.5 6.5 0 1 1 9.192-9.193 6.5 6.5 0 0 1 0 9.193Zm-1.06-8.132v-.001a5 5 0 1 0-7.072 7.072L8 14.07l3.536-3.534a5 5 0 0 0 0-7.072ZM8 9a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 9Z"/></svg>
-            Urbana-Champaign, IL
-          </li>
-          <li>
-            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25Zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0Z"/></svg>
-            Expected May 2027
-          </li>
-        </ul>
-        <div class="profile-links">
-          <a class="icon-btn" href="https://github.com/JackyJiang08" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg viewBox="0 0 16 16" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>
-          </a>
-          <a class="icon-btn" href="https://www.linkedin.com/in/yuqing-jacky-jiang/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 16 16" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
-          </a>
-          <a class="icon-btn" href="mailto:jiangyuqing0508@outlook.com" aria-label="Email">
-            <svg viewBox="0 0 16 16" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z"/></svg>
-          </a>
+        <p class="profile-role"><span id="typed-role">Quantitative Developer &middot; Data Scientist &middot; ML Engineer</span><span class="typed-cursor" aria-hidden="true">|</span></p>
+        <p class="status-pill"><span class="pulse-dot" aria-hidden="true"></span>Open to Summer 2027 Internships</p>
+        <p class="profile-locator">CS &amp; Statistics @ UIUC &middot; Urbana-Champaign &middot; Expected May 2027</p>
+        <div class="cta-grid">
+          <a class="button primary cta-resume" href="assets/resume/Jacky_Jiang_Resume_AI.pdf" target="_blank" rel="noopener">R&eacute;sum&eacute; (PDF)</a>
+          <a class="button" href="mailto:jiangyuqing0508@outlook.com">Email</a>
+          <a class="button" href="https://www.linkedin.com/in/yuqing-jacky-jiang/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="button" href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a>
         </div>
         <div class="profile-stats">
           <div class="stat">
@@ -82,12 +68,12 @@
             <span class="stat-label">GPA / 4.00</span>
           </div>
           <div class="stat">
-            <span class="stat-num">1</span>
-            <span class="stat-label">Publication</span>
-          </div>
-          <div class="stat">
             <span class="stat-num">5</span>
             <span class="stat-label">Internships</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">1</span>
+            <span class="stat-label">Publication</span>
           </div>
         </div>
       </div>
@@ -99,30 +85,30 @@
       <section id="about" class="section reveal">
         <h2><span class="section-index">01.</span> About</h2>
         <p class="lead">
-          I'm an undergraduate studying <strong>Computer Science &amp; Statistics</strong>
-          at the University of Illinois Urbana-Champaign (Dean's List). My research
-          spans efficient LLM adaptation &mdash; co-authoring
-          <a href="#publications">Steer2Adapt</a>, accepted at the ICLR 2026
-          Re-Align Workshop &mdash; and real-time speaker diarization for classroom
-          accessibility. In industry, I've shipped data and ML work across
-          quantitative finance, marketing analytics, and operations at companies
-          from early-stage startups to Disney and DP World.
+          I build data, ML, and quantitative systems that ship &mdash; credit-risk
+          pipelines with point-in-time correctness guarantees, experimentation and
+          uplift-modeling stacks, demand forecasts, and full-stack analytics
+          platforms. I'm a <strong>CS &amp; Statistics</strong> student at UIUC
+          with five internships across fintech, analytics, and operations, and I
+          bring research-grade rigor to industry work: I co-authored an ICLR 2026
+          workshop paper on efficient LLM adaptation and ship real-time speech
+          accessibility features for ScribeAR.
         </p>
         <div class="interests">
           <div class="interest">
-            <span class="interest-icon" aria-hidden="true">🧠</span>
-            <h3>LLM Adaptation</h3>
-            <p>Data-efficient, inference-time steering and adaptation of language models.</p>
+            <span class="interest-icon" aria-hidden="true">📊</span>
+            <h3>Quant &amp; Fintech</h3>
+            <p>Structural credit models, market-data pipelines, backtesting, and risk-aware trading systems.</p>
           </div>
           <div class="interest">
-            <span class="interest-icon" aria-hidden="true">🎙️</span>
-            <h3>Speech &amp; Accessibility</h3>
-            <p>Real-time diarization and live summarization for deaf and hard-of-hearing students.</p>
+            <span class="interest-icon" aria-hidden="true">🧪</span>
+            <h3>Data Science &amp; Analytics</h3>
+            <p>Experimentation, causal inference, churn/conversion modeling, and decision-driving dashboards.</p>
           </div>
           <div class="interest">
-            <span class="interest-icon" aria-hidden="true">📈</span>
-            <h3>Applied ML &amp; Analytics</h3>
-            <p>Machine learning for finance, credit risk, experimentation, and user analytics.</p>
+            <span class="interest-icon" aria-hidden="true">🤖</span>
+            <h3>ML Engineering</h3>
+            <p>LLM adaptation and agents, real-time speech pipelines, and production-minded model deployment.</p>
           </div>
         </div>
         <p class="section-note">
@@ -130,17 +116,21 @@
         </p>
       </section>
 
-      <!-- News -->
-      <section id="news" class="section reveal">
-        <h2><span class="section-index">02.</span> News</h2>
+      <!-- Highlights -->
+      <section id="highlights" class="section reveal">
+        <h2><span class="section-index">02.</span> Highlights</h2>
         <ul class="news-list">
           <li>
-            <span class="news-date">Jul 2026</span>
-            <span class="news-text">Released an end-to-end <a href="https://github.com/JackyJiang08/music-streaming-user-behavior-analytics" target="_blank" rel="noopener">music-streaming analytics</a> codebase &mdash; churn/conversion models, A/B testing, survival &amp; uplift analysis across 10 CI-tested notebooks.</span>
+            <span class="news-date">Jun 2026</span>
+            <span class="news-text">Joined <strong>Pacific Financial Professional Association</strong> as a Quantitative Finance AI Intern &mdash; building a four-layer market-data pipeline powering a Merton/KMV structural credit-risk model.</span>
           </li>
           <li>
-            <span class="news-date">Jun 2026</span>
-            <span class="news-text">Started as a Quantitative Finance AI Intern building market-data pipelines for structural credit-risk modeling.</span>
+            <span class="news-date">Jul 2026</span>
+            <span class="news-text">Released an end-to-end <a href="https://github.com/JackyJiang08/music-streaming-user-behavior-analytics" target="_blank" rel="noopener">music-streaming analytics</a> codebase &mdash; churn/conversion models, A/B testing, survival analysis, and uplift targeting across 10 CI-tested notebooks.</span>
+          </li>
+          <li>
+            <span class="news-date">Mar 2026</span>
+            <span class="news-text">Built the <a href="https://github.com/JackyJiang08/AI-Monitor-Platform" target="_blank" rel="noopener">AI Industry Monitor</a> &mdash; a real-time market dashboard plus an LLM benchmarking arena simulating trading strategies across frontier models.</span>
           </li>
           <li>
             <span class="news-date">Spring 2026</span>
@@ -153,139 +143,9 @@
         </ul>
       </section>
 
-      <!-- Publication -->
-      <section id="publications" class="section reveal">
-        <h2><span class="section-index">03.</span> Publication</h2>
-        <article class="pub">
-          <div class="pub-badge">ICLR 2026 Workshop</div>
-          <h3>Steer2Adapt: Dynamically Composing Steering Vectors for Efficient LLM Adaptation</h3>
-          <p class="pub-authors">
-            Pengrui Han, Xueqiang Xu, Keyang Xuan, Peiyang Song, Siru Ouyang,
-            Runchu Tian, <strong>Yuqing Jiang</strong>, Cheng Qian, Pengcheng Jiang,
-            Jiashuo Sun, Junxia Cui, Ming Zhong, Ge Liu, Jiawei Han, Jiaxuan You
-          </p>
-          <p class="pub-venue">
-            ICLR 2026 Workshop on Representational Alignment (Re-Align) &middot;
-            under review at NeurIPS 2026
-          </p>
-          <p class="pub-summary">
-            Composes semantic steering vectors via Bayesian optimization over a
-            prior subspace, improving downstream performance by +8.2% on average
-            across 9 tasks and 3 open-source LLMs &mdash; without retraining.
-          </p>
-          <div class="pub-links">
-            <a href="https://arxiv.org/abs/2602.07276" target="_blank" rel="noopener">arXiv</a>
-            <a href="https://github.com/JackyJiang08/NeurIPS-2026-Steer2Adapt" target="_blank" rel="noopener">Code</a>
-          </div>
-        </article>
-      </section>
-
-      <!-- Projects -->
-      <section id="projects" class="section reveal">
-        <h2><span class="section-index">04.</span> Projects</h2>
-        <p class="section-sub">Selected open-source work &mdash; more on <a href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a>.</p>
-        <div class="card-grid">
-          <article class="card">
-            <div class="card-top">
-              <span class="card-tag">Research</span>
-            </div>
-            <h3><a href="https://github.com/JackyJiang08/NeurIPS-2026-Steer2Adapt" target="_blank" rel="noopener">Steer2Adapt</a></h3>
-            <p>
-              Inference-time LLM adaptation by composing steering vectors via
-              Bayesian optimization. +8.2% average across 9 tasks and 3 open-source LLMs.
-            </p>
-            <ul class="tech-badges"><li>PyTorch</li><li>LLMs</li><li>Bayesian Opt</li></ul>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <span class="card-tag">Quant Finance</span>
-            </div>
-            <h3><a href="https://github.com/JackyJiang08/market-based-credit-rating" target="_blank" rel="noopener">Market-Based Credit Rating</a></h3>
-            <p>
-              KMV/Merton credit-rating pipeline: EM asset estimation, PIT/TTC
-              probability of default, and S&amp;P-equivalent ratings for public companies.
-            </p>
-            <ul class="tech-badges"><li>Python</li><li>pandas</li><li>Merton/KMV</li></ul>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <span class="card-tag">Agentic Systems</span>
-            </div>
-            <h3><a href="https://github.com/JackyJiang08/Agentic-Trading-Sim" target="_blank" rel="noopener">Agentic Trading Sim</a></h3>
-            <p>
-              Architecture showcase of a three-layer agentic trading system:
-              research &rarr; production &rarr; experiment.
-            </p>
-            <ul class="tech-badges"><li>LLM Agents</li><li>System Design</li></ul>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <span class="card-tag">Causal ML</span>
-            </div>
-            <h3><a href="https://github.com/JackyJiang08/music-streaming-user-behavior-analytics" target="_blank" rel="noopener">Music-Streaming Analytics</a></h3>
-            <p>
-              Churn &amp; conversion modeling, A/B testing, survival analysis, and
-              uplift-based targeting capturing ~70% of retention value at 38% exposure.
-            </p>
-            <ul class="tech-badges"><li>scikit-learn</li><li>SQL</li><li>XGBoost</li></ul>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <span class="card-tag">Accessibility</span>
-            </div>
-            <h3><a href="https://github.com/JackyJiang08/ScribeAR-Realtime-Diarization" target="_blank" rel="noopener">ScribeAR Realtime Diarization</a></h3>
-            <p>
-              Live speaker diarization for an open-source captioning platform:
-              overlap-voting label stability, word-level attribution, WCAG-AA colors.
-            </p>
-            <ul class="tech-badges"><li>TypeScript</li><li>React</li><li>pyannote</li></ul>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <span class="card-tag">Full-Stack</span>
-            </div>
-            <h3><a href="https://github.com/JackyJiang08/AI-Monitor-Platform" target="_blank" rel="noopener">AI Monitor Platform</a></h3>
-            <p>
-              Real-time global map and dashboard of AI-industry news, regulation,
-              and market impact, paired with an LLM benchmarking arena.
-            </p>
-            <ul class="tech-badges"><li>Next.js</li><li>React</li><li>OpenAI API</li></ul>
-          </article>
-        </div>
-      </section>
-
       <!-- Experience -->
       <section id="experience" class="section reveal">
-        <h2><span class="section-index">05.</span> Experience</h2>
-
-        <h3 class="timeline-group">Research</h3>
-        <ul class="timeline">
-          <li class="timeline-item">
-            <div class="timeline-when">Feb 2026 &ndash; Present</div>
-            <div class="timeline-what">
-              <h4>Undergraduate Research Assistant <span class="org">&mdash; ScribeAR, UIUC</span></h4>
-              <p>
-                Real-time speaker diarization and LLM live summarization for an
-                open-source captioning platform used by deaf and hard-of-hearing students.
-              </p>
-            </div>
-          </li>
-          <li class="timeline-item">
-            <div class="timeline-when">Sep 2025 &ndash; Jan 2026</div>
-            <div class="timeline-what">
-              <h4>Research Co-author <span class="org">&mdash; Steer2Adapt, UIUC</span></h4>
-              <p>
-                Efficient inference-time LLM adaptation via compositional steering
-                vectors; accepted at the ICLR 2026 Re-Align Workshop.
-              </p>
-            </div>
-          </li>
-        </ul>
+        <h2><span class="section-index">03.</span> Experience</h2>
 
         <h3 class="timeline-group">Industry</h3>
         <ul class="timeline">
@@ -341,16 +201,135 @@
           </li>
         </ul>
 
-        <h3 class="timeline-group">Education</h3>
+        <h3 class="timeline-group">Research</h3>
         <ul class="timeline">
           <li class="timeline-item">
-            <div class="timeline-when">Aug 2023 &ndash; May 2027</div>
+            <div class="timeline-when">Feb 2026 &ndash; Present</div>
             <div class="timeline-what">
-              <h4>B.S. Computer Science &amp; Statistics <span class="org">&mdash; University of Illinois Urbana-Champaign</span></h4>
-              <p>Dean's List &middot; GPA 3.91/4.00</p>
+              <h4>Undergraduate Research Assistant <span class="org">&mdash; ScribeAR, UIUC</span></h4>
+              <p>
+                Real-time speaker diarization and LLM live summarization for an
+                open-source captioning platform used by deaf and hard-of-hearing students.
+              </p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-when">Sep 2025 &ndash; Jan 2026</div>
+            <div class="timeline-what">
+              <h4>Research Co-author <span class="org">&mdash; Steer2Adapt, UIUC</span></h4>
+              <p>
+                Efficient inference-time LLM adaptation via compositional steering
+                vectors; accepted at the ICLR 2026 Re-Align Workshop.
+              </p>
             </div>
           </li>
         </ul>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="section reveal">
+        <h2><span class="section-index">04.</span> Projects</h2>
+        <p class="section-sub">Selected open-source work &mdash; more on <a href="https://github.com/JackyJiang08" target="_blank" rel="noopener">GitHub</a>.</p>
+        <div class="card-grid">
+          <article class="card">
+            <div class="card-top">
+              <span class="card-tag">Quant Finance</span>
+            </div>
+            <h3><a href="https://github.com/JackyJiang08/market-based-credit-rating" target="_blank" rel="noopener">Market-Based Credit Rating</a></h3>
+            <p>
+              KMV/Merton credit-rating pipeline: EM asset estimation, PIT/TTC
+              probability of default, and S&amp;P-equivalent ratings for public companies.
+            </p>
+            <ul class="tech-badges"><li>Python</li><li>pandas</li><li>Merton/KMV</li></ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="card-tag">Causal ML</span>
+            </div>
+            <h3><a href="https://github.com/JackyJiang08/music-streaming-user-behavior-analytics" target="_blank" rel="noopener">Music-Streaming Analytics</a></h3>
+            <p>
+              Churn &amp; conversion modeling, A/B testing, survival analysis, and
+              uplift-based targeting capturing ~70% of retention value at 38% exposure.
+            </p>
+            <ul class="tech-badges"><li>scikit-learn</li><li>SQL</li><li>XGBoost</li></ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="card-tag">Agentic Systems</span>
+            </div>
+            <h3><a href="https://github.com/JackyJiang08/Agentic-Trading-Sim" target="_blank" rel="noopener">Agentic Trading Sim</a></h3>
+            <p>
+              Architecture showcase of a three-layer agentic trading system:
+              research &rarr; production &rarr; experiment.
+            </p>
+            <ul class="tech-badges"><li>LLM Agents</li><li>System Design</li></ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="card-tag">Full-Stack</span>
+            </div>
+            <h3><a href="https://github.com/JackyJiang08/AI-Monitor-Platform" target="_blank" rel="noopener">AI Monitor Platform</a></h3>
+            <p>
+              Real-time global map and dashboard of AI-industry news, regulation,
+              and market impact, paired with an LLM benchmarking arena.
+            </p>
+            <ul class="tech-badges"><li>Next.js</li><li>React</li><li>OpenAI API</li></ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="card-tag">Research</span>
+            </div>
+            <h3><a href="https://github.com/JackyJiang08/NeurIPS-2026-Steer2Adapt" target="_blank" rel="noopener">Steer2Adapt</a></h3>
+            <p>
+              Inference-time LLM adaptation by composing steering vectors via
+              Bayesian optimization. +8.2% average across 9 tasks and 3 open-source LLMs.
+            </p>
+            <ul class="tech-badges"><li>PyTorch</li><li>LLMs</li><li>Bayesian Opt</li></ul>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <span class="card-tag">Accessibility</span>
+            </div>
+            <h3><a href="https://github.com/JackyJiang08/ScribeAR-Realtime-Diarization" target="_blank" rel="noopener">ScribeAR Realtime Diarization</a></h3>
+            <p>
+              Live speaker diarization for an open-source captioning platform:
+              overlap-voting label stability, word-level attribution, WCAG-AA colors.
+            </p>
+            <ul class="tech-badges"><li>TypeScript</li><li>React</li><li>pyannote</li></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Publication -->
+      <section id="publications" class="section reveal">
+        <h2><span class="section-index">05.</span> Publication</h2>
+        <article class="pub">
+          <div class="pub-badge">ICLR 2026 Workshop</div>
+          <h3>Steer2Adapt: Dynamically Composing Steering Vectors for Efficient LLM Adaptation</h3>
+          <p class="pub-authors">
+            Pengrui Han, Xueqiang Xu, Keyang Xuan, Peiyang Song, Siru Ouyang,
+            Runchu Tian, <strong>Yuqing Jiang</strong>, Cheng Qian, Pengcheng Jiang,
+            Jiashuo Sun, Junxia Cui, Ming Zhong, Ge Liu, Jiawei Han, Jiaxuan You
+          </p>
+          <p class="pub-venue">
+            ICLR 2026 Workshop on Representational Alignment (Re-Align) &middot;
+            under review at NeurIPS 2026
+          </p>
+          <p class="pub-summary">
+            Composes semantic steering vectors via Bayesian optimization over a
+            prior subspace, improving downstream performance by +8.2% on average
+            across 9 tasks and 3 open-source LLMs &mdash; without retraining.
+          </p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2602.07276" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://github.com/JackyJiang08/NeurIPS-2026-Steer2Adapt" target="_blank" rel="noopener">Code</a>
+          </div>
+        </article>
       </section>
 
       <!-- Skills -->
@@ -381,12 +360,26 @@
         </div>
       </section>
 
+      <!-- Education -->
+      <section id="education" class="section reveal">
+        <h2><span class="section-index">07.</span> Education</h2>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-when">Aug 2023 &ndash; May 2027</div>
+            <div class="timeline-what">
+              <h4>B.S. Computer Science &amp; Statistics <span class="org">&mdash; University of Illinois Urbana-Champaign</span></h4>
+              <p>Dean's List &middot; GPA 3.91/4.00 &middot; Expected May 2027</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
       <!-- Contact -->
       <section id="contact" class="section reveal">
-        <h2><span class="section-index">07.</span> Contact</h2>
+        <h2><span class="section-index">08.</span> Contact</h2>
         <p class="lead">
-          The best way to reach me is by email. I'm open to research
-          collaborations and opportunities in ML, data science, and quantitative work.
+          The best way to reach me is by email. I'm open to Summer 2027 internship
+          opportunities in quantitative finance, data science, and ML engineering.
         </p>
         <div class="contact-grid">
           <a class="contact-card" href="mailto:jiangyuqing0508@outlook.com">
