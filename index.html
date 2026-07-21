@@ -19,6 +19,7 @@
   <script src="js/background.js" defer></script>
   <script src="js/resume-toggle.js" defer></script>
   <script src="js/command-palette.js" defer></script>
+  <script src="js/contact.js" defer></script>
 </head>
 <body>
   <!-- Canonical contact email: jiangyuqing0508@outlook.com — every section must
@@ -455,7 +456,45 @@
               <span class="contact-card-value">JackyJiang08</span>
             </span>
           </a>
+          <button type="button" class="contact-card contact-card-btn" id="copy-email">
+            <span class="contact-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+            </span>
+            <span>
+              <span class="contact-card-label">Copy email</span>
+              <span class="contact-card-value" id="copy-email-value">jiangyuqing0508@outlook.com</span>
+            </span>
+          </button>
         </div>
+
+        <h3 class="form-title">Send a message</h3>
+        <!-- Web3Forms: the access key is a PUBLIC key (per web3forms.com), but
+             it still must be pasted by the site owner.
+             TODO: replace YOUR_ACCESS_KEY with your Web3Forms access key. -->
+        <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
+          <input type="hidden" name="subject" value="New message from jackyjiang08.github.io" />
+          <!-- Honeypot: hidden from humans; bots that fill it are rejected -->
+          <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="form-row">
+            <div class="form-field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+            </div>
+            <div class="form-field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" required rows="5" placeholder="What would you like to talk about?"></textarea>
+          </div>
+          <div class="form-footer">
+            <button type="submit" class="button primary" id="cf-submit">Send message</button>
+            <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
       </section>
 
       <footer class="site-footer">
