@@ -1,16 +1,12 @@
-// Theme toggle: persists choice in localStorage, defaults to system preference.
+// Theme toggle: persists choice in localStorage; LIGHT is the default
+// when no preference is stored.
 (function () {
   const root = document.documentElement;
   const toggle = document.getElementById("theme-toggle");
   const icon = toggle ? toggle.querySelector(".theme-toggle-icon") : null;
 
-  function systemPrefersDark() {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }
-
   function currentTheme() {
-    return root.getAttribute("data-theme") ||
-      (systemPrefersDark() ? "dark" : "light");
+    return root.getAttribute("data-theme") || "light";
   }
 
   function apply(theme) {
@@ -21,8 +17,6 @@
   const saved = localStorage.getItem("theme");
   if (saved === "dark" || saved === "light") {
     apply(saved);
-  } else if (icon) {
-    icon.textContent = systemPrefersDark() ? "☀️" : "🌙";
   }
 
   if (toggle) {
@@ -151,9 +145,7 @@
   const mouse = { x: null, y: null };
 
   function accentRGB() {
-    const dark = document.documentElement.getAttribute("data-theme") === "dark" ||
-      (!document.documentElement.getAttribute("data-theme") &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const dark = document.documentElement.getAttribute("data-theme") === "dark";
     return dark ? "129,140,248" : "79,70,229";
   }
 

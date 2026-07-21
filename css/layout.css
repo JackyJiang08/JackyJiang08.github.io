@@ -1,0 +1,155 @@
+/* ============================================================
+   layout.css — page scaffolding: backgrounds, container, header
+   nav, two-column layout grid, footer.
+   ============================================================ */
+
+/* Ambient background glow */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 8%, var(--glow-1), transparent 42%),
+    radial-gradient(circle at 88% 30%, var(--glow-2), transparent 45%);
+}
+
+/* Particle-network canvas (canvas-nest style) */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Header / nav ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 3.6rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.brand-dot {
+  color: var(--accent);
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.nav-scroll {
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+}
+
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+  justify-content: flex-end;
+  padding: 0 12px;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  text-decoration: none;
+  background: var(--accent-soft);
+}
+
+.nav-links a.active {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ---------- Two-column layout ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  gap: 3.5rem;
+  align-items: start;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.sidebar {
+  position: sticky;
+  top: 5.4rem;
+}
+
+.content {
+  min-width: 0;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding: 2rem 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive layout ---------- */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 2rem;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1.1rem;
+  }
+
+  .nav {
+    gap: 0.6rem;
+  }
+}

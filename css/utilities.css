@@ -1,0 +1,61 @@
+/* ============================================================
+   utilities.css — helpers, accessibility, motion preferences.
+   Loaded last so its rules win the cascade.
+   ============================================================ */
+
+/* Screen-reader-only content */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scroll-reveal animation hooks (elements start hidden, JS adds
+   .visible; IntersectionObserver fallback adds it immediately) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reduced motion: disable animations, reveal everything */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .typed-cursor,
+  #particles {
+    display: none;
+  }
+}
