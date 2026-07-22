@@ -41,18 +41,37 @@
     if (kind) status.classList.add(kind);
   }
 
+  // Hand the message off to the visitor's mail client. Used whenever the form
+  // backend is unavailable, so a submission is never silently lost.
+  function handOffToMailClient(reason) {
+    var name = (form.querySelector("[name='name']") || {}).value || "";
+    var from = (form.querySelector("[name='email']") || {}).value || "";
+    var message = (form.querySelector("[name='message']") || {}).value || "";
+    var body =
+      message + "\n\n—\n" + (name ? name : "") + (from ? " <" + from + ">" : "");
+
+    window.location.href =
+      "mailto:" + EMAIL +
+      "?subject=" + encodeURIComponent("Message from jackyjiang08.github.io") +
+      "&body=" + encodeURIComponent(body);
+
+    setStatus(null, reason);
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-
-    var key = (form.querySelector("[name='access_key']") || {}).value;
-    if (!key || key === "YOUR_ACCESS_KEY") {
-      setStatus("err", "The form isn't configured yet — please use the email button instead.");
-      return;
-    }
 
     // native validation with visible messages
     if (!form.checkValidity()) {
       form.reportValidity();
+      return;
+    }
+
+    // Web3Forms access keys are UUIDs; anything else means the backend has not
+    // been configured, so fall back to email rather than failing the visitor.
+    var key = (form.querySelector("[name='access_key']") || {}).value || "";
+    if (!/^[0-9a-f-]{36}$/i.test(key)) {
+      handOffToMailClient("Opening your email client…");
       return;
     }
 
@@ -76,11 +95,11 @@
           form.reset();
           setStatus("ok", "Message sent — thank you! I'll get back to you soon.");
         } else {
-          setStatus("err", "Something went wrong sending the message. Please email me directly.");
+          handOffToMailClient("Couldn't send from here — opening your email client…");
         }
       })
       .catch(function () {
-        setStatus("err", "Network error — please try again or email me directly.");
+        handOffToMailClient("Network error — opening your email client…");
       })
       .finally(function () {
         submit.disabled = false;

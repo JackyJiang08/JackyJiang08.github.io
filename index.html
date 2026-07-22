@@ -67,8 +67,6 @@
   <script src="js/contact.js" defer></script>
 </head>
 <body>
-  <!-- Canonical contact email: jiangyuqing0508@outlook.com — every section must
-       use this exact address (do not reintroduce the gmail variant). -->
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <div class="bg-glow" aria-hidden="true"></div>
@@ -106,7 +104,7 @@
       <div class="profile-card">
         <div class="avatar-ring">
           <img class="avatar-img" src="assets/img/headshot.jpg" alt="Yuqing (Jacky) Jiang"
-               width="800" height="1200" loading="lazy" decoding="async"
+               width="800" height="1200" loading="eager" fetchpriority="high" decoding="async"
                onerror="this.closest('.avatar-ring').classList.add('img-failed'); this.remove();" />
           <div class="avatar avatar-fallback" aria-hidden="true">YJ</div>
         </div>
@@ -516,11 +514,10 @@
         </div>
 
         <h3 class="form-title">Send a message</h3>
-        <!-- Web3Forms: the access key is a PUBLIC key (per web3forms.com), but
-             it still must be pasted by the site owner.
-             TODO: replace YOUR_ACCESS_KEY with your Web3Forms access key. -->
+        <!-- Web3Forms access key (public by design). While it is unset the form
+             falls back to the visitor's email client — see js/contact.js. -->
         <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
-          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
+          <input type="hidden" name="access_key" value="" />
           <input type="hidden" name="subject" value="New message from jackyjiang08.github.io" />
           <!-- Honeypot: hidden from humans; bots that fill it are rejected -->
           <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />

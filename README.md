@@ -10,8 +10,6 @@ Quantitative Developer · Data Scientist · ML Engineer
 [![Build step](https://img.shields.io/badge/build-none-16a34a?style=flat-square)](#getting-started)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 
-<a href="https://jackyjiang08.github.io/"><img src="assets/img/og-image.png" alt="Preview of jackyjiang08.github.io" width="640"></a>
-
 </div>
 
 ---
@@ -36,7 +34,7 @@ JavaScript-heavy effects.
 | **Command palette** | `Cmd`/`Ctrl` + `K` fuzzy search across navigation and quick actions |
 | **Theming** | Light/dark toggle, light as default, persisted in `localStorage` |
 | **Motion** | Original interactive constellation canvas background with cursor and click response |
-| **Contact** | [Web3Forms](https://web3forms.com)-backed form with honeypot spam protection, plus copy-to-clipboard email |
+| **Contact** | [Web3Forms](https://web3forms.com)-backed form with honeypot spam protection and a mail-client fallback, plus copy-to-clipboard email |
 | **SEO** | JSON-LD `Person` schema, Open Graph and Twitter cards, `sitemap.xml`, `robots.txt` |
 | **Accessibility** | WCAG-AA contrast in both themes, full keyboard support, semantic landmarks, skip-to-content link, and `prefers-reduced-motion` honored by every animation |
 
@@ -93,9 +91,10 @@ absolute paths.
 
 ## Configuration
 
-- **Contact form** — set your [Web3Forms](https://web3forms.com) access key in
-  the `access_key` hidden input in `index.html`. Until it is set, submissions
-  will not be delivered.
+- **Contact form** — set a [Web3Forms](https://web3forms.com) access key in the
+  `access_key` hidden input in `index.html` to receive submissions in your
+  inbox. While it is empty, the form degrades gracefully: the message is handed
+  off to the visitor's email client instead of being lost.
 - **Theme and typography** — every color, font, radius, and spacing value lives
   in `css/tokens.css`; both palettes can be retuned from that one file.
 - **Content** — all copy is authored inline in `index.html`; there is no CMS or
