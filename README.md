@@ -55,7 +55,8 @@ split into small vanilla scripts, each owning a single concern.
 ## Project structure
 
 ```text
-index.html              # the entire page — semantic sections, JSON-LD, meta
+index.html              # the main page — semantic sections, JSON-LD, meta
+photography.html        # photo gallery page (category filters + lightbox)
 css/
   tokens.css            # design tokens: both theme palettes, type, spacing, radii
   base.css              # reset and base typography
@@ -67,12 +68,15 @@ css/
 js/
   main.js               # theme toggle, scrollspy + progress, reveal, filters, highlights
   data/highlights.js    # Highlights entries — append an object to add one
+  data/photos.js        # photo manifest — drop a file + append an object
+  gallery.js            # photo grid, category chips, original lightbox
   background.js         # canvas-nest loader + click ripple/burst effect
   vendor/canvas-nest.min.js  # canvas-nest.js v2.0.4 (MIT, github.com/hustcc/canvas-nest.js)
   command-palette.js    # Cmd/Ctrl-K palette
   contact.js            # form submission + copy email
 assets/
   img/                  # headshot, favicons, Open Graph image
+  photos/               # gallery images, one folder per category
   resume/               # résumé PDFs (AI/ML and Data Analytics variants)
 sitemap.xml
 robots.txt

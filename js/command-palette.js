@@ -15,7 +15,11 @@
   function jump(id) {
     return function () {
       var el = document.getElementById(id);
-      if (!el) return;
+      if (!el) {
+        // section lives on the home page (e.g. invoked from photography.html)
+        window.location.href = "index.html#" + id;
+        return;
+      }
       var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
     };
@@ -58,6 +62,11 @@
     },
     { label: "Download résumé (AI)", hint: "PDF", run: downloadFile("assets/resume/Jacky_Jiang_Resume_AI.pdf") },
     { label: "Download résumé (Data)", hint: "PDF", run: downloadFile("assets/resume/Jacky_Jiang_Resume_DA.pdf") },
+    {
+      label: "Open Photos page",
+      hint: "→",
+      run: function () { window.location.href = "photography.html"; },
+    },
     { label: "Open LinkedIn", hint: "↗", run: openUrl("https://www.linkedin.com/in/yuqing-jacky-jiang/") },
     { label: "Open GitHub", hint: "↗", run: openUrl("https://github.com/JackyJiang08") },
     { label: "Open arXiv paper", hint: "↗", run: openUrl("https://arxiv.org/abs/2602.07276") },
