@@ -96,42 +96,6 @@
   onScroll();
 })();
 
-// Impact metrics: count up when scrolled into view. The DOM ships final
-// values, so reduced-motion users (and no-JS) simply see them as-is.
-(function () {
-  const nums = document.querySelectorAll(".metric-num[data-count]");
-  if (!nums.length) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  if (!("IntersectionObserver" in window)) return;
-
-  function animate(el) {
-    const target = parseFloat(el.dataset.count);
-    const decimals = parseInt(el.dataset.decimals || "0", 10);
-    const prefix = el.dataset.prefix || "";
-    const suffix = el.dataset.suffix || "";
-    const duration = 1200;
-    const start = performance.now();
-
-    function frame(now) {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
-      if (t < 1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        animate(e.target);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  nums.forEach((el) => io.observe(el));
-})();
-
 // Project filter chips: buttons toggle which cards are visible, matched via
 // data-domains on the cards. Keyboard: chips are real buttons (Enter/Space
 // native) and Left/Right arrows move focus within the toolbar.
@@ -171,48 +135,6 @@
   });
 
   applyFilter("all");
-})();
-
-// Typing effect for the profile role line. The DOM ships the static
-// "Quantitative Developer · Data Scientist · ML Engineer" line, which stays
-// as-is under prefers-reduced-motion; otherwise it is typed away and the
-// roles cycle one at a time.
-(function () {
-  const el = document.getElementById("typed-role");
-  if (!el) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const phrases = [
-    "Quantitative Developer",
-    "Data Scientist",
-    "ML Engineer",
-  ];
-  let phrase = 0;
-  let deleting = true;
-
-  function tick() {
-    const current = el.textContent;
-    if (deleting) {
-      if (current.length > 0) {
-        el.textContent = current.slice(0, -1);
-        setTimeout(tick, 26);
-      } else {
-        deleting = false;
-        setTimeout(tick, 320);
-      }
-    } else {
-      const target = phrases[phrase];
-      if (current.length < target.length) {
-        el.textContent = target.slice(0, current.length + 1);
-        setTimeout(tick, 62);
-      } else {
-        deleting = true;
-        phrase = (phrase + 1) % phrases.length;
-        setTimeout(tick, 2100);
-      }
-    }
-  }
-  setTimeout(tick, 1500);
 })();
 
 // Footer year

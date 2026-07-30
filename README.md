@@ -29,8 +29,8 @@ JavaScript-heavy effects.
 
 | | |
 |---|---|
-| **Portfolio sections** | Hero profile card with typed role line, impact-metrics strip with count-up animation, highlights, experience timeline, filterable project grid, publication, skills, and education |
-| **Résumé toggle** | Downloadable résumé with an AI/ML ↔ Data Analytics variant switch that re-emphasizes the matching projects |
+| **Portfolio sections** | Academic-style profile sidebar, highlights, experience timeline, filterable project grid, publication, skills, and education |
+| **Résumé downloads** | AI/ML and Data Analytics résumé variants linked directly from the profile sidebar |
 | **Command palette** | `Cmd`/`Ctrl` + `K` fuzzy search across navigation and quick actions |
 | **Theming** | Light/dark toggle, light as default, persisted in `localStorage` |
 | **Motion** | Original interactive constellation canvas background with cursor and click response |
@@ -63,9 +63,8 @@ css/
   utilities.css         # helpers, focus styles, reduced-motion rules
   background.css        # background canvas placement
 js/
-  main.js               # theme toggle, scrollspy + progress, reveal, metrics, filters
+  main.js               # theme toggle, scrollspy + progress, reveal, filters
   background.js         # interactive constellation background
-  resume-toggle.js      # AI/Data résumé variant switch
   command-palette.js    # Cmd/Ctrl-K palette
   contact.js            # form submission + copy email
 assets/
@@ -113,9 +112,8 @@ git push origin main
 
 The layout direction draws on the CS-academic homepage tradition — sidebar
 profile, news/highlights section, project cards — and on personal sites of
-peers. No code was copied: the markup, styles, canvas background, typing line,
-and command palette are all original implementations written for this
-repository.
+peers. No code was copied: the markup, styles, canvas background, and command
+palette are all original implementations written for this repository.
 
 ## License
 
