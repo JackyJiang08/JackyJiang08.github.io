@@ -33,7 +33,7 @@ JavaScript-heavy effects.
 | **Résumé downloads** | AI/ML and Data Analytics résumé variants linked directly from the profile sidebar |
 | **Command palette** | `Cmd`/`Ctrl` + `K` fuzzy search across navigation and quick actions |
 | **Theming** | Light/dark toggle, light as default, persisted in `localStorage` |
-| **Motion** | Original interactive constellation canvas background with cursor and click response |
+| **Motion** | [canvas-nest.js](https://github.com/hustcc/canvas-nest.js) cursor-following network background, plus an original click ripple/burst effect |
 | **Contact** | [Web3Forms](https://web3forms.com)-backed form with honeypot spam protection and a mail-client fallback, plus copy-to-clipboard email |
 | **SEO** | JSON-LD `Person` schema, Open Graph and Twitter cards, `sitemap.xml`, `robots.txt` |
 | **Accessibility** | WCAG-AA contrast in both themes, full keyboard support, semantic landmarks, skip-to-content link, and `prefers-reduced-motion` honored by every animation |
@@ -46,9 +46,11 @@ JavaScript-heavy effects.
 ![Canvas API](https://img.shields.io/badge/Canvas_API-000?style=flat-square)
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222?style=flat-square&logo=githubpages&logoColor=white)
 
-No runtime dependencies. Styling is organized with CSS custom properties
-(design tokens) across layered stylesheets; behavior is split into small
-vanilla scripts, each owning a single concern.
+The only runtime dependency is the vendored
+[canvas-nest.js](https://github.com/hustcc/canvas-nest.js) (MIT) for the
+ambient background. Everything else is hand-written: styling is organized with
+CSS custom properties (design tokens) across layered stylesheets; behavior is
+split into small vanilla scripts, each owning a single concern.
 
 ## Project structure
 
@@ -65,7 +67,8 @@ css/
 js/
   main.js               # theme toggle, scrollspy + progress, reveal, filters, highlights
   data/highlights.js    # Highlights entries — append an object to add one
-  background.js         # interactive constellation background
+  background.js         # canvas-nest loader + click ripple/burst effect
+  vendor/canvas-nest.min.js  # canvas-nest.js v2.0.4 (MIT, github.com/hustcc/canvas-nest.js)
   command-palette.js    # Cmd/Ctrl-K palette
   contact.js            # form submission + copy email
 assets/
@@ -113,8 +116,10 @@ git push origin main
 
 The layout direction draws on the CS-academic homepage tradition — sidebar
 profile, news/highlights section, project cards — and on personal sites of
-peers. No code was copied: the markup, styles, canvas background, and command
-palette are all original implementations written for this repository.
+peers. The ambient network background is
+[canvas-nest.js](https://github.com/hustcc/canvas-nest.js) by hustcc (MIT),
+vendored in `js/vendor/`. Everything else — markup, styles, click effects, and
+the command palette — is original code written for this repository.
 
 ## License
 
