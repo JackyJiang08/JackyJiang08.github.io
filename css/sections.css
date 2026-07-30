@@ -127,10 +127,19 @@
   font-size: 0.95rem;
 }
 
-.section-note {
+/* Prose blocks: plain first-person paragraphs (About) */
+.prose {
+  max-width: 46rem;
+}
+
+.prose p {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-top: 1.4rem;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.prose p + p {
+  margin-top: 1rem;
 }
 
 .lead {
@@ -141,39 +150,6 @@
 
 .lead strong {
   color: var(--text);
-}
-
-/* ---------- About: interests ---------- */
-.interests {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.9rem;
-  margin-top: 1.6rem;
-}
-
-.interest {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.1rem 1.2rem;
-  box-shadow: var(--shadow);
-}
-
-.interest-icon {
-  font-size: 1.3rem;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.interest h3 {
-  font-size: 0.98rem;
-  margin-bottom: 0.3rem;
-}
-
-.interest p {
-  color: var(--text-muted);
-  font-size: 0.87rem;
-  line-height: 1.55;
 }
 
 /* ---------- News ---------- */
