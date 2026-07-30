@@ -63,7 +63,8 @@ css/
   utilities.css         # helpers, focus styles, reduced-motion rules
   background.css        # background canvas placement
 js/
-  main.js               # theme toggle, scrollspy + progress, reveal, filters
+  main.js               # theme toggle, scrollspy + progress, reveal, filters, highlights
+  data/highlights.js    # Highlights entries — append an object to add one
   background.js         # interactive constellation background
   command-palette.js    # Cmd/Ctrl-K palette
   contact.js            # form submission + copy email

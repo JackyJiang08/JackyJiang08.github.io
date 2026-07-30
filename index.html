@@ -189,28 +189,9 @@
       <!-- Highlights -->
       <section id="highlights" class="section reveal">
         <h2><span class="section-index">02.</span> Highlights</h2>
-        <ul class="news-list">
-          <li>
-            <span class="news-date">Jun 2026</span>
-            <span class="news-text">Joined <strong>Pacific Financial Professional Association</strong> as a Quantitative Finance AI Intern &mdash; building a four-layer market-data pipeline powering a Merton/KMV structural credit-risk model.</span>
-          </li>
-          <li>
-            <span class="news-date">Jul 2026</span>
-            <span class="news-text">Released an end-to-end <a href="https://github.com/JackyJiang08/music-streaming-user-behavior-analytics" target="_blank" rel="noopener">music-streaming analytics</a> codebase &mdash; churn/conversion models, A/B testing, survival analysis, and uplift targeting across 10 CI-tested notebooks.</span>
-          </li>
-          <li>
-            <span class="news-date">Mar 2026</span>
-            <span class="news-text">Built the <a href="https://github.com/JackyJiang08/AI-Monitor-Platform" target="_blank" rel="noopener">AI Industry Monitor</a> &mdash; a real-time market dashboard plus an LLM benchmarking arena simulating trading strategies across frontier models.</span>
-          </li>
-          <li>
-            <span class="news-date">Spring 2026</span>
-            <span class="news-text"><em>Steer2Adapt</em> was accepted at the <strong>ICLR 2026 Workshop on Representational Alignment (Re-Align)</strong>.</span>
-          </li>
-          <li>
-            <span class="news-date">Feb 2026</span>
-            <span class="news-text">Joined ScribeAR at UIUC as an Undergraduate Research Assistant, shipping real-time speaker diarization for live classroom captioning.</span>
-          </li>
-        </ul>
+        <!-- Rendered from js/data/highlights.js — edit that file to add entries -->
+        <div class="filter-chips" role="toolbar" aria-label="Filter highlights by year" id="highlights-filters"></div>
+        <ul class="news-list" id="highlights-list"></ul>
       </section>
 
       <!-- Experience -->
@@ -533,6 +514,7 @@
     </main>
   </div>
 
+  <script src="js/data/highlights.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

@@ -96,6 +96,85 @@
   onScroll();
 })();
 
+// Highlights: rendered from js/data/highlights.js (HIGHLIGHTS global).
+// Sorted newest-first regardless of array order; year filter chips are
+// generated automatically from the dates present in the data.
+(function () {
+  const list = document.getElementById("highlights-list");
+  const bar = document.getElementById("highlights-filters");
+  if (!list || !bar || typeof HIGHLIGHTS === "undefined") return;
+
+  const items = HIGHLIGHTS.slice().sort((a, b) => b.date.localeCompare(a.date));
+  const years = [...new Set(items.map((i) => i.date.slice(0, 4)))];
+
+  function render(year) {
+    list.innerHTML = "";
+    items
+      .filter((i) => year === "all" || i.date.slice(0, 4) === year)
+      .forEach((i) => {
+        const li = document.createElement("li");
+        const date = document.createElement("span");
+        date.className = "news-date";
+        date.textContent = i.label || i.date;
+        const text = document.createElement("span");
+        text.className = "news-text";
+        text.textContent = i.text;
+        if (i.link) {
+          text.appendChild(document.createTextNode(" "));
+          const a = document.createElement("a");
+          a.href = i.link;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.textContent = "↗";
+          a.setAttribute("aria-label", "Open link: " + i.text.split(" ").slice(0, 6).join(" ") + "…");
+          text.appendChild(a);
+        }
+        li.appendChild(date);
+        li.appendChild(text);
+        list.appendChild(li);
+      });
+  }
+
+  ["all", ...years].forEach((f, idx) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (idx === 0 ? " active" : "");
+    b.dataset.filter = f;
+    b.setAttribute("aria-pressed", String(idx === 0));
+    b.textContent = f === "all" ? "All" : f;
+    bar.appendChild(b);
+  });
+
+  const chips = Array.from(bar.querySelectorAll(".chip"));
+
+  function select(filter) {
+    chips.forEach((c) => {
+      const on = c.dataset.filter === filter;
+      c.classList.toggle("active", on);
+      c.setAttribute("aria-pressed", String(on));
+    });
+    render(filter);
+  }
+
+  bar.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (chip) select(chip.dataset.filter);
+  });
+
+  bar.addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const i = chips.indexOf(document.activeElement);
+    if (i === -1) return;
+    e.preventDefault();
+    const next = e.key === "ArrowRight"
+      ? (i + 1) % chips.length
+      : (i - 1 + chips.length) % chips.length;
+    chips[next].focus();
+  });
+
+  select("all");
+})();
+
 // Project filter chips: buttons toggle which cards are visible, matched via
 // data-domains on the cards. Keyboard: chips are real buttons (Enter/Space
 // native) and Left/Right arrows move focus within the toolbar.
