@@ -175,47 +175,6 @@
   select("all");
 })();
 
-// Project filter chips: buttons toggle which cards are visible, matched via
-// data-domains on the cards. Keyboard: chips are real buttons (Enter/Space
-// native) and Left/Right arrows move focus within the toolbar.
-(function () {
-  const bar = document.getElementById("project-filters");
-  const grid = document.getElementById("project-grid");
-  if (!bar || !grid) return;
-  const chips = Array.from(bar.querySelectorAll(".chip"));
-  const cards = Array.from(grid.querySelectorAll(".card"));
-
-  function applyFilter(filter) {
-    chips.forEach((c) => {
-      const on = c.dataset.filter === filter;
-      c.classList.toggle("active", on);
-      c.setAttribute("aria-pressed", String(on));
-    });
-    cards.forEach((card) => {
-      const domains = (card.dataset.domains || "").split(/\s+/);
-      card.hidden = filter !== "all" && !domains.includes(filter);
-    });
-  }
-
-  bar.addEventListener("click", (e) => {
-    const chip = e.target.closest(".chip");
-    if (chip) applyFilter(chip.dataset.filter);
-  });
-
-  bar.addEventListener("keydown", (e) => {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    const i = chips.indexOf(document.activeElement);
-    if (i === -1) return;
-    e.preventDefault();
-    const next = e.key === "ArrowRight"
-      ? (i + 1) % chips.length
-      : (i - 1 + chips.length) % chips.length;
-    chips[next].focus();
-  });
-
-  applyFilter("all");
-})();
-
 // Footer year
 (function () {
   const yearEl = document.getElementById("year");
