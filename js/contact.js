@@ -1,33 +1,8 @@
-// Contact section: Web3Forms submission via fetch (no page navigation) and
-// copy-email-to-clipboard with inline confirmation.
+// Contact section: Web3Forms submission via fetch (no page navigation).
 (function () {
   "use strict";
 
   var EMAIL = "jiangyuqing0508@outlook.com";
-
-  // ---- Copy email --------------------------------------------------------
-  var copyBtn = document.getElementById("copy-email");
-  var copyValue = document.getElementById("copy-email-value");
-  if (copyBtn && copyValue) {
-    var restoreTimer = null;
-    copyBtn.addEventListener("click", function () {
-      function confirmCopied(ok) {
-        copyValue.textContent = ok ? "Copied!" : "Copy failed — select it manually";
-        clearTimeout(restoreTimer);
-        restoreTimer = setTimeout(function () {
-          copyValue.textContent = EMAIL;
-        }, 1800);
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(EMAIL).then(
-          function () { confirmCopied(true); },
-          function () { confirmCopied(false); }
-        );
-      } else {
-        confirmCopied(false);
-      }
-    });
-  }
 
   // ---- Form submission ---------------------------------------------------
   var form = document.getElementById("contact-form");

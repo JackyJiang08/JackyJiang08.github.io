@@ -421,15 +421,6 @@
   opacity: 0;
 }
 
-/* Copy-email card is a <button>: inherit the card look, reset button chrome */
-.contact-card-btn {
-  font-family: var(--font-body);
-  font-size: inherit;
-  text-align: left;
-  cursor: pointer;
-  width: 100%;
-}
-
 @media (max-width: 640px) {
   .form-row {
     grid-template-columns: 1fr;
