@@ -96,83 +96,131 @@
   onScroll();
 })();
 
-// Highlights: rendered from js/data/highlights.js (HIGHLIGHTS global).
-// Sorted newest-first regardless of array order; year filter chips are
-// generated automatically from the dates present in the data.
+// Highlights: the page shows the 5 most recent one-line entries from
+// js/data/highlights.js; the full log opens in the News Archive modal
+// (shared js/modal.js component), grouped by year with filter chips.
 (function () {
   const list = document.getElementById("highlights-list");
-  const bar = document.getElementById("highlights-filters");
-  if (!list || !bar || typeof HIGHLIGHTS === "undefined") return;
+  const openBtn = document.getElementById("highlights-archive-open");
+  if (!list || typeof HIGHLIGHTS === "undefined") return;
 
   const items = HIGHLIGHTS.slice().sort((a, b) => b.date.localeCompare(a.date));
   const years = [...new Set(items.map((i) => i.date.slice(0, 4)))];
 
-  function render(year) {
-    list.innerHTML = "";
-    items
-      .filter((i) => year === "all" || i.date.slice(0, 4) === year)
-      .forEach((i) => {
-        const li = document.createElement("li");
-        const date = document.createElement("span");
-        date.className = "news-date";
-        date.textContent = i.label || i.date;
-        const text = document.createElement("span");
-        text.className = "news-text";
-        text.textContent = i.text;
-        if (i.link) {
-          text.appendChild(document.createTextNode(" "));
-          const a = document.createElement("a");
-          a.href = i.link;
-          a.target = "_blank";
-          a.rel = "noopener";
-          a.textContent = "↗";
-          a.setAttribute("aria-label", "Open link: " + i.text.split(" ").slice(0, 6).join(" ") + "…");
-          text.appendChild(a);
-        }
-        li.appendChild(date);
-        li.appendChild(text);
-        list.appendChild(li);
-      });
+  function row(item) {
+    const li = document.createElement("li");
+    li.className = "hl-row";
+    const date = document.createElement("strong");
+    date.className = "hl-date";
+    date.textContent = "[" + item.date + "]";
+    li.appendChild(date);
+    li.appendChild(document.createTextNode(" "));
+    let text;
+    if (item.link) {
+      text = document.createElement("a");
+      text.href = item.link;
+      text.target = "_blank";
+      text.rel = "noopener";
+    } else {
+      text = document.createElement("span");
+    }
+    text.className = "hl-text";
+    text.textContent = item.text;
+    li.appendChild(text);
+    return li;
   }
 
-  ["all", ...years].forEach((f, idx) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip" + (idx === 0 ? " active" : "");
-    b.dataset.filter = f;
-    b.setAttribute("aria-pressed", String(idx === 0));
-    b.textContent = f === "all" ? "All" : f;
-    bar.appendChild(b);
-  });
+  // in-page: 5 most recent only
+  items.slice(0, 5).forEach((i) => list.appendChild(row(i)));
 
-  const chips = Array.from(bar.querySelectorAll(".chip"));
+  // ---- News Archive modal (built lazily on first open) ----
+  let modal = null;
 
-  function select(filter) {
-    chips.forEach((c) => {
-      const on = c.dataset.filter === filter;
-      c.classList.toggle("active", on);
-      c.setAttribute("aria-pressed", String(on));
+  function buildArchive() {
+    modal = SiteModal.create({ label: "News archive", extraClass: "modal-archive" });
+
+    const title = document.createElement("h3");
+    title.className = "archive-title";
+    title.textContent = "News Archive";
+    const sub = document.createElement("p");
+    sub.className = "archive-sub";
+    sub.textContent = "Earlier updates — internships, research, and milestones";
+
+    const bar = document.createElement("div");
+    bar.className = "filter-chips";
+    bar.setAttribute("role", "toolbar");
+    bar.setAttribute("aria-label", "Filter archive by year");
+
+    ["all", ...years].forEach((f, idx) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip" + (idx === 0 ? " active" : "");
+      b.dataset.filter = f;
+      b.setAttribute("aria-pressed", String(idx === 0));
+      b.textContent = f === "all" ? "All" : f;
+      bar.appendChild(b);
     });
-    render(filter);
+    const chips = Array.from(bar.querySelectorAll(".chip"));
+
+    const groups = document.createElement("div");
+    groups.className = "archive-groups";
+    years.forEach((y) => {
+      const sec = document.createElement("section");
+      sec.className = "archive-group";
+      sec.dataset.year = y;
+      const h = document.createElement("h4");
+      h.className = "archive-year";
+      h.textContent = y;
+      const ul = document.createElement("ul");
+      ul.className = "hl-list archive-list";
+      items
+        .filter((i) => i.date.slice(0, 4) === y)
+        .forEach((i) => ul.appendChild(row(i)));
+      sec.appendChild(h);
+      sec.appendChild(ul);
+      groups.appendChild(sec);
+    });
+
+    function select(filter) {
+      chips.forEach((c) => {
+        const on = c.dataset.filter === filter;
+        c.classList.toggle("active", on);
+        c.setAttribute("aria-pressed", String(on));
+      });
+      groups.querySelectorAll(".archive-group").forEach((g) => {
+        g.hidden = filter !== "all" && g.dataset.year !== filter;
+      });
+    }
+
+    bar.addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip");
+      if (chip) select(chip.dataset.filter);
+    });
+
+    bar.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      const i = chips.indexOf(document.activeElement);
+      if (i === -1) return;
+      e.preventDefault();
+      const next = e.key === "ArrowRight"
+        ? (i + 1) % chips.length
+        : (i - 1 + chips.length) % chips.length;
+      chips[next].focus();
+    });
+
+    modal.body.appendChild(title);
+    modal.body.appendChild(sub);
+    modal.body.appendChild(bar);
+    modal.body.appendChild(groups);
   }
 
-  bar.addEventListener("click", (e) => {
-    const chip = e.target.closest(".chip");
-    if (chip) select(chip.dataset.filter);
-  });
-
-  bar.addEventListener("keydown", (e) => {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    const i = chips.indexOf(document.activeElement);
-    if (i === -1) return;
-    e.preventDefault();
-    const next = e.key === "ArrowRight"
-      ? (i + 1) % chips.length
-      : (i - 1 + chips.length) % chips.length;
-    chips[next].focus();
-  });
-
-  select("all");
+  if (openBtn) {
+    openBtn.addEventListener("click", () => {
+      if (typeof SiteModal === "undefined") return;
+      if (!modal) buildArchive();
+      modal.open();
+    });
+  }
 })();
 
 // Footer year

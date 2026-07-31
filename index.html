@@ -207,9 +207,12 @@
       <!-- Highlights -->
       <section id="highlights" class="section reveal">
         <h2><span class="section-index">02.</span> Highlights</h2>
-        <!-- Rendered from js/data/highlights.js — edit that file to add entries -->
-        <div class="filter-chips" role="toolbar" aria-label="Filter highlights by year" id="highlights-filters"></div>
-        <ul class="news-list" id="highlights-list"></ul>
+        <!-- Rendered from js/data/highlights.js — the 5 most recent entries;
+             the full log lives in the News Archive modal -->
+        <ul class="hl-list" id="highlights-list"></ul>
+        <p class="more-link-row">
+          <button type="button" class="more-link link-button" id="highlights-archive-open" aria-haspopup="dialog">View full archive &rarr;</button>
+        </p>
       </section>
 
       <!-- Experience -->

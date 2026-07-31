@@ -1,40 +1,49 @@
 // ============================================================
-// Highlights data.
+// Highlights data — a factual log, one line per entry.
 //
 // To add a highlight: append an object
 //   { date: "YYYY-MM", text: "...", link?: "..." }
-// — the page renders and filters automatically (newest first;
-// year filter chips are generated from the dates in this file).
-//
-// Optional extra field:
-//   label: "..."  — display text for the date chip when a plain
-//   "YYYY-MM" is too precise (e.g. "Spring 2026"). Sorting still
-//   uses `date`.
+// — the page shows the 5 most recent and the News Archive modal
+// shows everything grouped by year, both automatically.
 // ============================================================
 
 const HIGHLIGHTS = [
   {
-    date: "2026-07",
-    text: "Released an end-to-end music-streaming analytics codebase — churn/conversion models, A/B testing, survival analysis, and uplift targeting across 10 CI-tested notebooks.",
-    link: "https://github.com/JackyJiang08/music-streaming-user-behavior-analytics",
-  },
-  {
     date: "2026-06",
-    text: "Joined Pacific Financial Professional Association as a Quantitative Finance AI Intern — building a four-layer market-data pipeline powering a Merton/KMV structural credit-risk model.",
+    text: "Joined Pacific Financial Professional Association as a Quantitative Finance AI Intern.",
+    link: "https://www.pfpa-financial.com/",
   },
   {
     date: "2026-03",
-    label: "Spring 2026",
-    text: "Steer2Adapt was accepted at the ICLR 2026 Workshop on Representational Alignment (Re-Align).",
+    text: "Steer2Adapt accepted at the ICLR 2026 Workshop on Representational Alignment (Re-Align).",
     link: "https://arxiv.org/abs/2602.07276",
   },
   {
-    date: "2026-03",
-    text: "Built the AI Industry Monitor — a real-time market dashboard plus an LLM benchmarking arena simulating trading strategies across frontier models.",
-    link: "https://github.com/JackyJiang08/AI-Monitor-Platform",
+    date: "2026-02",
+    text: "Joined ScribeAR at UIUC as an Undergraduate Research Assistant.",
+    link: "https://scribear.illinois.edu/v/index.html",
   },
   {
-    date: "2026-02",
-    text: "Joined ScribeAR at UIUC as an Undergraduate Research Assistant, shipping real-time speaker diarization for live classroom captioning.",
+    date: "2026-01",
+    text: "Joined Earnest Agriculture as a Marketing Analytics & Strategy Intern.",
+    link: "https://www.earnest.ag/",
+  },
+  {
+    date: "2025-09",
+    text: "Joined U Lab as an Undergraduate Research Assistant.",
+    link: "https://github.com/ulab-uiuc",
+  },
+  {
+    date: "2025-09",
+    text: "Joined SeeU International as a Data Analyst Intern.",
+    link: "https://us.seeu-edu.com/",
+  },
+  {
+    date: "2025-06",
+    text: "Joined Walt Disney Company as an Operations & Analytics Intern.",
+  },
+  {
+    date: "2024-05",
+    text: "Joined DP World as a Data Analyst Intern.",
   },
 ];

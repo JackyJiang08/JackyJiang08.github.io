@@ -366,6 +366,68 @@
   }
 }
 
+/* Link-styled button (e.g. "View full archive") */
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- News archive modal ---------- */
+.modal-archive .modal-panel {
+  width: min(640px, 100%);
+  height: min(80vh, 680px);
+}
+
+.archive-title {
+  font-size: 1.15rem;
+  margin: 0 2.4rem 0.1rem 0; /* clear the close button */
+}
+
+.archive-sub {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 0.9rem;
+}
+
+.modal-archive .filter-chips {
+  margin-bottom: 1rem;
+}
+
+.archive-groups {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.archive-year {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 1.1rem 0 0.5rem;
+}
+
+.archive-group:first-child .archive-year {
+  margin-top: 0;
+}
+
+/* archive rows may wrap — the one-line clamp applies to the page list only */
+.archive-list .hl-row {
+  white-space: normal;
+}
+
 /* ---------- Segmented switch ---------- */
 .segmented {
   display: inline-flex;
