@@ -13,14 +13,14 @@
 // Ordering: entries are sorted newest-first by date; the sort is
 // STABLE, so entries sharing a date render in ARRAY ORDER — put
 // the more recent one first (e.g. Goldman Sachs above Brattle in
-// 2025-05). The page shows the 8 most recent; the News Archive
+// 2025-05). The page shows the 10 most recent; the News Archive
 // modal shows everything grouped by year.
 // ============================================================
 
 const HIGHLIGHTS = [
   {
     date: "2026-08",
-    text: "Released Market-Based Credit Rating — a KMV/Merton structural credit-rating pipeline.",
+    text: "Released Market-Based Credit Rating, a KMV/Merton structural pipeline for banks.",
     link: "https://jackyjiang08.github.io/market-based-credit-rating/",
     linkText: "Market-Based Credit Rating",
   },
@@ -32,7 +32,7 @@ const HIGHLIGHTS = [
   },
   {
     date: "2026-07",
-    text: "Released Music-Streaming Analytics — churn, A/B testing, and uplift targeting on 50K users.",
+    text: "Released Music-Streaming Analytics, covering 50K users and 1.5M streaming events.",
     link: "https://github.com/JackyJiang08/music-streaming-user-behavior-analytics",
     linkText: "Music-Streaming Analytics",
   },
@@ -44,9 +44,9 @@ const HIGHLIGHTS = [
   },
   {
     date: "2026-04",
-    text: "Launched the MYOW Club website.",
+    text: "Launched the first official website for the MYOW Club.",
     link: "https://myow-club-website.vercel.app/",
-    linkText: "MYOW Club website",
+    linkText: "MYOW Club",
   },
   {
     date: "2026-03",
@@ -56,7 +56,7 @@ const HIGHLIGHTS = [
   },
   {
     date: "2026-03",
-    text: "Launched AI Monitor Platform — real-time AI-industry dashboard and LLM benchmarking arena.",
+    text: "Launched AI Monitor Platform, a real-time AI-industry dashboard and LLM benchmarking arena.",
     link: "https://aimonitor-nine.vercel.app/",
     linkText: "AI Monitor Platform",
   },
@@ -87,7 +87,7 @@ const HIGHLIGHTS = [
   },
   {
     date: "2025-07",
-    text: "Built a Multi-Agent AI Platform.",
+    text: "Built a Multi-Agent AI Platform with LangChain and n8n to automate everyday workflows.",
   },
   {
     date: "2025-06",
@@ -97,7 +97,7 @@ const HIGHLIGHTS = [
   },
   {
     date: "2025-05",
-    text: "Completed the Goldman Sachs 2025 Virtual Insight Series.",
+    text: "Selected for the Goldman Sachs 2025 Virtual Insight Series.",
   },
   {
     date: "2025-05",

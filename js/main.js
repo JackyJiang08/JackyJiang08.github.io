@@ -96,7 +96,7 @@
   onScroll();
 })();
 
-// Highlights: the page shows the 5 most recent one-line entries from
+// Highlights: the page shows the 10 most recent one-line entries from
 // js/data/highlights.js; the full log opens in the News Archive modal
 // (shared js/modal.js component), grouped by year with filter chips.
 (function () {
@@ -157,9 +157,9 @@
     return li;
   }
 
-  // in-page: 8 most recent only (sort is stable — same-date entries keep
+  // in-page: 10 most recent only (sort is stable — same-date entries keep
   // their array order from the data file)
-  items.slice(0, 8).forEach((i) => list.appendChild(row(i)));
+  items.slice(0, 10).forEach((i) => list.appendChild(row(i)));
 
   // ---- News Archive modal (built lazily on first open) ----
   let modal = null;

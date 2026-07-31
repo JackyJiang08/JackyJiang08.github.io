@@ -93,13 +93,32 @@
   opacity: 0.75;
 }
 
-/* Views counter: borderless, subtle, hidden unless the API responds */
+/* Page Views counter: the ONE sidebar element with a border; hidden unless
+   the API responds */
 .views-box {
   margin-top: 1.3rem;
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 1rem;
+}
+
+/* Desktop: stretch the profile to the sticky column's height and float the
+   views box mid-way through the empty space below the info list */
+@media (min-width: 901px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 7rem);
+  }
+
+  .views-box {
+    margin: auto 0;
+  }
 }
 
 /* Button items in the info list look identical to the link items */
@@ -413,10 +432,20 @@
   margin-bottom: 0.25rem;
 }
 
-/* High-school entry: single-line exception (school + IB result together) */
-.edu-oneline {
-  font-size: 0.92rem;
-  letter-spacing: -0.01em;
+/* Education rows: bold program flush left, institution flush right on the
+   same line; on narrow screens the institution wraps below instead */
+.edu-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.1rem 1rem;
+}
+
+.edu-inst {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 0.88rem;
 }
 
 .timeline-what .org {
