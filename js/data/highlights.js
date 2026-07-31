@@ -6,14 +6,36 @@
 //     { date: "YYYY-MM", role: "Data Analyst Intern",
 //       org: "DP World", orgLink?: "https://…", orgNote?: " at UIUC" }
 //     → rendered as "[YYYY-MM] Joined <org link> as a <bold role>."
-//   Other entries (papers, milestones):
+//   Other entries (releases, papers, programs):
 //     { date: "YYYY-MM", text: "…", link?: "https://…", linkText?: "…" }
 //     → linkText marks the only words that become the link.
-// The page shows the 5 most recent; the News Archive modal shows
-// everything grouped by year — both update automatically.
+//
+// Ordering: entries are sorted newest-first by date; the sort is
+// STABLE, so entries sharing a date render in ARRAY ORDER — put
+// the more recent one first (e.g. Goldman Sachs above Brattle in
+// 2025-05). The page shows the 8 most recent; the News Archive
+// modal shows everything grouped by year.
 // ============================================================
 
 const HIGHLIGHTS = [
+  {
+    date: "2026-08",
+    text: "Released Market-Based Credit Rating — a KMV/Merton structural credit-rating pipeline.",
+    link: "https://jackyjiang08.github.io/market-based-credit-rating/",
+    linkText: "Market-Based Credit Rating",
+  },
+  {
+    date: "2026-07",
+    text: "Open-sourced CUDA-NPP-Edge-Detection, GPU-accelerated edge detection with CUDA NPP.",
+    link: "https://github.com/JackyJiang08/CUDA-NPP-Edge-Detection",
+    linkText: "CUDA-NPP-Edge-Detection",
+  },
+  {
+    date: "2026-07",
+    text: "Released Music-Streaming Analytics — churn, A/B testing, and uplift targeting on 50K users.",
+    link: "https://github.com/JackyJiang08/music-streaming-user-behavior-analytics",
+    linkText: "Music-Streaming Analytics",
+  },
   {
     date: "2026-06",
     role: "Quantitative Finance AI Intern",
@@ -21,10 +43,22 @@ const HIGHLIGHTS = [
     orgLink: "https://www.pfpa-financial.com/",
   },
   {
+    date: "2026-04",
+    text: "Launched the MYOW Club website.",
+    link: "https://myow-club-website.vercel.app/",
+    linkText: "MYOW Club website",
+  },
+  {
     date: "2026-03",
     text: "Steer2Adapt accepted at the ICLR 2026 Workshop on Representational Alignment (Re-Align).",
     link: "https://arxiv.org/abs/2602.07276",
     linkText: "Steer2Adapt",
+  },
+  {
+    date: "2026-03",
+    text: "Launched AI Monitor Platform — real-time AI-industry dashboard and LLM benchmarking arena.",
+    link: "https://aimonitor-nine.vercel.app/",
+    linkText: "AI Monitor Platform",
   },
   {
     date: "2026-02",
@@ -52,10 +86,26 @@ const HIGHLIGHTS = [
     orgLink: "https://us.seeu-edu.com/",
   },
   {
+    date: "2025-07",
+    text: "Built a Multi-Agent AI Platform.",
+  },
+  {
     date: "2025-06",
     role: "Operations & Analytics Intern",
     org: "Walt Disney Company",
     orgLink: "https://thewaltdisneycompany.com/",
+  },
+  {
+    date: "2025-05",
+    text: "Completed the Goldman Sachs 2025 Virtual Insight Series.",
+  },
+  {
+    date: "2025-05",
+    text: "Selected for The Brattle Group Sophomore Consulting Exploratory Program.",
+  },
+  {
+    date: "2024-07",
+    text: "Completed Credit Card Fraud Modeling & Fraud-Strategy Development.",
   },
   {
     date: "2024-05",

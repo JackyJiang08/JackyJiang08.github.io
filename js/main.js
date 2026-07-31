@@ -157,8 +157,9 @@
     return li;
   }
 
-  // in-page: 5 most recent only
-  items.slice(0, 5).forEach((i) => list.appendChild(row(i)));
+  // in-page: 8 most recent only (sort is stable — same-date entries keep
+  // their array order from the data file)
+  items.slice(0, 8).forEach((i) => list.appendChild(row(i)));
 
   // ---- News Archive modal (built lazily on first open) ----
   let modal = null;
