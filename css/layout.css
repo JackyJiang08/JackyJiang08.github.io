@@ -123,9 +123,10 @@
   min-width: 0;
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer: bottom-most element, centered ---------- */
 .site-footer {
-  padding: 2rem 0 1rem;
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
   color: var(--text-muted);
   font-size: 0.85rem;
 }

@@ -58,7 +58,7 @@ split into small vanilla scripts, each owning a single concern.
 
 ```text
 index.html              # the main page — semantic sections, JSON-LD, meta
-photography.html        # photo gallery page (category filters + lightbox)
+misc.html               # Misc. page — photo gallery (category filters + lightbox)
 css/
   tokens.css            # design tokens: both theme palettes, type, spacing, radii
   base.css              # reset and base typography

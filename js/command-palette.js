@@ -1,7 +1,7 @@
 // Command palette (Cmd/Ctrl-K) — vanilla JS, no libraries.
 //
 // Fuzzy-searchable actions: jump to any section, copy the contact email,
-// download either résumé variant, open external profiles, toggle the theme.
+// open the résumé viewer, open external profiles, toggle the theme.
 // Accessibility: role=dialog + listbox/option with aria-activedescendant,
 // arrow-key navigation, focus trapped in the input while open, and focus
 // restored to the invoking element on close.
@@ -16,7 +16,7 @@
     return function () {
       var el = document.getElementById(id);
       if (!el) {
-        // section lives on the home page (e.g. invoked from photography.html)
+        // section lives on the home page (e.g. invoked from misc.html)
         window.location.href = "index.html#" + id;
         return;
       }
@@ -59,9 +59,9 @@
       },
     },
     {
-      label: "Open Photos page",
+      label: "Open Misc. page",
       hint: "→",
-      run: function () { window.location.href = "photography.html"; },
+      run: function () { window.location.href = "misc.html"; },
     },
     { label: "Open LinkedIn", hint: "↗", run: openUrl("https://www.linkedin.com/in/yuqing-jacky-jiang/") },
     { label: "Open GitHub", hint: "↗", run: openUrl("https://github.com/JackyJiang08") },

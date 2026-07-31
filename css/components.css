@@ -670,6 +670,7 @@
 .contact-form {
   display: grid;
   gap: 0.9rem;
+  max-width: 640px; /* balanced: narrower than the column, never edge-to-edge */
 }
 
 .form-row {

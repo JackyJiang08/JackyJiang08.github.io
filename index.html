@@ -99,7 +99,7 @@
           <li><a href="#skills">Skills</a></li>
           <li><a href="#education">Education</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="photography.html">Photos</a></li>
+          <li><a href="misc.html">Misc.</a></li>
         </ul>
       </div>
       <button id="palette-hint" class="palette-hint" type="button" aria-label="Open command palette (Cmd or Ctrl + K)">
@@ -437,9 +437,7 @@
       <section id="contact" class="section reveal">
         <h2><span class="section-index">08.</span> Contact</h2>
         <p class="lead">
-          I'm open to Summer 2027 internship opportunities in quantitative
-          finance, data science, and ML engineering &mdash; reach me by email or
-          the form below.
+          Ask me anything about internships, research, or full-time opportunities.
         </p>
         <div class="contact-grid">
           <a class="contact-card" href="mailto:jiangyuqing0508@outlook.com">
@@ -477,34 +475,36 @@
         <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
           <input type="hidden" name="access_key" value="f9c58f84-b670-46b9-9ca5-ccf9a8309f90" />
           <input type="hidden" name="subject" value="New message from jackyjiang08.github.io" />
+          <input type="hidden" name="from_name" value="jackyjiang08.github.io" />
           <!-- Honeypot: hidden from humans; bots that fill it are rejected -->
           <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="form-row">
             <div class="form-field">
-              <label for="cf-name">Name</label>
-              <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+              <label for="cf-name">Your Name</label>
+              <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your Name" />
             </div>
             <div class="form-field">
-              <label for="cf-email">Email</label>
-              <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+              <label for="cf-email">Your Email</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="Your Email" />
             </div>
           </div>
           <div class="form-field">
             <label for="cf-message">Message</label>
-            <textarea id="cf-message" name="message" required rows="5" placeholder="What would you like to talk about?"></textarea>
+            <textarea id="cf-message" name="message" required rows="5" placeholder="Ask me Anything!"></textarea>
           </div>
           <div class="form-footer">
-            <button type="submit" class="button primary" id="cf-submit">Send message</button>
+            <button type="submit" class="button primary" id="cf-submit">Send Message</button>
             <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
           </div>
         </form>
       </section>
 
-      <footer class="site-footer">
-        <p>&copy; <span id="year">2026</span> Yuqing Jiang &middot; Designed &amp; built with plain HTML/CSS</p>
-      </footer>
     </main>
   </div>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year">2026</span> Yuqing Jiang &middot; Designed &amp; built with plain HTML/CSS</p>
+  </footer>
 
   <script src="js/data/highlights.js" defer></script>
   <script src="js/main.js" defer></script>
