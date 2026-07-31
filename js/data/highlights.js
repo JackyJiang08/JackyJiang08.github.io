@@ -44,9 +44,9 @@ const HIGHLIGHTS = [
   },
   {
     date: "2026-04",
-    text: "Launched the first official website for the MYOW Club.",
+    text: "Launched the first official website for the MYOW DIY Club.",
     link: "https://myow-club-website.vercel.app/",
-    linkText: "MYOW Club",
+    linkText: "MYOW DIY Club",
   },
   {
     date: "2026-03",
