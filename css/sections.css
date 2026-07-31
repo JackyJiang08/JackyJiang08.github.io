@@ -494,15 +494,6 @@ a.hl-text:hover {
 }
 
 @media (max-width: 640px) {
-  .news-list li {
-    grid-template-columns: 1fr;
-    gap: 0.2rem;
-  }
-
-  .news-date {
-    width: fit-content;
-  }
-
   .timeline {
     padding-left: 1rem;
   }
