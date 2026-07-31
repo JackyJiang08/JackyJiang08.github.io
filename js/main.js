@@ -251,6 +251,45 @@
   }
 })();
 
+// Views counter via Abacus (https://abacus.jasoncameron.dev) — a free
+// third-party hit-counter API (open-source successor to CountAPI). Each page
+// load hits the counter and renders the returned total. If Abacus ever
+// disappears, counterapi.dev is a drop-in alternative. Resilience: on any
+// failure or a 3s timeout the box simply stays hidden — no error state.
+(function () {
+  const box = document.getElementById("views-box");
+  const num = document.getElementById("views-count");
+  if (!box || !num) return;
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 3000);
+
+  fetch("https://abacus.jasoncameron.dev/hit/jackyjiang08-github-io/homepage", {
+    signal: ctrl.signal,
+  })
+    .then((r) => r.json())
+    .then((d) => {
+      clearTimeout(timer);
+      const target = d && typeof d.value === "number" ? d.value : null;
+      if (target === null) return;
+      box.hidden = false;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        num.textContent = target.toLocaleString();
+        return;
+      }
+      const duration = 900;
+      const start = performance.now();
+      function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        num.textContent = Math.round(target * eased).toLocaleString();
+        if (t < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })
+    .catch(() => clearTimeout(timer));
+})();
+
 // Footer year
 (function () {
   const yearEl = document.getElementById("year");
