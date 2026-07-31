@@ -30,7 +30,7 @@ JavaScript-heavy effects.
 | | |
 |---|---|
 | **Portfolio sections** | Academic-style profile sidebar, highlights, experience timeline, filterable project grid, publication, skills, and education |
-| **Résumé downloads** | AI/ML and Data Analytics résumé variants linked directly from the profile sidebar |
+| **Résumé viewer** | View-only in-page PDF viewer ([PDF.js](https://mozilla.github.io/pdf.js/)) with an AI/ML ↔ Data variant switch, opened from the profile sidebar |
 | **Command palette** | `Cmd`/`Ctrl` + `K` fuzzy search across navigation and quick actions |
 | **Theming** | Light/dark toggle, light as default, persisted in `localStorage` |
 | **Motion** | [canvas-nest.js](https://github.com/hustcc/canvas-nest.js) cursor-following network background, plus an original click ripple/burst effect |
@@ -46,9 +46,11 @@ JavaScript-heavy effects.
 ![Canvas API](https://img.shields.io/badge/Canvas_API-000?style=flat-square)
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222?style=flat-square&logo=githubpages&logoColor=white)
 
-The only runtime dependency is the vendored
+Runtime dependencies are vendored, never hotlinked:
 [canvas-nest.js](https://github.com/hustcc/canvas-nest.js) (MIT) for the
-ambient background. Everything else is hand-written: styling is organized with
+ambient background and [PDF.js](https://mozilla.github.io/pdf.js/)
+(Apache-2.0) for the in-page résumé viewer. Everything else is hand-written:
+styling is organized with
 CSS custom properties (design tokens) across layered stylesheets; behavior is
 split into small vanilla scripts, each owning a single concern.
 
@@ -71,7 +73,10 @@ js/
   data/photos.js        # photo manifest — drop a file + append an object
   gallery.js            # photo grid, category chips, original lightbox
   background.js         # canvas-nest loader + click ripple/burst effect
+  modal.js              # shared modal (dialog semantics, focus trap)
+  resume-viewer.js      # view-only PDF résumé viewer (AI/Data switch)
   vendor/canvas-nest.min.js  # canvas-nest.js v2.0.4 (MIT, github.com/hustcc/canvas-nest.js)
+  vendor/pdf.min.js     # PDF.js 3.11.174 (Apache-2.0, Mozilla) + pdf.worker.min.js
   command-palette.js    # Cmd/Ctrl-K palette
   contact.js            # form submission + copy email
 assets/

@@ -73,7 +73,8 @@
 }
 
 .profile-info li,
-.profile-info a {
+.profile-info a,
+.profile-info button {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -90,6 +91,19 @@
 .profile-info svg {
   flex-shrink: 0;
   opacity: 0.75;
+}
+
+/* Button items in the info list look identical to the link items */
+.profile-info button {
+  font-family: var(--font-body);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.profile-info button:hover {
+  color: var(--accent);
 }
 
 /* ---------- Section scaffolding ---------- */

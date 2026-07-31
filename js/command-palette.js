@@ -31,17 +31,6 @@
     };
   }
 
-  function downloadFile(path) {
-    return function () {
-      var a = document.createElement("a");
-      a.href = path;
-      a.download = "";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    };
-  }
-
   var ACTIONS = [
     { label: "Jump to About", hint: "01", run: jump("about") },
     { label: "Jump to Highlights", hint: "02", run: jump("highlights") },
@@ -60,8 +49,15 @@
         }
       },
     },
-    { label: "Download résumé (AI)", hint: "PDF", run: downloadFile("assets/resume/Jacky_Jiang_Resume_AI.pdf") },
-    { label: "Download résumé (Data)", hint: "PDF", run: downloadFile("assets/resume/Jacky_Jiang_Resume_DA.pdf") },
+    {
+      label: "Open résumé",
+      hint: "PDF",
+      run: function () {
+        var btn = document.getElementById("resume-open");
+        if (btn) btn.click();
+        else window.location.href = "index.html";
+      },
+    },
     {
       label: "Open Photos page",
       hint: "→",
