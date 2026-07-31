@@ -318,11 +318,14 @@ a.hl-text:hover {
   border-radius: 2px;
 }
 
+/* Two-column rows: fixed right-aligned date column + content, sharing one
+   baseline so every date lines up down the page */
 .timeline-item {
   position: relative;
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 10rem 1fr;
   gap: 1.1rem;
+  align-items: baseline;
   padding: 0.7rem 0;
 }
 
@@ -342,7 +345,8 @@ a.hl-text:hover {
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  padding-top: 0.28rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
   white-space: nowrap;
 }
 
@@ -354,6 +358,17 @@ a.hl-text:hover {
 .timeline-what .org {
   color: var(--text-muted);
   font-weight: 500;
+}
+
+/* Organization links: accent color, subtle hover underline */
+.timeline-what .org a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.timeline-what .org a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .timeline-what p {
@@ -508,7 +523,7 @@ a.hl-text:hover {
   }
 
   .timeline-when {
-    padding-top: 0;
+    text-align: left;
   }
 
   .contact-actions .button {
