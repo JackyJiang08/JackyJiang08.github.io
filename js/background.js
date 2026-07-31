@@ -26,11 +26,12 @@
   }
 
   function nestColors() {
-    // Light: indigo lines, slightly darker points. Dark: lighter indigo so
-    // the mesh stays visible-but-subtle on the near-black background.
+    // Neutral gray filaments: the page reads as white with faint gray lines,
+    // and the navy accent (#274c72) appears only on content. Dark mode uses
+    // slightly brighter grays to stay visible on the near-black background.
     return isDark()
-      ? { color: "129,140,248", point: "99,102,241" }
-      : { color: "99,102,241", point: "79,70,229" };
+      ? { color: "150,158,170", point: "185,192,204" }
+      : { color: "170,170,170", point: "140,140,140" };
   }
 
   function addNest() {
@@ -43,7 +44,7 @@
     s.src = "js/vendor/canvas-nest.min.js";
     s.setAttribute("color", colors.color);
     s.setAttribute("pointColor", colors.point);
-    s.setAttribute("opacity", "0.6");
+    s.setAttribute("opacity", "0.5");
     s.setAttribute("count", "99");
     s.setAttribute("zIndex", "-1");
     s.onload = function () {
@@ -89,7 +90,7 @@
   var ripples = [];
   var sparks = [];
   var rafId = null;
-  var accent = { r: 79, g: 70, b: 229 };
+  var accent = { r: 39, g: 76, b: 114 };
   var RIPPLE_SPEED = 2.6;
   var BURST_COUNT = 9;
 

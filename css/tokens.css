@@ -5,22 +5,23 @@
    ============================================================ */
 
 :root {
-  /* Color — light (default) theme. Near-white background, slate ink. */
-  --bg: #fafbfd;
+  /* Color — light (default) theme. Pure white background, slate ink,
+     deep-navy accent. Illinois-orange alternative: --accent: #E84A27 */
+  --bg: #ffffff;
   --bg-card: #ffffff;
   --bg-alt: #f1f4f9;
   --text: #17202c;
   --text-muted: #5b6676;
-  /* Single accent. Illinois-orange alternative: --accent: #E84A27 */
-  --accent: #4f46e5;
-  --accent-2: #7c3aed;
-  --accent-soft: rgba(79, 70, 229, 0.08);
+  --accent: #274c72;
+  --accent-2: #3a6ea5;
+  --accent-soft: rgba(39, 76, 114, 0.08);
+  --on-accent: #ffffff; /* text/icon color on accent-filled surfaces */
   --venue: #9d174d;
   --ok: #047857; /* AA: ≥4.5:1 on bg, card, and the tinted status pill */
   --err: #dc2626;
   --border: #e3e8f0;
-  --glow-1: rgba(79, 70, 229, 0.07);
-  --glow-2: rgba(14, 165, 165, 0.06);
+  --glow-1: rgba(120, 130, 140, 0.05);
+  --glow-2: rgba(120, 130, 140, 0.04);
 
   /* Shadows */
   --shadow: 0 1px 2px rgba(23, 32, 44, 0.04), 0 8px 24px rgba(23, 32, 44, 0.06);
@@ -64,15 +65,16 @@
   --bg-alt: #16203297;
   --text: #e5eaf3;
   --text-muted: #94a0b3;
-  --accent: #818cf8;
-  --accent-2: #a78bfa;
-  --accent-soft: rgba(129, 140, 248, 0.1);
+  --accent: #7fa3c9;
+  --accent-2: #a3c0dc;
+  --accent-soft: rgba(127, 163, 201, 0.1);
+  --on-accent: #0b0f19; /* dark text on the light-navy accent: 7.3:1 */
   --venue: #f472b6;
   --ok: #34d399;
   --err: #f87171;
   --border: #232e42;
-  --glow-1: rgba(99, 102, 241, 0.1);
-  --glow-2: rgba(20, 184, 166, 0.07);
+  --glow-1: rgba(140, 150, 165, 0.07);
+  --glow-2: rgba(140, 150, 165, 0.05);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.4);
 }

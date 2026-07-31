@@ -5,7 +5,7 @@
 **Personal website of Yuqing (Jacky) Jiang** — CS & Statistics @ UIUC
 Quantitative Developer · Data Scientist · ML Engineer
 
-[![Live site](https://img.shields.io/badge/live-jackyjiang08.github.io-2563eb?style=flat-square)](https://jackyjiang08.github.io/)
+[![Live site](https://img.shields.io/badge/live-jackyjiang08.github.io-274c72?style=flat-square)](https://jackyjiang08.github.io/)
 [![Deploy](https://img.shields.io/badge/deploy-GitHub%20Pages-222?style=flat-square&logo=github)](https://pages.github.com/)
 [![Build step](https://img.shields.io/badge/build-none-16a34a?style=flat-square)](#getting-started)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
