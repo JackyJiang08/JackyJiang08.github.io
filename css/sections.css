@@ -210,6 +210,13 @@
   box-shadow: var(--shadow);
 }
 
+.pub-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.8rem;
+}
+
 .pub-badge {
   display: inline-block;
   font-family: var(--font-mono);
@@ -220,12 +227,23 @@
   background: color-mix(in srgb, var(--venue) 7%, transparent);
   padding: 0.18rem 0.6rem;
   border-radius: var(--radius-full);
-  margin-bottom: 0.8rem;
 }
 
+/* Title sized to fit on ONE line within the content column on desktop;
+   natural wrapping only on mobile */
 .pub h3 {
-  font-size: 1.12rem;
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
   margin-bottom: 0.6rem;
+}
+
+@media (max-width: 900px) {
+  .pub h3 {
+    white-space: normal;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
 }
 
 .pub-authors {
@@ -273,11 +291,18 @@
   text-decoration: none;
 }
 
-/* ---------- Projects grid ---------- */
+/* ---------- Projects grid: 2×2 on desktop, single column on mobile;
+   grid stretch keeps cards equal height per row ---------- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .more-link-row {
