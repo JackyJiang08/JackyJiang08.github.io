@@ -62,7 +62,7 @@
     seg.className = "segmented";
     seg.setAttribute("role", "group");
     seg.setAttribute("aria-label", "Résumé variant");
-    [["ai", "AI / ML"], ["da", "Data"]].forEach(function (pair) {
+    [["da", "Data"], ["ai", "AI"]].forEach(function (pair) {
       var b = document.createElement("button");
       b.type = "button";
       b.className = "seg-btn";
@@ -207,7 +207,7 @@
 
   function updatePager() {
     if (!pdfDoc) return;
-    pageLabel.textContent = "page " + currentPage + " / " + pdfDoc.numPages;
+    pageLabel.textContent = "Page " + currentPage + " / " + pdfDoc.numPages;
     prevBtn.disabled = currentPage <= 1;
     nextBtn.disabled = currentPage >= pdfDoc.numPages;
     var single = pdfDoc.numPages < 2;

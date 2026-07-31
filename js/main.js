@@ -107,6 +107,20 @@
   const items = HIGHLIGHTS.slice().sort((a, b) => b.date.localeCompare(a.date));
   const years = [...new Set(items.map((i) => i.date.slice(0, 4)))];
 
+  function orgAnchor(name, href) {
+    if (!href) {
+      const s = document.createElement("span");
+      s.textContent = name;
+      return s;
+    }
+    const a = document.createElement("a");
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = name;
+    return a;
+  }
+
   function row(item) {
     const li = document.createElement("li");
     li.className = "hl-row";
@@ -115,18 +129,31 @@
     date.textContent = "[" + item.date + "]";
     li.appendChild(date);
     li.appendChild(document.createTextNode(" "));
-    let text;
-    if (item.link) {
-      text = document.createElement("a");
-      text.href = item.link;
-      text.target = "_blank";
-      text.rel = "noopener";
+
+    if (item.org) {
+      // "Joined <org link> as a <bold role>."
+      li.appendChild(document.createTextNode("Joined "));
+      li.appendChild(orgAnchor(item.org, item.orgLink));
+      if (item.orgNote) li.appendChild(document.createTextNode(item.orgNote));
+      const article = /^[aeiou]/i.test(item.role) ? "an" : "a";
+      li.appendChild(document.createTextNode(" as " + article + " "));
+      const role = document.createElement("strong");
+      role.className = "hl-role";
+      role.textContent = item.role;
+      li.appendChild(role);
+      li.appendChild(document.createTextNode("."));
     } else {
-      text = document.createElement("span");
+      // plain text; only the linkText words become the link
+      const text = item.text || "";
+      const idx = item.link && item.linkText ? text.indexOf(item.linkText) : -1;
+      if (idx !== -1) {
+        li.appendChild(document.createTextNode(text.slice(0, idx)));
+        li.appendChild(orgAnchor(item.linkText, item.link));
+        li.appendChild(document.createTextNode(text.slice(idx + item.linkText.length)));
+      } else {
+        li.appendChild(document.createTextNode(text));
+      }
     }
-    text.className = "hl-text";
-    text.textContent = item.text;
-    li.appendChild(text);
     return li;
   }
 

@@ -668,7 +668,6 @@
 }
 
 .contact-form {
-  max-width: 52rem;
   display: grid;
   gap: 0.9rem;
 }

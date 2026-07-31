@@ -102,9 +102,12 @@
 }
 
 /* ---------- Two-column layout ---------- */
+/* Sidebar + content composition centered as a unit: fixed sidebar column,
+   capped content column, comparable left/right page margins */
 .layout {
   display: grid;
-  grid-template-columns: 330px 1fr;
+  grid-template-columns: 330px minmax(0, 800px);
+  justify-content: center;
   gap: 3.5rem;
   align-items: start;
   padding-top: 3rem;
@@ -130,13 +133,19 @@
 /* ---------- Responsive layout ---------- */
 @media (max-width: 900px) {
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
     padding-top: 2rem;
   }
 
   .sidebar {
     position: static;
+  }
+
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
   }
 }
 

@@ -141,10 +141,8 @@
   font-size: 0.95rem;
 }
 
-/* Prose blocks: plain first-person paragraphs (About) */
-.prose {
-  max-width: 68ch;
-}
+/* Prose blocks: plain first-person paragraphs (About).
+   Width is governed by the shared content column (see .layout). */
 
 .prose p {
   color: var(--text-muted);
@@ -158,7 +156,6 @@
 
 .lead {
   color: var(--text-muted);
-  max-width: 46rem;
   font-size: 1.02rem;
 }
 
@@ -188,12 +185,19 @@
   color: var(--accent);
 }
 
-a.hl-text {
-  color: var(--text-muted);
+/* Only organization / paper names are links; roles are bold plain text */
+.hl-row a {
+  color: var(--accent);
 }
 
-a.hl-text:hover {
-  color: var(--accent);
+.hl-row a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hl-role {
+  font-weight: 600;
+  color: var(--text);
 }
 
 /* ---------- Publication ---------- */
@@ -204,7 +208,6 @@ a.hl-text:hover {
   border-radius: var(--radius-xl);
   padding: 1.6rem 1.7rem;
   box-shadow: var(--shadow);
-  max-width: 46rem;
 }
 
 .pub-badge {
@@ -318,14 +321,17 @@ a.hl-text:hover {
   border-radius: 2px;
 }
 
-/* Two-column rows: fixed right-aligned date column + content, sharing one
-   baseline so every date lines up down the page */
+/* Two-column rows: fixed right-aligned date column + content. The date and
+   the role heading use different font sizes, so baseline alignment alone
+   left them visually offset — instead both first lines get the SAME fixed
+   line-height (1.4rem) and the row top-aligns, making the line boxes
+   coincide exactly. */
 .timeline-item {
   position: relative;
   display: grid;
   grid-template-columns: 10rem 1fr;
   gap: 1.1rem;
-  align-items: baseline;
+  align-items: start;
   padding: 0.7rem 0;
 }
 
@@ -348,10 +354,12 @@ a.hl-text:hover {
   font-variant-numeric: tabular-nums;
   text-align: right;
   white-space: nowrap;
+  line-height: 1.4rem; /* fixed: must match .timeline-what h4 */
 }
 
 .timeline-what h4 {
   font-size: 0.99rem;
+  line-height: 1.4rem; /* fixed: must match .timeline-when */
   margin-bottom: 0.25rem;
 }
 
@@ -443,7 +451,6 @@ a.hl-text:hover {
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1rem;
   margin-top: 1.5rem;
-  max-width: 52rem;
 }
 
 .contact-card {
