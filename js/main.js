@@ -1,5 +1,6 @@
-// Theme toggle: persists choice in localStorage; LIGHT is the default
-// when no preference is stored.
+// Theme toggle: persists choice in localStorage; LIGHT is the default when no
+// preference is stored. The icon shows the CURRENT theme (☀️ light, 🌙 dark);
+// the label/tooltip describes the ACTION the click performs.
 (function () {
   const root = document.documentElement;
   const toggle = document.getElementById("theme-toggle");
@@ -9,14 +10,25 @@
     return root.getAttribute("data-theme") || "light";
   }
 
+  function sync(theme) {
+    if (icon) icon.textContent = theme === "dark" ? "🌙" : "☀️";
+    if (toggle) {
+      const action = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+      toggle.setAttribute("aria-label", action);
+      toggle.title = action;
+    }
+  }
+
   function apply(theme) {
     root.setAttribute("data-theme", theme);
-    if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
+    sync(theme);
   }
 
   const saved = localStorage.getItem("theme");
   if (saved === "dark" || saved === "light") {
     apply(saved);
+  } else {
+    sync(currentTheme());
   }
 
   if (toggle) {

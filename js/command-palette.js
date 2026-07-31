@@ -31,15 +31,17 @@
     };
   }
 
+  // `keywords` are extra search aliases (numbers, ASCII spellings, synonyms).
+  // Adding a new alias is a one-line change on the entry.
   var ACTIONS = [
-    { label: "Jump to About", hint: "01", run: jump("about") },
-    { label: "Jump to Highlights", hint: "02", run: jump("highlights") },
-    { label: "Jump to Experience", hint: "03", run: jump("experience") },
-    { label: "Jump to Projects", hint: "04", run: jump("projects") },
-    { label: "Jump to Publication", hint: "05", run: jump("publications") },
-    { label: "Jump to Skills", hint: "06", run: jump("skills") },
-    { label: "Jump to Education", hint: "07", run: jump("education") },
-    { label: "Jump to Contact", hint: "08", run: jump("contact") },
+    { label: "Jump to About", hint: "01", keywords: ["01", "1"], run: jump("about") },
+    { label: "Jump to Highlights", hint: "02", keywords: ["02", "2", "news"], run: jump("highlights") },
+    { label: "Jump to Experience", hint: "03", keywords: ["03", "3"], run: jump("experience") },
+    { label: "Jump to Projects", hint: "04", keywords: ["04", "4"], run: jump("projects") },
+    { label: "Jump to Publication", hint: "05", keywords: ["05", "5", "paper"], run: jump("publications") },
+    { label: "Jump to Skills", hint: "06", keywords: ["06", "6"], run: jump("skills") },
+    { label: "Jump to Education", hint: "07", keywords: ["07", "7"], run: jump("education") },
+    { label: "Jump to Contact", hint: "08", keywords: ["08", "8", "email form"], run: jump("contact") },
     {
       label: "Copy email",
       hint: EMAIL,
@@ -52,6 +54,7 @@
     {
       label: "Open résumé",
       hint: "PDF",
+      keywords: ["resume", "cv", "pdf"],
       run: function () {
         var btn = document.getElementById("resume-open");
         if (btn) btn.click();
@@ -77,9 +80,13 @@
   ];
 
   // ---- Fuzzy match: query chars in order; tighter runs score higher ------
+  // Both sides are folded to plain ASCII (NFD + strip combining marks) so
+  // accented labels like "résumé" match a plain "resume" query.
+  function fold(s) {
+    return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
   function fuzzyScore(query, text) {
-    query = query.toLowerCase();
-    text = text.toLowerCase();
     if (!query) return 1;
     var score = 0;
     var ti = 0;
@@ -92,6 +99,17 @@
       ti = found + 1;
     }
     return score;
+  }
+
+  // Best score across the label and every keyword alias
+  function actionScore(query, action) {
+    var q = fold(query);
+    var best = fuzzyScore(q, fold(action.label));
+    (action.keywords || []).forEach(function (k) {
+      var s = fuzzyScore(q, fold(k));
+      if (s > best) best = s;
+    });
+    return best;
   }
 
   // ---- Build DOM ---------------------------------------------------------
@@ -123,7 +141,7 @@
   function render() {
     var q = input.value.trim();
     results = ACTIONS
-      .map(function (a) { return { action: a, score: fuzzyScore(q, a.label) }; })
+      .map(function (a) { return { action: a, score: actionScore(q, a) }; })
       .filter(function (r) { return r.score >= 0; })
       .sort(function (a, b) { return b.score - a.score; })
       .map(function (r) { return r.action; });
