@@ -555,16 +555,30 @@
   margin-top: 0.5rem;
 }
 
+/* svg-pan-zoom removes the viewBox, so the container owns the aspect */
+.fp-map {
+  aspect-ratio: 1010 / 666;
+  cursor: grab;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.fp-map:active {
+  cursor: grabbing;
+}
+
 .fp-map svg {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .fp-map path {
   fill: #ececec;
   stroke: #ffffff;
   stroke-width: 0.5;
+  vector-effect: non-scaling-stroke; /* hairline borders at every zoom */
 }
 
 .fp-map path.visited {
@@ -578,6 +592,98 @@
   filter: brightness(1.35);
 }
 
+/* Semantic zoom: prebuilt CN/US province/state layers crossfade in past the
+   detail threshold; the flat country shapes fade out. Class toggles only. */
+.fp-map .fp-has-detail,
+.fp-map .fp-detail-layer {
+  transition: opacity 0.25s ease;
+}
+
+.fp-map .fp-detail-layer {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fp-map .fp-zoomed .fp-detail-layer {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fp-map .fp-zoomed .fp-has-detail {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fp-map .fp-detail-layer .borders path,
+.fp-map .fp-detail-layer .separator1 {
+  fill: none;
+  pointer-events: none;
+}
+
+.fp-map .fp-detail-layer .dccircle {
+  display: none;
+}
+
+/* City dots: appear past the deeper zoom threshold */
+.fp-map .fp-cities {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.fp-map .fp-cities-on .fp-cities {
+  opacity: 1;
+}
+
+.fp-city circle {
+  fill: #274c72;
+  stroke: #ffffff;
+  stroke-width: 0.5;
+}
+
+.fp-city text {
+  font-family: var(--font-body);
+  font-size: 3px;
+  font-weight: 600;
+  fill: #17202c;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 0.7px;
+}
+
+/* Zoom controls: thumb-sized, site button styling */
+.fp-zoom-controls {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  z-index: 6;
+}
+
+.fp-zoom-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.fp-zoom-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 :root[data-theme="dark"] .fp-map path {
   fill: #232e42;
   stroke: #0b0f19;
@@ -585,6 +691,16 @@
 
 :root[data-theme="dark"] .fp-map path.visited {
   fill: #7fa3c9;
+}
+
+:root[data-theme="dark"] .fp-city circle {
+  fill: #7fa3c9;
+  stroke: #0b0f19;
+}
+
+:root[data-theme="dark"] .fp-city text {
+  fill: #e5eaf3;
+  stroke: #0b0f19;
 }
 
 /* single reused tooltip; positioned via transform only */
