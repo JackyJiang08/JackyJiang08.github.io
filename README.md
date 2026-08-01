@@ -81,8 +81,11 @@ js/
   contact.js            # form submission + copy email
 assets/
   img/                  # headshot, favicons, Open Graph image
-  photos/               # gallery images, one folder per category
+  maps/                 # vendored world/CN/US SVG maps (see maps/LICENSES.md)
+  photos/               # gallery images (+ thumbs/), built by the photo pipeline
   resume/               # résumé PDFs (AI/ML and Data Analytics variants)
+scripts/
+  build-photos.mjs      # photo pipeline — see "Adding photos"
 sitemap.xml
 robots.txt
 ```
@@ -111,6 +114,23 @@ absolute paths.
   in `css/tokens.css`; both palettes can be retuned from that one file.
 - **Content** — all copy is authored inline in `index.html`; there is no CMS or
   data file to keep in sync.
+
+## Adding photos
+
+Originals live in `photos-original/<Category>/` (git-ignored, never
+committed). The pipeline converts them to committed web assets:
+
+```bash
+npm install        # once — installs sharp
+# drop files into photos-original/<Category>/  (jpg, jpeg, png, heic)
+npm run photos     # builds assets/photos/**/*.webp + thumbs, regenerates js/data/photos.js
+# review the new entries, fill in dates/captions, then commit
+```
+
+Outputs: `assets/photos/<category>/<name>.webp` (long edge 1600 px) and
+`assets/photos/thumbs/<category>/<name>.webp` (long edge 400 px, used by the
+masonry grid). Hand-edited `caption`/`date` fields in `js/data/photos.js`
+survive regeneration (merged by photo id).
 
 ## Deployment
 

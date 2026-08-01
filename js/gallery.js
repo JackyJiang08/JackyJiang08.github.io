@@ -36,7 +36,7 @@
       btn.addEventListener("click", function () { openLightbox(visible, idx); });
 
       var img = document.createElement("img");
-      img.src = p.src;
+      img.src = p.thumb || p.src; // small tile image; the lightbox loads full src
       img.alt = p.caption;
       img.loading = "lazy";
       img.decoding = "async";

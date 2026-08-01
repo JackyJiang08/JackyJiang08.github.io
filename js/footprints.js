@@ -162,7 +162,7 @@
           b.className = "fp-thumb";
           b.setAttribute("aria-label", "View photo: " + p.caption);
           var img = document.createElement("img");
-          img.src = p.src;
+          img.src = p.thumb || p.src;
           img.alt = p.caption;
           img.loading = "lazy";
           img.decoding = "async";
