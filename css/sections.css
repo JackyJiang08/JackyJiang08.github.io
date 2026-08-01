@@ -555,82 +555,93 @@
 
 
 
-/* ---------- Footprints map ---------- */
+/* ---------- Footprints map (composite, GPU camera) ---------- */
 .fp-wrap {
   position: relative;
   margin-top: 0.5rem;
 }
 
-/* svg-pan-zoom removes the viewBox, so the container owns the aspect */
+/* container owns the aspect (matches the composite viewBox 1000x520) */
 .fp-map {
-  aspect-ratio: 1010 / 666;
-  cursor: grab;
+  aspect-ratio: 1000 / 520;
   overflow: hidden;
+  cursor: grab;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
+  touch-action: pan-y; /* one-finger scrolls the page; two fingers pan/zoom */
 }
 
 .fp-map:active {
   cursor: grabbing;
 }
 
-.fp-map svg {
+/* the camera: the ONLY element written to during pan/zoom */
+.fp-cam {
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.fp-cam svg {
   display: block;
   width: 100%;
   height: 100%;
 }
 
+/* --fp-sw counter-scales stroke width (set from JS in coarse buckets) so
+   borders stay hairline while zoomed */
 .fp-map path {
   fill: #ececec;
   stroke: #ffffff;
-  stroke-width: 0.5;
-  vector-effect: non-scaling-stroke; /* hairline borders at every zoom */
+  stroke-width: calc(var(--fp-sw, 0.5) * 1px);
 }
 
-.fp-map path.visited {
+.fp-map #countries path.visited {
   fill: #274c72;
   fill-opacity: 0.85;
   cursor: pointer;
   transition: filter 0.12s ease;
 }
 
-.fp-map path.visited:hover {
+.fp-map #countries path.visited:hover {
   filter: brightness(1.35);
 }
 
-/* Semantic zoom: prebuilt CN/US province/state layers crossfade in past the
-   detail threshold; the flat country shapes fade out. Class toggles only. */
-.fp-map .fp-has-detail,
-.fp-map .fp-detail-layer {
+/* Semantic zoom: past the threshold the CN/US country fills crossfade to
+   their admin-1 groups. Prebuilt nodes; class toggles only. */
+.fp-map #countries path,
+.fp-map g[id^="admin1-"] {
   transition: opacity 0.25s ease;
 }
 
-.fp-map .fp-detail-layer {
+.fp-map g[id^="admin1-"] {
   opacity: 0;
   pointer-events: none;
 }
 
-.fp-map .fp-zoomed .fp-detail-layer {
+.fp-map .fp-zoomed g[id^="admin1-"] {
   opacity: 1;
   pointer-events: auto;
 }
 
-.fp-map .fp-zoomed .fp-has-detail {
+.fp-map .fp-zoomed #countries path#c-CN,
+.fp-map .fp-zoomed #countries path#c-US {
   opacity: 0;
   pointer-events: none;
 }
 
-.fp-map .fp-detail-layer .borders path,
-.fp-map .fp-detail-layer .separator1 {
-  fill: none;
-  pointer-events: none;
+.fp-map g[id^="admin1-"] path.visited {
+  fill: #274c72;
+  fill-opacity: 0.85;
 }
 
-.fp-map .fp-detail-layer .dccircle {
-  display: none;
+.fp-map g[id^="admin1-"] path.visited:hover {
+  filter: brightness(1.35);
 }
 
-/* City dots: appear past the deeper zoom threshold */
+/* City dots: appear past the deep-zoom threshold; sizes counter-scaled so
+   they stay readable at any zoom */
 .fp-map .fp-cities {
   opacity: 0;
   pointer-events: none;
@@ -642,20 +653,51 @@
 }
 
 .fp-city circle {
+  r: calc(var(--fp-inv, 1) * 4px);
   fill: #274c72;
   stroke: #ffffff;
-  stroke-width: 0.5;
+  stroke-width: calc(var(--fp-inv, 1) * 1px);
 }
 
 .fp-city text {
   font-family: var(--font-body);
-  font-size: 3px;
+  font-size: calc(var(--fp-inv, 1) * 9px);
   font-weight: 600;
   fill: #17202c;
   text-anchor: middle;
+  transform: translateY(calc(var(--fp-inv, 1) * -7px));
   paint-order: stroke;
   stroke: #ffffff;
-  stroke-width: 0.7px;
+  stroke-width: calc(var(--fp-inv, 1) * 2px);
+}
+
+/* single reused tooltip; positioned via transform only */
+.fp-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.22rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text);
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+  will-change: transform;
+}
+
+.fp-tip.muted {
+  color: var(--text-muted);
+}
+
+@media (pointer: coarse) {
+  .fp-tip {
+    display: none;
+  }
 }
 
 /* Zoom controls: thumb-sized, site button styling */
@@ -690,12 +732,105 @@
   border-color: var(--accent);
 }
 
+/* ---------- Stat rings (heading row) ---------- */
+.fp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.fp-rings {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.fp-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ring-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.ring-wrap svg {
+  transform: rotate(-90deg); /* arc starts at 12 o'clock */
+}
+
+.ring-track,
+.ring-fill {
+  fill: none;
+  stroke-width: 6;
+}
+
+.ring-track {
+  stroke: var(--bg-alt);
+}
+
+.ring-fill {
+  stroke: #274c72;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.9s ease;
+}
+
+:root[data-theme="dark"] .ring-fill {
+  stroke: #7fa3c9;
+}
+
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.ring-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.ring-of {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.ring-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .fp-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fp-rings {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 :root[data-theme="dark"] .fp-map path {
   fill: #232e42;
   stroke: #0b0f19;
 }
 
-:root[data-theme="dark"] .fp-map path.visited {
+:root[data-theme="dark"] .fp-map #countries path.visited,
+:root[data-theme="dark"] .fp-map g[id^="admin1-"] path.visited {
   fill: #7fa3c9;
 }
 
@@ -709,161 +844,6 @@
   stroke: #0b0f19;
 }
 
-/* single reused tooltip; positioned via transform only */
-.fp-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 5;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.22rem 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text);
-  white-space: nowrap;
-  box-shadow: var(--shadow);
-  will-change: transform;
-}
-
-.fp-tip.muted {
-  color: var(--text-muted);
-}
-
-/* touch devices: no hover tooltip — tap opens the country modal instead */
-@media (pointer: coarse) {
-  .fp-tip {
-    display: none;
-  }
-}
-
-/* Country modal: detail map + region list */
-.modal-country .modal-panel {
-  width: min(580px, 100%);
-}
-
-.modal-country .modal-body {
-  overflow-y: auto;
-}
-
-.fp-detail {
-  position: relative;
-  margin: 0.9rem 0 1.1rem;
-}
-
-.fp-detail svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.fp-detail path {
-  fill: #ececec;
-  stroke: #ffffff;
-  stroke-width: 0.75;
-}
-
-/* usa.svg draws state borders as a separate stroke-only layer */
-.fp-detail .borders path,
-.fp-detail .separator1 {
-  fill: none;
-  pointer-events: none;
-}
-
-.fp-detail .dccircle {
-  display: none;
-}
-
-.fp-detail path.visited {
-  fill: #274c72;
-  fill-opacity: 0.85;
-  cursor: pointer;
-  transition: filter 0.12s ease;
-}
-
-.fp-detail path.visited:hover {
-  filter: brightness(1.35);
-}
-
-:root[data-theme="dark"] .fp-detail path {
-  fill: #232e42;
-  stroke: #0b0f19;
-}
-
-:root[data-theme="dark"] .fp-detail .borders path {
-  fill: none;
-}
-
-:root[data-theme="dark"] .fp-detail path.visited {
-  fill: #7fa3c9;
-}
-
-.fp-region-list {
-  list-style: none;
-  display: grid;
-  gap: 0.55rem;
-  margin-top: 0.6rem;
-}
-
-.fp-region-list li {
-  padding: 0.35rem 0.5rem;
-  border-radius: var(--radius-sm);
-}
-
-.fp-region-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-}
-
-.fp-region-list li.flash {
-  animation: fp-flash 1.4s ease;
-}
-
-@keyframes fp-flash {
-  0% { background: var(--accent-soft); }
-  100% { background: transparent; }
-}
-
-/* region photo strip (thumbnails created only when the modal opens) */
-.fp-thumbs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-top: 0.45rem;
-}
-
-.fp-thumb {
-  width: 64px;
-  height: 48px;
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: none;
-  overflow: hidden;
-  cursor: zoom-in;
-}
-
-.fp-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.fp-region-name {
-  font-size: 0.95rem;
-}
-
-.fp-region-date {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
 
 /* ---------- Featured carousel (misc.html Albums) ---------- */
 .carousel {

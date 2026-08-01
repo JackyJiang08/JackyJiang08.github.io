@@ -144,10 +144,42 @@
 
     <!-- Section III — Footprints: interactive world map (lazy-initialized) -->
     <section id="footprints" class="section">
-      <h2><span class="section-index">III.</span> Footprints</h2>
-      <p class="section-sub">Countries I've visited &mdash; click a highlighted one for details.</p>
+      <div class="fp-head">
+        <h2><span class="section-index">III.</span> Footprints</h2>
+        <div class="fp-rings" id="fp-rings">
+          <div class="fp-ring">
+            <div class="ring-wrap">
+              <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+                <circle class="ring-track" cx="36" cy="36" r="30" />
+                <circle class="ring-fill" id="ring-countries" cx="36" cy="36" r="30" />
+              </svg>
+              <div class="ring-center">
+                <span class="ring-num" id="ring-countries-num">0</span>
+                <span class="ring-of">OF 195</span>
+              </div>
+            </div>
+            <span class="ring-label">countries</span>
+          </div>
+          <div class="fp-ring">
+            <div class="ring-wrap">
+              <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+                <circle class="ring-track" cx="36" cy="36" r="30" />
+                <circle class="ring-fill" id="ring-states" cx="36" cy="36" r="30" />
+              </svg>
+              <div class="ring-center">
+                <span class="ring-num" id="ring-states-num">0</span>
+                <span class="ring-of">OF 50</span>
+              </div>
+            </div>
+            <span class="ring-label">states</span>
+          </div>
+        </div>
+      </div>
+      <p class="section-sub">Countries I've visited &mdash; click a highlighted one to zoom in; scroll or pinch to explore.</p>
       <div class="fp-wrap">
-        <div class="fp-map" id="fp-map" aria-label="World map of visited countries"></div>
+        <div class="fp-map" id="fp-map" aria-label="World map of visited countries">
+          <div class="fp-cam" id="fp-cam"></div>
+        </div>
         <div class="fp-tip" id="fp-tip" hidden aria-hidden="true"></div>
       </div>
     </section>
@@ -160,8 +192,6 @@
   <script src="js/data/photos.js" defer></script>
   <script src="js/data/footprints.js" defer></script>
   <script src="js/gallery.js" defer></script>
-  <script src="js/modal.js" defer></script>
-  <script src="js/vendor/svg-pan-zoom.min.js" defer></script>
   <script src="js/footprints.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>

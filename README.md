@@ -82,11 +82,14 @@ js/
   contact.js            # form submission + copy email
 assets/
   img/                  # headshot, favicons, Open Graph image
-  maps/                 # vendored world/CN/US SVG maps (see maps/LICENSES.md)
+  maps/                 # generated composite map + LICENSES.md (Natural Earth, PD)
   photos/               # gallery images (+ thumbs/), built by the photo pipeline
   resume/               # résumé PDFs (AI/ML and Data Analytics variants)
+data/
+  maps-src/             # Natural Earth source data for the map build
 scripts/
   build-photos.mjs      # photo pipeline — see "Adding photos"
+  build-map.mjs         # composite map builder (npm run map)
 sitemap.xml
 robots.txt
 ```
