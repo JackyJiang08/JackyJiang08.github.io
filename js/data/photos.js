@@ -47,15 +47,5 @@ const PHOTOS = [
     featured: true,
     w: 1200,
     h: 900
-  },
-  {
-    id: "pipeline-e2e",
-    src: "assets/photos/2025-02/pipeline-e2e.webp",
-    thumb: "assets/photos/thumbs/2025-02/pipeline-e2e.webp",
-    caption: "pipeline e2e",
-    date: "2025-02",
-    featured: true,
-    w: 1100,
-    h: 800
   }
 ];
