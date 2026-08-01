@@ -57,7 +57,7 @@ const FOOTPRINTS = {
     { name: "Connecticut" },
     { name: "Indiana", cities: [ { name: "Indianapolis", lat: 39.77, lng: -86.16 } ] },
     { name: "Texas", cities: [ { name: "Dallas", lat: 32.78, lng: -96.80 } ] },
-    { name: "Illinois", cities: [
+    { name: "Illinois", photoIds: ["pipeline-e2e"], cities: [
       { name: "Champaign", lat: 40.12, lng: -88.24 },
       { name: "Chicago", lat: 41.88, lng: -87.63 } ] },
   ] },

@@ -26,7 +26,7 @@ const PHOTOS = [
     date: "2025-08",
     featured: true,
     w: 1200,
-    h: 800,
+    h: 800
   },
   {
     id: "dusk-01",
@@ -36,7 +36,7 @@ const PHOTOS = [
     date: "2025-06",
     featured: true,
     w: 900,
-    h: 1200,
+    h: 1200
   },
   {
     id: "quad-01",
@@ -46,6 +46,16 @@ const PHOTOS = [
     date: "2025-04",
     featured: true,
     w: 1200,
-    h: 900,
+    h: 900
   },
+  {
+    id: "pipeline-e2e",
+    src: "assets/photos/2025-02/pipeline-e2e.webp",
+    thumb: "assets/photos/thumbs/2025-02/pipeline-e2e.webp",
+    caption: "pipeline e2e",
+    date: "2025-02",
+    featured: true,
+    w: 1100,
+    h: 800
+  }
 ];
