@@ -30,7 +30,7 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 }
 
-// Round to 1 decimal and thin sub-pixel points. Operates on geoPath's
+// Round to 2 decimals and thin sub-pixel points. Operates on geoPath's
 // OUTPUT string so d3's antimeridian clipping is preserved.
 function simplifyPath(d, tol) {
   const out = [];
@@ -53,7 +53,7 @@ function simplifyPath(d, tol) {
   let s = "";
   for (const t of out) {
     if (t === "Z") { s += "Z"; continue; }
-    s += t.cmd + (Math.round(t.px * 10) / 10) + " " + (Math.round(t.py * 10) / 10);
+    s += t.cmd + (Math.round(t.px * 100) / 100) + " " + (Math.round(t.py * 100) / 100);
   }
   return s;
 }
@@ -76,13 +76,13 @@ async function main() {
   const countries = a0.features
     .filter((f) => f.properties.iso_a2 && f.properties.iso_a2 !== "-99")
     .map((f) => {
-      const d = simplifyPath(path(f.geometry), 0.55);
+      const d = simplifyPath(path(f.geometry), 0.4);
       return `<path id="c-${f.properties.iso_a2}" name="${esc(f.properties.name)}" d="${d}"/>`;
     });
 
   function admin1(fc, cc) {
     return fc.features.map((f) => {
-      const d = simplifyPath(path(f.geometry), 0.3);
+      const d = simplifyPath(path(f.geometry), 0.25);
       return `<path id="r-${cc}-${slug(f.properties.name)}" name="${esc(f.properties.name)}" d="${d}"/>`;
     });
   }
@@ -108,7 +108,7 @@ async function main() {
   }
   console.log(`projection replication max error: ${maxErr.toExponential(2)} px`);
 
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vbW} ${vbH}" aria-label="World map"
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vbW} ${vbH}" aria-label="World map" shape-rendering="geometricPrecision"
   data-proj-k="${k}" data-proj-tx="${tx}" data-proj-ty="${ty}">
 <g id="countries">
 ${countries.join("\n")}
