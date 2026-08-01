@@ -650,6 +650,11 @@
 
 .fp-map .fp-cities-on .fp-cities {
   opacity: 1;
+  pointer-events: auto; /* dots become clickable once visible */
+}
+
+.fp-map .fp-cities-on .fp-city {
+  cursor: pointer;
 }
 
 .fp-city circle {

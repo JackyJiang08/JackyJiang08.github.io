@@ -48,6 +48,7 @@
   var cur = { s: 1, x: 0, y: 0 };      // live transform (relative to baseline)
   var target = { s: 1, x: 0, y: 0 };
   var anim = null;
+  var doneCb = null;
   var rafId = null;
   var settleTimer = null;
   var dragging = false;
@@ -110,12 +111,19 @@
       cur.x = anim.from.x + (anim.to.x - anim.from.x) * e;
       cur.y = anim.from.y + (anim.to.y - anim.from.y) * e;
       if (t >= 1) {
+        var done = anim.onDone;
         anim = null;
         markActivity(); // schedule the settle bake
+        if (done) doneCb = done;
       }
     }
     apply();        // the one per-frame DOM write
     thresholds();   // toggles/vars only on change
+    if (doneCb) {
+      var cb = doneCb;
+      doneCb = null;
+      cb();
+    }
     if (anim) schedule();
   }
 
@@ -123,10 +131,10 @@
     if (rafId === null) rafId = requestAnimationFrame(frame);
   }
 
-  function animateTo(s, x, y, dur) {
+  function animateTo(s, x, y, dur, onDone) {
     var to = clampT({ x: x, y: y }, s);
     target = { s: s, x: to.x, y: to.y };
-    anim = { from: { s: cur.s, x: cur.x, y: cur.y }, to: target, t0: performance.now(), dur: dur || 140 };
+    anim = { from: { s: cur.s, x: cur.x, y: cur.y }, to: target, t0: performance.now(), dur: dur || 140, onDone: onDone };
     schedule();
   }
 
@@ -210,6 +218,7 @@
 
   // ---- Build-once decorations -------------------------------------------
   var regionMeta = {};
+  var cityList = []; // indexed by data-ci on the dot groups
   var bboxCache = {};
 
   function decorate() {
@@ -248,6 +257,8 @@
           var pt = proj(city.lat, city.lng);
           var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
           g.setAttribute("class", "fp-city");
+          g.dataset.ci = String(cityList.length);
+          cityList.push(city);
           g.setAttribute("transform", "translate(" + pt.x.toFixed(2) + " " + pt.y.toFixed(2) + ")");
           var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           dot.setAttribute("r", "1.4");
@@ -296,24 +307,42 @@
     return { x: x0, y: y0, width: x1 - x0, height: y1 - y0 };
   }
 
-  function zoomToCountry(code) {
+  function countryFit(code) {
     var d = FOOTPRINTS[code] || {};
     var bb;
     if (d.zoomBox && ZOOM_BOXES[d.zoomBox]) {
       bb = bboxCache[code] || (bboxCache[code] = boxToSvgRect(ZOOM_BOXES[d.zoomBox]));
     } else {
       var p = svg.querySelector('[id="c-' + code + '"]');
-      if (!p) return;
+      if (!p) return null;
       bb = bboxCache[code] || (bboxCache[code] = p.getBBox());
     }
-    closePopover();
     var effTarget = Math.min(EFF_MAX, Math.max(EFF_MIN,
       0.85 * Math.min(VW0 / bb.width, VH0 / bb.height)));
-    var s = effTarget / baseZoom();
+    return { bb: bb, effTarget: effTarget };
+  }
+
+  // is the camera already framing this country? (zoomed near its fit level
+  // with the view center inside its padded bounding box)
+  function isFramed(fit) {
+    if (effZoom() < fit.effTarget * 0.7) return false;
     var ppu = W / vb.w;
-    var cx = (bb.x + bb.width / 2 - vb.x) * ppu;
-    var cy = (bb.y + bb.height / 2 - vb.y) * ppu;
-    animateTo(s, W / 2 - cx * s, H / 2 - cy * s, 420);
+    var cxSvg = vb.x + (W / 2 - cur.x) / (cur.s * ppu);
+    var cySvg = vb.y + (H / 2 - cur.y) / (cur.s * ppu);
+    var padX = fit.bb.width * 0.3, padY = fit.bb.height * 0.3;
+    return cxSvg >= fit.bb.x - padX && cxSvg <= fit.bb.x + fit.bb.width + padX &&
+           cySvg >= fit.bb.y - padY && cySvg <= fit.bb.y + fit.bb.height + padY;
+  }
+
+  function zoomToCountry(code, onDone) {
+    var fit = countryFit(code);
+    if (!fit) return;
+    closePopover();
+    var s = fit.effTarget / baseZoom();
+    var ppu = W / vb.w;
+    var cx = (fit.bb.x + fit.bb.width / 2 - vb.x) * ppu;
+    var cy = (fit.bb.y + fit.bb.height / 2 - vb.y) * ppu;
+    animateTo(s, W / 2 - cx * s, H / 2 - cy * s, 420, onDone);
     markActivity();
   }
 
@@ -333,6 +362,26 @@
 
   function closePopover() {
     if (pop) pop.hidden = true;
+  }
+
+  // country album scope: own photoIds + every region's + every city's
+  function countryPhotoIds(d) {
+    var ids = (d.photoIds || []).slice();
+    (d.regions || []).forEach(function (rg) {
+      (rg.photoIds || []).forEach(function (id) {
+        if (ids.indexOf(id) === -1) ids.push(id);
+      });
+      (rg.cities || []).forEach(function (c) {
+        (c.photoIds || []).forEach(function (id) {
+          if (ids.indexOf(id) === -1) ids.push(id);
+        });
+      });
+    });
+    return ids;
+  }
+
+  function hasDetailLayer(code) {
+    return !!svg.querySelector("#admin1-" + code);
   }
 
   function photoById(id) {
@@ -485,6 +534,18 @@
 
     svg.addEventListener("click", function (e) {
       if (moved) return;
+
+      // city dot: its own popover (applies in every country, incl. CN/US)
+      var cityG = e.target.closest(".fp-city");
+      if (cityG) {
+        var c = cityList[parseInt(cityG.dataset.ci, 10)];
+        if (c) {
+          openPopover({ name: c.name, date: c.date, photoIds: c.photoIds || [] },
+            hostPoint(e));
+        }
+        return;
+      }
+
       var p = e.target.closest("path");
       if (!p) {
         closePopover(); // ocean click: only closes the popover — the world
@@ -501,8 +562,26 @@
       }
       closePopover();
       var code = countryOf(p);
-      if (code && FOOTPRINTS[code] && FOOTPRINTS[code].visited) {
+      var d = code && FOOTPRINTS[code];
+      if (!d || !d.visited) return;
+
+      if (hasDetailLayer(code)) {
+        // CN/US: click = zoom; popovers live at region/city level, and any
+        // top-level date/photoIds on these entries are ignored gracefully
         zoomToCountry(code);
+        return;
+      }
+
+      // country without an admin-1 layer: popover carries the country album
+      var data = { name: d.name, date: d.date, photoIds: countryPhotoIds(d) };
+      var fit = countryFit(code);
+      if (fit && isFramed(fit)) {
+        openPopover(data, hostPoint(e)); // already zoomed in: open in place
+      } else {
+        zoomToCountry(code, function () {
+          // anchored near the (now-centered) country, flip logic applies
+          openPopover(data, { x: W / 2 + 24, y: H / 2 - 24 });
+        });
       }
     });
     host.addEventListener("click", function (e) {

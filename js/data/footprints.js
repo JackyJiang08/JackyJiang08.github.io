@@ -2,9 +2,13 @@
 // Footprints data — countries, regions, and cities visited.
 //
 // Schema:
-//   "XX": { name, visited, zoomBox?, regions?: [
+//   "XX": { name, visited, zoomBox?, date?, photoIds?, regions?: [
 //     { name, slug?, date?, photoIds?, cities?: [
 //       { name, lat, lng, date?, photoIds? } ] } ] }
+//
+// Country-level date/photoIds feed the COUNTRY popover (countries without
+// an admin-1 detail layer — e.g. JP, SG). For CN/US they are ignored:
+// their popovers live at region/city level.
 //
 // Filling in details later:
 //   - date: "YYYY-MM" (e.g. "2024-07") on a region or a city — dates
