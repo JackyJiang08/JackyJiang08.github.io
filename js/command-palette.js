@@ -1,14 +1,13 @@
 // Command palette (Cmd/Ctrl-K) — vanilla JS, no libraries.
 //
-// Fuzzy-searchable actions: jump to any section, copy the contact email,
-// open the résumé viewer, open external profiles, toggle the theme.
+// Fuzzy-searchable actions: jump to any section, open the résumé viewer,
+// open external profiles, toggle the theme.
 // Accessibility: role=dialog + listbox/option with aria-activedescendant,
 // arrow-key navigation, focus trapped in the input while open, and focus
 // restored to the invoking element on close.
 (function () {
   "use strict";
 
-  var EMAIL = "jiangyuqing0508@outlook.com";
   var isMac = /Mac|iPhone|iPad/.test(navigator.platform);
 
   // ---- Actions -----------------------------------------------------------
@@ -43,15 +42,6 @@
     { label: "Jump to Skills", hint: "06", keywords: ["06", "6"], run: jump("skills") },
     { label: "Jump to Education", hint: "07", keywords: ["07", "7"], run: jump("education") },
     { label: "Jump to Contact", hint: "08", keywords: ["08", "8", "email form"], run: jump("contact") },
-    {
-      label: "Copy email",
-      hint: EMAIL,
-      run: function () {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(EMAIL);
-        }
-      },
-    },
     {
       label: "Open résumé",
       hint: "PDF",

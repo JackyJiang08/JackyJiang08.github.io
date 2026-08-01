@@ -2,7 +2,7 @@
   "name": "jackyjiang08.github.io",
   "private": true,
   "type": "module",
-  "description": "Personal website — static HTML/CSS/JS; npm is used only for the photo build pipeline.",
+  "description": "Personal website \u2014 static HTML/CSS/JS; npm is used only for the photo build pipeline.",
   "scripts": {
     "photos": "node scripts/build-photos.mjs",
     "map": "node scripts/build-map.mjs"
@@ -11,5 +11,6 @@
     "d3-geo": "^3.1.1",
     "exif-reader": "^2.0.3",
     "sharp": "^0.33.5"
-  }
+  },
+  "license": "CC-BY-NC-SA-4.0"
 }

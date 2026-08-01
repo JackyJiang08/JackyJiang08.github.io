@@ -79,7 +79,7 @@
     attributeFilter: ["data-theme"],
   });
 
-  // ---- Click ripple + spark burst (original code, MIT) -------------------
+  // ---- Click ripple + spark burst (original code) ------------------------
   var canvas = document.getElementById("bg-canvas");
   if (!canvas) return;
   var ctx = canvas.getContext("2d");
