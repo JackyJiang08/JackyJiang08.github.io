@@ -40,6 +40,11 @@
       img.alt = p.caption;
       img.loading = "lazy";
       img.decoding = "async";
+      // intrinsic dimensions reserve space before load — no layout shift
+      if (p.w && p.h) {
+        img.width = p.w;
+        img.height = p.h;
+      }
       btn.appendChild(img);
 
       var cap = document.createElement("figcaption");
