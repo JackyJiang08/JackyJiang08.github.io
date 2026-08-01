@@ -684,9 +684,15 @@
   padding: 0.8rem 0.95rem;
 }
 
+.fp-pop-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.9rem;
+}
+
 .fp-pop-title {
   font-size: 0.95rem;
-  margin-bottom: 0.15rem;
 }
 
 .fp-pop-date {
@@ -696,21 +702,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.fp-pop-cities {
-  list-style: none;
-  margin-top: 0.4rem;
-  display: grid;
-  gap: 0.25rem;
-}
-
-.fp-pop-cities li {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.8rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
 
 .fp-pop-photos {
   display: flex;

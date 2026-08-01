@@ -20,6 +20,8 @@
 //     spans the antimeridian via Alaska, so it uses "conus".
 //   - cities need lat/lng to get a labeled dot at deep zoom; positions
 //     are never guessed.
+//   - countAsState: false — the region is colored/clickable like a state
+//     but excluded from the "States" stat ring (e.g. DC).
 // ============================================================
 
 const FOOTPRINTS = {
@@ -39,13 +41,17 @@ const FOOTPRINTS = {
       { name: "San Jose", lat: 37.34, lng: -121.89 },
       { name: "San Diego", lat: 32.72, lng: -117.16 } ] },
     { name: "Wyoming" }, { name: "Montana" }, { name: "Idaho" },
-    { name: "Utah" }, { name: "Colorado" }, { name: "Nevada" },
-    { name: "New York" },
+    { name: "Utah" }, { name: "Colorado" },
+    { name: "Nevada", cities: [ { name: "Las Vegas", lat: 36.17, lng: -115.14 } ] },
+    { name: "New York", cities: [ { name: "New York City", lat: 40.71, lng: -74.01 } ] },
+    { name: "District of Columbia", countAsState: false,
+      cities: [ { name: "Washington, D.C.", lat: 38.91, lng: -77.04 } ] },
     { name: "Florida", cities: [
       { name: "Orlando", lat: 28.54, lng: -81.38 },
       { name: "Tampa", lat: 27.95, lng: -82.46 } ] },
     { name: "Massachusetts", cities: [ { name: "Boston", lat: 42.36, lng: -71.06 } ] },
-    { name: "Connecticut" }, { name: "Indiana" },
+    { name: "Connecticut" },
+    { name: "Indiana", cities: [ { name: "Indianapolis", lat: 39.77, lng: -86.16 } ] },
     { name: "Texas", cities: [ { name: "Dallas", lat: 32.78, lng: -96.80 } ] },
     { name: "Illinois", cities: [
       { name: "Champaign", lat: 40.12, lng: -88.24 },

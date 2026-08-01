@@ -347,41 +347,24 @@
     ensurePop();
     pop.innerHTML = "";
 
+    // header row: bold name left, muted date right (omitted when unset)
+    var head = document.createElement("div");
+    head.className = "fp-pop-head";
     var title = document.createElement("h4");
     title.className = "fp-pop-title";
     title.textContent = rg.name;
-    pop.appendChild(title);
-
+    head.appendChild(title);
     if (rg.date) {
-      var dt = document.createElement("p");
+      var dt = document.createElement("span");
       dt.className = "fp-pop-date";
       dt.textContent = rg.date;
-      pop.appendChild(dt);
+      head.appendChild(dt);
     }
+    pop.appendChild(head);
 
-    var cities = rg.cities || [];
-    if (cities.length) {
-      var ul = document.createElement("ul");
-      ul.className = "fp-pop-cities";
-      cities.forEach(function (c) {
-        var li = document.createElement("li");
-        var n = document.createElement("span");
-        n.textContent = c.name;
-        li.appendChild(n);
-        if (c.date) {
-          var cd = document.createElement("span");
-          cd.className = "fp-pop-date";
-          cd.textContent = c.date;
-          li.appendChild(cd);
-        }
-        ul.appendChild(li);
-      });
-      pop.appendChild(ul);
-    }
-
-    // photos: region-level plus any city-level ids, deduped, in order
+    // single album entry point (city names already label the map dots)
     var ids = (rg.photoIds || []).slice();
-    cities.forEach(function (c) {
+    (rg.cities || []).forEach(function (c) {
       (c.photoIds || []).forEach(function (id) {
         if (ids.indexOf(id) === -1) ids.push(id);
       });
@@ -390,11 +373,15 @@
     if (photos.length) {
       var row = document.createElement("div");
       row.className = "fp-pop-photos";
-      var lbl = document.createElement("span");
-      lbl.className = "fp-pop-photos-label";
-      lbl.textContent = "View photos →";
+      var lbl = document.createElement("button");
+      lbl.type = "button";
+      lbl.className = "fp-pop-photos-label link-button";
+      lbl.textContent = "View album →";
+      lbl.addEventListener("click", function () {
+        if (window.SiteLightbox) window.SiteLightbox.open(photos, 0);
+      });
       row.appendChild(lbl);
-      photos.forEach(function (p, idx) {
+      photos.slice(0, 3).forEach(function (p, idx) {
         var b = document.createElement("button");
         b.type = "button";
         b.className = "fp-pop-thumb";
@@ -410,12 +397,10 @@
         row.appendChild(b);
       });
       pop.appendChild(row);
-    }
-
-    if (!rg.date && !photos.length && !cities.length) {
+    } else {
       var soon = document.createElement("p");
       soon.className = "fp-pop-soon";
-      soon.textContent = "Details coming soon.";
+      soon.textContent = "Photos coming soon.";
       pop.appendChild(soon);
     }
 
@@ -590,7 +575,9 @@
     var countries = Object.keys(FOOTPRINTS).filter(function (k) {
       return FOOTPRINTS[k].visited;
     }).length;
-    var states = ((FOOTPRINTS.US || {}).regions || []).length;
+    var states = ((FOOTPRINTS.US || {}).regions || []).filter(function (r) {
+      return r.countAsState !== false; // e.g. DC is visited but not a state
+    }).length;
 
     var defs = [
       { fill: "ring-states", num: "ring-states-num", value: states, total: 50 },

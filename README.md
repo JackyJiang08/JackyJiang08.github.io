@@ -128,8 +128,13 @@ committed). The pipeline converts them to committed web assets:
 npm install        # once — installs sharp
 # drop files into photos-original/<Category>/  (jpg, jpeg, png, heic)
 npm run photos     # builds assets/photos/**/*.webp + thumbs, regenerates js/data/photos.js
-# review the new entries, fill in dates/captions, then commit
+# review the new entries, adjust captions, then commit
 ```
+
+Ordering is automatic: each photo's `date` ("YYYY-MM") is read from EXIF
+`DateTimeOriginal` (file modification time as a fallback), and the album
+masonry, carousel, and lightbox all sort newest-first. To override, edit the
+`date` field in `js/data/photos.js` — manual values survive regeneration.
 
 Outputs: `assets/photos/<category>/<name>.webp` (long edge 1600 px) and
 `assets/photos/thumbs/<category>/<name>.webp` (long edge 400 px, used by the

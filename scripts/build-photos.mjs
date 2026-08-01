@@ -7,16 +7,18 @@
 //         assets/photos/thumbs/<category>/<name>.webp (long edge 400)
 //         js/data/photos.js regenerated from the outputs.
 //
-// Manual edits to caption/date in js/data/photos.js are PRESERVED across
+// Dates are auto-filled from EXIF DateTimeOriginal (file mtime as a
+// fallback). Manual edits to caption/date in js/data/photos.js are PRESERVED across
 // regenerations (merged by id). HEIC input requires a sharp build with
 // libheif; if yours lacks it, convert HEIC to JPG first.
 //
 // Usage: npm run photos
 
-import { readdir, mkdir, readFile, writeFile } from "node:fs/promises";
+import { readdir, mkdir, readFile, writeFile, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
+import exifReader from "exif-reader";
 
 const SRC_DIR = "photos-original";
 const OUT_DIR = "assets/photos";
@@ -83,6 +85,25 @@ async function main() {
       const thumbPath = path.join(thumbCat, `${base}.webp`);
 
       const image = sharp(srcFile, { failOn: "none" }).rotate();
+
+      // date: EXIF DateTimeOriginal → file mtime fallback → manual edits in
+      // photos.js always win on regeneration (merge-by-id below)
+      let autoDate = "";
+      try {
+        const meta = await sharp(srcFile).metadata();
+        if (meta.exif) {
+          const ex = exifReader(meta.exif);
+          const dt = (ex.Photo && ex.Photo.DateTimeOriginal) ||
+                     (ex.Image && ex.Image.DateTime);
+          if (dt instanceof Date && !Number.isNaN(dt.getTime())) {
+            autoDate = dt.toISOString().slice(0, 7);
+          }
+        }
+      } catch { /* unreadable EXIF: fall through to mtime */ }
+      if (!autoDate) {
+        autoDate = (await stat(srcFile)).mtime.toISOString().slice(0, 7);
+      }
+
       const full = await image
         .clone()
         .resize(1600, 1600, { fit: "inside", withoutEnlargement: true })
@@ -102,7 +123,7 @@ async function main() {
         category: catLabel,
         // manual edits survive regeneration:
         caption: old.caption || prettify(base),
-        date: old.date || "",
+        date: old.date || autoDate,
         featured: old.featured !== undefined ? old.featured : featuredByName,
         w: full.width,
         h: full.height,

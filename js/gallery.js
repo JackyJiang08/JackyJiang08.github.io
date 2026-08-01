@@ -11,8 +11,11 @@
 
   if (typeof PHOTOS === "undefined") return;
 
+  // newest first; undated photos sink to the bottom, ordered by filename
   var items = PHOTOS.slice().sort(function (a, b) {
-    return (b.date || "").localeCompare(a.date || "");
+    var d = (b.date || "").localeCompare(a.date || "");
+    if (d !== 0) return d;
+    return (a.id || a.src).localeCompare(b.id || b.src);
   });
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
