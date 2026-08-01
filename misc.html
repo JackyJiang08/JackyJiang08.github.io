@@ -132,15 +132,14 @@
       </ul>
     </section>
 
-    <!-- Section II — Albums (masonry gallery, filter chips, lightbox) -->
+    <!-- Section II — Albums: featured carousel; the full collection lives
+         on album.html. Rendered from js/data/photos.js (featured: true). -->
     <section id="albums" class="section">
       <h2><span class="section-index">II.</span> Albums</h2>
-      <p class="section-sub">
-        Amateur photos &mdash; astro, travel, and campus. Click any photo to view it large.
-      </p>
-      <!-- Rendered from js/data/photos.js — edit that file to add photos -->
-      <div class="filter-chips" role="toolbar" aria-label="Filter photos by category" id="photo-filters"></div>
-      <div class="photo-grid" id="photo-grid"></div>
+      <div class="carousel" id="album-carousel" aria-label="Featured photos">
+        <div class="carousel-track" id="carousel-track"></div>
+      </div>
+      <p class="album-link-row"><a class="more-link" href="album.html">View full album &rarr;</a></p>
     </section>
 
     <!-- Section III — Footprints: interactive world map (lazy-initialized) -->

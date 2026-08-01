@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Album — full photo collection by Yuqing (Jacky) Jiang." />
+  <title>Album — Yuqing (Jacky) Jiang</title>
+  <link rel="canonical" href="https://jackyjiang08.github.io/album.html" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/utilities.css" />
+  <!-- No background canvas: photos read best on a clean, plain background. -->
+  <script src="js/command-palette.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html">
+        <!-- Original line-art globe, drawn by hand for this site -->
+        <svg class="brand-globe" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <ellipse cx="12" cy="12" rx="4" ry="9" />
+          <ellipse cx="12" cy="12" rx="7.5" ry="9" />
+          <line x1="3.9" y1="8" x2="20.1" y2="8" />
+          <line x1="3.9" y1="16" x2="20.1" y2="16" />
+        </svg>
+        <span>Jacky Jiang</span>
+      </a>
+      <div class="nav-scroll">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#highlights">Highlights</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#publications">Publication</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#education">Education</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="misc.html" class="active" aria-current="page">Misc.</a></li>
+        </ul>
+      </div>
+      <button id="palette-hint" class="palette-hint" type="button" aria-label="Open command palette (Cmd or Ctrl + K)">
+        <kbd>⌘K</kbd>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <span class="theme-toggle-icon" aria-hidden="true">☀️</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="container page-single" id="main-content">
+    <p class="back-row">
+      <a class="button" href="misc.html">&larr; Back to Misc.</a>
+    </p>
+
+    <header class="misc-head">
+      <h1 class="misc-title">Album</h1>
+      <p class="misc-tagline">The full collection &mdash; click any photo to view it large.</p>
+    </header>
+
+    <!-- Masonry collage of ALL photos, rendered from js/data/photos.js -->
+    <div class="photo-grid" id="photo-grid"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year">2026</span> Yuqing Jiang &middot; Designed &amp; built with plain HTML/CSS</p>
+  </footer>
+
+  <script src="js/data/photos.js" defer></script>
+  <script src="js/gallery.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

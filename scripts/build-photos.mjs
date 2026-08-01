@@ -69,7 +69,14 @@ async function main() {
       .sort();
 
     for (const file of files) {
-      const base = path.basename(file, path.extname(file)).toLowerCase();
+      let base = path.basename(file, path.extname(file)).toLowerCase();
+      // "-feat" filename suffix marks the photo featured on first generation
+      // (the suffix is stripped from the public filename/id/caption)
+      let featuredByName = false;
+      if (base.endsWith("-feat")) {
+        featuredByName = true;
+        base = base.slice(0, -5);
+      }
       const id = `${catSlug}-${base}`;
       const srcFile = path.join(SRC_DIR, cat, file);
       const webPath = path.join(outCat, `${base}.webp`);
@@ -96,6 +103,7 @@ async function main() {
         // manual edits survive regeneration:
         caption: old.caption || prettify(base),
         date: old.date || "",
+        featured: old.featured !== undefined ? old.featured : featuredByName,
         w: full.width,
         h: full.height,
       });
@@ -108,9 +116,10 @@ async function main() {
 //
 // To add a photo: drop the original into photos-original/<Category>/
 // and run \`npm run photos\` (see README "Adding photos").
-// You MAY hand-edit \`caption\` and \`date\` here — those two fields are
-// preserved the next time the generator runs (merged by id). Other
-// fields are overwritten.
+// You MAY hand-edit \`caption\`, \`date\`, and \`featured\` here — those
+// fields are preserved the next time the generator runs (merged by
+// id). Other fields are overwritten. featured: true puts the photo in
+// the Misc. page carousel; the album page always shows everything.
 // ============================================================
 
 const PHOTOS = `;

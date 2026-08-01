@@ -70,6 +70,12 @@
     },
     { label: "Jump to Hobbies", hint: "Misc. I", keywords: ["hobbies"], run: jump("hobbies", "misc.html") },
     { label: "Jump to Albums", hint: "Misc. II", keywords: ["albums", "photos", "gallery"], run: jump("albums", "misc.html") },
+    {
+      label: "Open Album",
+      hint: "→",
+      keywords: ["album", "photos", "gallery"],
+      run: function () { window.location.href = "album.html"; },
+    },
     { label: "Jump to Footprints", hint: "Misc. III", keywords: ["footprints", "travel", "map"], run: jump("footprints", "misc.html") },
     { label: "Open LinkedIn", hint: "↗", run: openUrl("https://www.linkedin.com/in/yuqing-jacky-jiang/") },
     { label: "Open GitHub", hint: "↗", run: openUrl("https://github.com/JackyJiang08") },

@@ -1,98 +1,21 @@
-// Photography gallery: renders the grid from js/data/photos.js (PHOTOS
-// global), generates category filter chips, and provides a minimal original
-// lightbox — click to open, Esc/click-outside to close, ←/→ to navigate,
-// focus-trapped while open. No external libraries.
+// Photo gallery, rendered from js/data/photos.js (PHOTOS global):
+//  - shared lightbox (window.SiteLightbox) — used by the album masonry, the
+//    featured carousel, and the Footprints region photo strips
+//  - masonry grid of ALL photos (album.html, #photo-grid)
+//  - featured marquee carousel (misc.html, #carousel-track): slow seamless
+//    loop, paused on hover/touch; static scrollable row under
+//    prefers-reduced-motion
+// No external libraries.
 (function () {
   "use strict";
 
-  var grid = document.getElementById("photo-grid");
-  var bar = document.getElementById("photo-filters");
-  if (!grid || !bar || typeof PHOTOS === "undefined") return;
+  if (typeof PHOTOS === "undefined") return;
 
   var items = PHOTOS.slice().sort(function (a, b) {
     return (b.date || "").localeCompare(a.date || "");
   });
-  var categories = [];
-  items.forEach(function (p) {
-    if (categories.indexOf(p.category) === -1) categories.push(p.category);
-  });
 
-  var visible = items.slice(); // photos matching the active filter, in order
-
-  // ---- Grid rendering ----------------------------------------------------
-  function render(filter) {
-    visible = items.filter(function (p) {
-      return filter === "all" || p.category === filter;
-    });
-    grid.innerHTML = "";
-    visible.forEach(function (p, idx) {
-      var fig = document.createElement("figure");
-      fig.className = "photo-item";
-
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "photo-open";
-      btn.setAttribute("aria-label", "View larger: " + p.caption);
-      btn.addEventListener("click", function () { openLightbox(visible, idx); });
-
-      var img = document.createElement("img");
-      img.src = p.thumb || p.src; // small tile image; the lightbox loads full src
-      img.alt = p.caption;
-      img.loading = "lazy";
-      img.decoding = "async";
-      // intrinsic dimensions reserve space before load — no layout shift
-      if (p.w && p.h) {
-        img.width = p.w;
-        img.height = p.h;
-      }
-      btn.appendChild(img);
-
-      var cap = document.createElement("figcaption");
-      cap.textContent = p.caption + (p.date ? " · " + p.date : "");
-
-      fig.appendChild(btn);
-      fig.appendChild(cap);
-      grid.appendChild(fig);
-    });
-  }
-
-  // ---- Filter chips (same pattern as the Highlights year filter) ---------
-  ["all"].concat(categories).forEach(function (f, idx) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip" + (idx === 0 ? " active" : "");
-    b.dataset.filter = f;
-    b.setAttribute("aria-pressed", String(idx === 0));
-    b.textContent = f === "all" ? "All" : f;
-    bar.appendChild(b);
-  });
-
-  var chips = Array.prototype.slice.call(bar.querySelectorAll(".chip"));
-
-  function select(filter) {
-    chips.forEach(function (c) {
-      var on = c.dataset.filter === filter;
-      c.classList.toggle("active", on);
-      c.setAttribute("aria-pressed", String(on));
-    });
-    render(filter);
-  }
-
-  bar.addEventListener("click", function (e) {
-    var chip = e.target.closest(".chip");
-    if (chip) select(chip.dataset.filter);
-  });
-
-  bar.addEventListener("keydown", function (e) {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    var i = chips.indexOf(document.activeElement);
-    if (i === -1) return;
-    e.preventDefault();
-    var next = e.key === "ArrowRight"
-      ? (i + 1) % chips.length
-      : (i - 1 + chips.length) % chips.length;
-    chips[next].focus();
-  });
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // ---- Lightbox ----------------------------------------------------------
   var overlay = document.createElement("div");
@@ -125,7 +48,7 @@
   function showPhoto(idx) {
     current = (idx + lbItems.length) % lbItems.length;
     var p = lbItems[current];
-    lbImg.src = p.src;
+    lbImg.src = p.src; // always the full-size image
     lbImg.alt = p.caption;
     lbCap.textContent = p.caption + (p.date ? " · " + p.date : "");
     var single = lbItems.length < 2;
@@ -133,8 +56,6 @@
     btnNext.hidden = single;
   }
 
-  // Open the lightbox scoped to an arbitrary photo list (the Albums grid
-  // passes its filtered list; Footprints passes a region's photos).
   function openLightbox(list, idx) {
     if (!list || !list.length) return;
     lbItems = list;
@@ -145,8 +66,6 @@
     showPhoto(idx || 0);
     btnClose.focus();
   }
-
-  window.SiteLightbox = { open: openLightbox };
 
   function closeLightbox() {
     if (!open) return;
@@ -181,7 +100,6 @@
       e.preventDefault();
       showPhoto(current + 1);
     } else if (e.key === "Tab") {
-      // focus trap across the three lightbox buttons
       e.preventDefault();
       var visibleButtons = focusables.filter(function (b) { return !b.hidden; });
       var i = visibleButtons.indexOf(document.activeElement);
@@ -191,5 +109,91 @@
     }
   });
 
-  select("all");
+  window.SiteLightbox = { open: openLightbox };
+
+  // ---- Masonry grid: ALL photos (album.html) -----------------------------
+  var grid = document.getElementById("photo-grid");
+  if (grid) {
+    items.forEach(function (p, idx) {
+      var fig = document.createElement("figure");
+      fig.className = "photo-item";
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "photo-open";
+      btn.setAttribute("aria-label", "View larger: " + p.caption);
+      btn.addEventListener("click", function () { openLightbox(items, idx); });
+
+      var img = document.createElement("img");
+      img.src = p.thumb || p.src; // small tile image; the lightbox loads full src
+      img.alt = p.caption;
+      img.loading = "lazy";
+      img.decoding = "async";
+      if (p.w && p.h) {
+        img.width = p.w;
+        img.height = p.h;
+      }
+      btn.appendChild(img);
+
+      var cap = document.createElement("figcaption");
+      cap.textContent = p.caption + (p.date ? " · " + p.date : "");
+
+      fig.appendChild(btn);
+      fig.appendChild(cap);
+      grid.appendChild(fig);
+    });
+  }
+
+  // ---- Featured carousel (misc.html) -------------------------------------
+  var track = document.getElementById("carousel-track");
+  if (track) {
+    var featured = items.filter(function (p) { return p.featured; });
+    var carousel = track.closest(".carousel");
+
+    var addSet = function (isDuplicate) {
+      featured.forEach(function (p, idx) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "carousel-slide";
+        if (isDuplicate) {
+          // the second copy exists only for the seamless loop
+          b.setAttribute("aria-hidden", "true");
+          b.tabIndex = -1;
+        } else {
+          b.setAttribute("aria-label", "View photo: " + p.caption);
+        }
+        var img = document.createElement("img");
+        img.src = p.thumb || p.src;
+        img.alt = isDuplicate ? "" : p.caption;
+        img.loading = "lazy";
+        img.decoding = "async";
+        b.appendChild(img);
+        b.addEventListener("click", function () { openLightbox(featured, idx); });
+        track.appendChild(b);
+      });
+    };
+
+    if (featured.length) {
+      addSet(false);
+      if (reducedMotion) {
+        // static, manually scrollable row — no auto-scroll, no duplicate set
+        carousel.classList.add("static");
+      } else {
+        addSet(true);
+        // pause on touch; resume shortly after the finger lifts
+        var resumeTimer = null;
+        carousel.addEventListener("touchstart", function () {
+          carousel.classList.add("paused");
+          clearTimeout(resumeTimer);
+        }, { passive: true });
+        carousel.addEventListener("touchend", function () {
+          resumeTimer = setTimeout(function () {
+            carousel.classList.remove("paused");
+          }, 1200);
+        });
+      }
+    } else {
+      carousel.hidden = true;
+    }
+  }
 })();

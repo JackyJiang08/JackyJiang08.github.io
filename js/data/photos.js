@@ -10,6 +10,7 @@
 //          category: "Astro" | "Travel" | ... (any label),
 //          caption: "shown under the photo and used as alt text",
 //          date: "YYYY-MM",
+//          featured: true|false,   // featured photos appear in the Misc. carousel
 //          w: 1200, h: 800 }            // intrinsic px — prevents layout shift
 // The grid, category filter chips, lightbox, and the Albums
 // counter all update automatically — no other file needs editing.
@@ -22,6 +23,7 @@ const PHOTOS = [
     category: "Astro",
     caption: "Placeholder — Milky Way over central Illinois",
     date: "2025-08",
+    featured: true,
     w: 1200,
     h: 800,
   },
@@ -31,6 +33,7 @@ const PHOTOS = [
     category: "Travel",
     caption: "Placeholder — dusk on the road",
     date: "2025-06",
+    featured: true,
     w: 900,
     h: 1200,
   },
@@ -40,6 +43,7 @@ const PHOTOS = [
     category: "Campus",
     caption: "Placeholder — the UIUC Main Quad",
     date: "2025-04",
+    featured: true,
     w: 1200,
     h: 900,
   },

@@ -58,7 +58,8 @@ split into small vanilla scripts, each owning a single concern.
 
 ```text
 index.html              # the main page — semantic sections, JSON-LD, meta
-misc.html               # Misc. page — photo gallery (category filters + lightbox)
+misc.html               # Misc. page — hobbies, featured carousel, footprints map
+album.html              # full photo album (masonry + lightbox)
 css/
   tokens.css            # design tokens: both theme palettes, type, spacing, radii
   base.css              # reset and base typography
@@ -129,8 +130,14 @@ npm run photos     # builds assets/photos/**/*.webp + thumbs, regenerates js/dat
 
 Outputs: `assets/photos/<category>/<name>.webp` (long edge 1600 px) and
 `assets/photos/thumbs/<category>/<name>.webp` (long edge 400 px, used by the
-masonry grid). Hand-edited `caption`/`date` fields in `js/data/photos.js`
-survive regeneration (merged by photo id).
+masonry grid and carousel). Hand-edited `caption`/`date`/`featured` fields in
+`js/data/photos.js` survive regeneration (merged by photo id).
+
+**Featured photos**: the Misc. page carousel shows only entries with
+`featured: true`; the album page always shows everything. Name a source file
+with a `-feat` suffix (e.g. `kyoto-sunset-feat.jpg`) to mark it featured on
+first generation — the suffix is stripped from the public filename and
+caption. You can also toggle `featured` by hand in `js/data/photos.js`.
 
 ## Deployment
 
