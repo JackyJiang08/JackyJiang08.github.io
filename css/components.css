@@ -541,7 +541,7 @@
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 110;
+  z-index: 130; /* above the shared modal (120) — Footprints opens it from there */
   background: rgba(8, 10, 18, 0.88);
   display: flex;
   align-items: center;

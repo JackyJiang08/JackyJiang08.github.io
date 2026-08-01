@@ -33,7 +33,7 @@
       btn.type = "button";
       btn.className = "photo-open";
       btn.setAttribute("aria-label", "View larger: " + p.caption);
-      btn.addEventListener("click", function () { openLightbox(idx); });
+      btn.addEventListener("click", function () { openLightbox(visible, idx); });
 
       var img = document.createElement("img");
       img.src = p.src;
@@ -120,26 +120,33 @@
   var open = false;
   var current = 0;
   var lastFocus = null;
+  var lbItems = []; // the photo list the lightbox is currently scoped to
 
   function showPhoto(idx) {
-    current = (idx + visible.length) % visible.length;
-    var p = visible[current];
+    current = (idx + lbItems.length) % lbItems.length;
+    var p = lbItems[current];
     lbImg.src = p.src;
     lbImg.alt = p.caption;
     lbCap.textContent = p.caption + (p.date ? " · " + p.date : "");
-    var single = visible.length < 2;
+    var single = lbItems.length < 2;
     btnPrev.hidden = single;
     btnNext.hidden = single;
   }
 
-  function openLightbox(idx) {
+  // Open the lightbox scoped to an arbitrary photo list (the Albums grid
+  // passes its filtered list; Footprints passes a region's photos).
+  function openLightbox(list, idx) {
+    if (!list || !list.length) return;
+    lbItems = list;
     lastFocus = document.activeElement;
     overlay.hidden = false;
     document.body.style.overflow = "hidden";
     open = true;
-    showPhoto(idx);
+    showPhoto(idx || 0);
     btnClose.focus();
   }
+
+  window.SiteLightbox = { open: openLightbox };
 
   function closeLightbox() {
     if (!open) return;
