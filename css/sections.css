@@ -602,6 +602,104 @@
   }
 }
 
+/* ---------- Footprints map ---------- */
+.fp-wrap {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.fp-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fp-map path {
+  fill: #ececec;
+  stroke: #ffffff;
+  stroke-width: 0.5;
+}
+
+.fp-map path.visited {
+  fill: #274c72;
+  fill-opacity: 0.85;
+  cursor: pointer;
+  transition: filter 0.12s ease;
+}
+
+.fp-map path.visited:hover {
+  filter: brightness(1.35);
+}
+
+:root[data-theme="dark"] .fp-map path {
+  fill: #232e42;
+  stroke: #0b0f19;
+}
+
+:root[data-theme="dark"] .fp-map path.visited {
+  fill: #7fa3c9;
+}
+
+/* single reused tooltip; positioned via transform only */
+.fp-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.22rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text);
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+  will-change: transform;
+}
+
+.fp-tip.muted {
+  color: var(--text-muted);
+}
+
+/* touch devices: no hover tooltip — tap opens the country modal instead */
+@media (pointer: coarse) {
+  .fp-tip {
+    display: none;
+  }
+}
+
+/* Country modal: region list */
+.modal-country .modal-panel {
+  width: min(480px, 100%);
+}
+
+.fp-region-list {
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.6rem;
+}
+
+.fp-region-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.fp-region-name {
+  font-size: 0.95rem;
+}
+
+.fp-region-date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Masonry-style responsive columns; items keep natural aspect ratios */
 .photo-grid {
   columns: 3 260px;

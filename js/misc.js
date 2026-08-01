@@ -17,6 +17,13 @@
 
   var footprints = document.getElementById("count-footprints");
   if (footprints) {
-    footprints.textContent = "— countries";
+    if (typeof FOOTPRINTS !== "undefined") {
+      var visited = Object.keys(FOOTPRINTS).filter(function (k) {
+        return FOOTPRINTS[k].visited;
+      }).length;
+      footprints.textContent = visited + " countries";
+    } else {
+      footprints.textContent = "— countries";
+    }
   }
 })();
