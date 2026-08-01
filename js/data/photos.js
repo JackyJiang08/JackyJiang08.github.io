@@ -9,7 +9,8 @@
 //     src: "assets/photos/<YYYY-MM>/<n>.webp",         // long edge 1600
 //     thumb: "assets/photos/thumbs/<YYYY-MM>/<n>.webp", // long edge 400
 //     caption: "…",                        // alt text + lightbox caption
-//     date: "YYYY-MM",                     // filename prefix → EXIF → mtime
+//     date: "YYYY-MM" or "",               // MANUAL: filename prefix or
+//                                          //   hand-edit; "" sorts last
 //     featured: true|false,                // true → Misc. page carousel
 //     w: 1200, h: 800 }                    // intrinsic px — no layout shift
 //

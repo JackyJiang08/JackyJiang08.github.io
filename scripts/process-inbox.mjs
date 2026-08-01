@@ -3,7 +3,8 @@
 // and locally via `npm run photos`.
 //
 // Scans photos-inbox/<tag>/* (jpg/jpeg/png/heic). For each photo:
-//   1. date:  "YYYY-MM_" filename prefix → EXIF DateTimeOriginal → mtime
+//   1. date:  ONLY the "YYYY-MM_" filename prefix (or a later manual
+//      edit in photos.js) — no EXIF, no mtime; undated photos sort last
 //   2. featured: "-feat" filename suffix (stripped from the public name)
 //   3. converts to assets/photos/<YYYY-MM>/<slug>.webp (long edge 1600)
 //      + assets/photos/thumbs/<YYYY-MM>/<slug>.webp (long edge 400)
@@ -14,11 +15,10 @@
 //      "general"→no link. Unresolvable tags warn but still process.
 //   6. deletes the processed original (keeps .gitkeep / README.md)
 
-import { readdir, mkdir, readFile, writeFile, stat, rm } from "node:fs/promises";
+import { readdir, mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
-import exifReader from "exif-reader";
 
 const INBOX = "photos-inbox";
 const OUT_DIR = "assets/photos";
@@ -191,12 +191,20 @@ async function main() {
       const srcFile = path.join(INBOX, tag, file);
       let base = path.basename(file, path.extname(file)).toLowerCase();
 
-      // date prefix wins over EXIF
+      // date: MANUAL ONLY — a validated "YYYY-MM_" filename prefix (or a
+      // later hand-edit of the manifest). An invalid-looking prefix stays
+      // part of the name.
       let date = "";
-      const mDate = /^(\d{4}-\d{2})[_-]/.exec(base);
-      if (mDate && +mDate[1].slice(5, 7) >= 1 && +mDate[1].slice(5, 7) <= 12) {
-        date = mDate[1];
-        base = base.slice(mDate[0].length);
+      const mDate = /^(\d{4})-(\d{2})[_-]/.exec(base);
+      if (mDate) {
+        const yr = +mDate[1], mo = +mDate[2];
+        if (yr >= 2000 && yr <= 2099 && mo >= 1 && mo <= 12) {
+          date = `${mDate[1]}-${mDate[2]}`;
+          base = base.slice(mDate[0].length);
+        } else {
+          console.warn(`warn: "${file}" has an invalid date prefix ` +
+            `("${mDate[0]}"); treating it as part of the name`);
+        }
       }
 
       let featured = false;
@@ -206,30 +214,14 @@ async function main() {
       }
       base = slugify(base) || "photo";
 
-      if (!date) {
-        try {
-          const meta = await sharp(srcFile).metadata();
-          if (meta.exif) {
-            const ex = exifReader(meta.exif);
-            const dt = (ex.Photo && ex.Photo.DateTimeOriginal) ||
-                       (ex.Image && ex.Image.DateTime);
-            if (dt instanceof Date && !Number.isNaN(dt.getTime())) {
-              date = dt.toISOString().slice(0, 7);
-            }
-          }
-        } catch { /* unreadable EXIF */ }
-      }
-      if (!date) {
-        date = (await stat(srcFile)).mtime.toISOString().slice(0, 7);
-      }
-
       // id: slug; if a DIFFERENT new photo took it this run, disambiguate
       let id = base;
-      if (usedThisRun.has(id)) id = `${base}-${date}`;
+      if (usedThisRun.has(id)) id = `${base}-${date || 'x'}`;
       usedThisRun.add(id);
 
-      const outDir = path.join(OUT_DIR, date);
-      const thumbDir = path.join(THUMB_DIR, date);
+      const bucket = date || "undated";
+      const outDir = path.join(OUT_DIR, bucket);
+      const thumbDir = path.join(THUMB_DIR, bucket);
       await mkdir(outDir, { recursive: true });
       await mkdir(thumbDir, { recursive: true });
       const webPath = path.join(outDir, `${base}.webp`);
@@ -273,7 +265,7 @@ async function main() {
 
       await rm(srcFile);
       processed++;
-      console.log(`✓ ${tag}/${file} → ${id}  (${full.width}×${full.height}, ${date}` +
+      console.log(`✓ ${tag}/${file} → ${id}  (${full.width}×${full.height}, ${date || "undated"}` +
         `${featured ? ", featured" : ""})`);
     }
   }
@@ -296,7 +288,8 @@ async function main() {
 //     src: "assets/photos/<YYYY-MM>/<n>.webp",         // long edge 1600
 //     thumb: "assets/photos/thumbs/<YYYY-MM>/<n>.webp", // long edge 400
 //     caption: "…",                        // alt text + lightbox caption
-//     date: "YYYY-MM",                     // filename prefix → EXIF → mtime
+//     date: "YYYY-MM" or "",               // MANUAL: filename prefix or
+//                                          //   hand-edit; "" sorts last
 //     featured: true|false,                // true → Misc. page carousel
 //     w: 1200, h: 800 }                    // intrinsic px — no layout shift
 //

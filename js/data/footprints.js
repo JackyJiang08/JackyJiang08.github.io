@@ -32,7 +32,7 @@ const FOOTPRINTS = {
   CN: { name: "China", visited: true, regions: [
     { name: "Shanghai" }, { name: "Jiangsu" }, { name: "Zhejiang" }, { name: "Beijing" },
     { name: "Heilongjiang" }, { name: "Shandong" }, { name: "Shaanxi" }, { name: "Sichuan" },
-    { name: "Hainan" }, { name: "Hong Kong" }, { name: "Macau" },
+    { name: "Hainan" }, { name: "Fujian" }, { name: "Hong Kong" }, { name: "Macau" },
   ] },
   US: { name: "United States", visited: true,
     zoomBox: "conus",

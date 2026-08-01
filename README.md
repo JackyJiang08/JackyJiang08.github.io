@@ -38,7 +38,7 @@ under a minute, on any device.
 | **Portfolio sections** | Academic-style profile sidebar, highlights with year-filtered archive, experience timeline, project grid, publication, skills, and education |
 | **Résumé viewer** | View-only in-page PDF viewer ([PDF.js](https://mozilla.github.io/pdf.js/)) with an AI/ML ↔ Data variant switch, opened from the profile sidebar |
 | **Command palette** | `Cmd`/`Ctrl` + `K` fuzzy search (with number + ASCII aliases) across navigation and quick actions |
-| **Misc. page** | Hobby grid with original line icons, featured marquee carousel, and a full album page with automatic EXIF-date ordering |
+| **Misc. page** | Hobby grid with original line icons, featured marquee carousel, and a full album page ordered by manually set dates |
 | **Footprints map** | Single-projection composite world map (Natural Earth) with GPU-smooth zoom that re-bakes into the viewBox for vector crispness, CN/US province/state detail layers, region/country/city popovers, and animated progress rings |
 | **Page views** | Live counter in the sidebar backed by the free Abacus API, hidden gracefully when unreachable |
 | **Theming** | Light/dark toggle, light as default, persisted in `localStorage` |
@@ -149,17 +149,17 @@ empties the inbox. Full conventions in `photos-inbox/README.md`.
 **From a computer** — either the same web upload, or on a local clone:
 
 ```bash
-npm install        # once — installs sharp + exif-reader
+npm install        # once — installs sharp
 # drop files into photos-inbox/<tag>/  (jpg, jpeg, png, heic)
 npm run photos     # runs the same processor the Action uses
 git add -A && git commit && git push
 ```
 
-Conventions: a `-feat` filename suffix puts the photo in the Misc. carousel;
-a `YYYY-MM_` filename prefix overrides the date (otherwise EXIF
-`DateTimeOriginal`, then file mtime); everything sorts newest-first. Manual
-edits to `caption`/`date`/`featured` in `js/data/photos.js` survive
-reprocessing.
+Conventions: a `YYYY-MM_` filename prefix sets the photo's date (dates are
+manual only — no EXIF/auto detection; undated photos sort last); a `-feat`
+suffix puts the photo in the Misc. carousel; both combine
+(`2025-08_kyoto-sunset-feat.jpg`). Manual edits to
+`caption`/`date`/`featured` in `js/data/photos.js` survive reprocessing.
 
 ## Deployment
 

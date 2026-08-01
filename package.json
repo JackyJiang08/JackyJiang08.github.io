@@ -9,7 +9,6 @@
   },
   "devDependencies": {
     "d3-geo": "^3.1.1",
-    "exif-reader": "^2.0.3",
     "sharp": "^0.33.5"
   },
   "license": "CC-BY-NC-SA-4.0"

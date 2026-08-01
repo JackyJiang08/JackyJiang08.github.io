@@ -14,10 +14,13 @@ links it to the Footprints map, and empties the inbox.
 | Filename ends in **`-feat`** (e.g. `kyoto-sunset-feat.jpg`) | Also joins the Misc. page carousel (suffix stripped from public name) |
 | Folder tag = country/region/city (e.g. `US-IL/`, `JP-kyoto/`, `SG/`) | Photo is linked to that place's album in the Footprints map popover |
 | Folder = `general/` | Masonry only — no map link |
-| Filename starts with **`YYYY-MM_`** (e.g. `2024-07_beach.jpg`) | That date is used (overrides EXIF — useful when uploads strip EXIF) |
+| Filename starts with **`YYYY-MM_`** (e.g. `2024-07_beach.jpg`) | Sets the photo's date — this prefix IS the date input (stripped from the public name) |
 
-Dates otherwise come from EXIF `DateTimeOriginal`, falling back to the file's
-modified time. The album sorts newest-first automatically.
+Dates are **manual only**: the filename prefix at upload, or editing the
+`date` field in `js/data/photos.js` afterwards. There is no automatic
+detection. Undated photos simply sort after all dated ones (the album is
+newest-first), and their captions omit the date. Both conventions combine:
+`2025-08_kyoto-sunset-feat.jpg` → dated August 2025 **and** featured.
 
 ## Uploading from your phone
 
