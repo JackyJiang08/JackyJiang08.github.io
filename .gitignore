@@ -1,5 +1,3 @@
 .DS_Store
 node_modules/
-photos-original/*
-!photos-original/README.md
 package-lock.json
