@@ -1,38 +1,68 @@
 // ============================================================
-// Footprints data — countries and places visited.
+// Footprints data — countries, regions, and cities visited.
 //
-// Keys are ISO alpha-2 country codes (match the map's path ids).
-// To add a place:
-//   - new country:  "FR": { name: "France", visited: true, regions: [...] }
-//   - new region:   append { name, date: "YYYY-MM", photoIds: [],
-//     lat: 31.2, lng: 121.5 } to the country's regions array. Regions are
-//     provinces for CN, states for US, cities for other countries.
-//     photoIds reference `id` values in js/data/photos.js. lat/lng are
-//     OPTIONAL — regions with coordinates get a labeled dot on the map at
-//     deep zoom; without them no dot is drawn (positions are never guessed).
-//   - mark a country you passed through without stories as
-//     { name, visited: false } to keep it findable but unhighlighted.
-// The map coloring and the "N countries" entry-card counter update
-// automatically. Placeholder data — real entries arrive next round.
+// Schema:
+//   "XX": { name, visited, zoomBox?, regions?: [
+//     { name, slug?, date?, photoIds?, cities?: [
+//       { name, lat, lng, date?, photoIds? } ] } ] }
+//
+// Filling in details later:
+//   - date: "YYYY-MM" (e.g. "2024-07") on a region or a city — dates
+//     appear in the click popover, never in hover tooltips.
+//   - photoIds: ids from js/data/photos.js (e.g. ["travel-kyoto-01"]) —
+//     the popover shows a "View photos →" thumbnail row opening the
+//     shared lightbox. Empty/absent fields degrade gracefully: a region
+//     with no date and no photos shows "Details coming soon."
+//   - slug: only needed if the region name doesn't slugify to the
+//     Natural Earth admin-1 path id (a console.warn flags mismatches).
+//   - zoomBox: named zoom override (see ZOOM_BOXES in js/footprints.js)
+//     for countries whose raw bounding box is unusable — e.g. the US
+//     spans the antimeridian via Alaska, so it uses "conus".
+//   - cities need lat/lng to get a labeled dot at deep zoom; positions
+//     are never guessed.
 // ============================================================
 
 const FOOTPRINTS = {
-  CN: {
-    name: "China",
-    visited: true,
+  CN: { name: "China", visited: true, regions: [
+    { name: "Shanghai" }, { name: "Jiangsu" }, { name: "Zhejiang" }, { name: "Beijing" },
+    { name: "Heilongjiang" }, { name: "Shandong" }, { name: "Shaanxi" }, { name: "Sichuan" },
+    { name: "Hainan" }, { name: "Hong Kong" }, { name: "Macau" },
+  ] },
+  US: { name: "United States", visited: true,
+    zoomBox: "conus",
     regions: [
-      { name: "Shanghai", date: "2023-06", photoIds: ["shanghai-01"], lat: 31.23, lng: 121.47 },
-    ],
-  },
-  US: {
-    name: "United States",
-    visited: true,
-    regions: [
-      { name: "Illinois", date: "2023-08", photoIds: [], lat: 40.06, lng: -89.2 },
-    ],
-  },
-  JP: {
-    name: "Japan",
-    visited: false,
-  },
+    { name: "Washington", cities: [ { name: "Seattle", lat: 47.61, lng: -122.33 } ] },
+    { name: "Oregon", cities: [ { name: "Portland", lat: 45.52, lng: -122.68 } ] },
+    { name: "California", cities: [
+      { name: "San Francisco", lat: 37.77, lng: -122.42 },
+      { name: "Los Angeles", lat: 34.05, lng: -118.24 },
+      { name: "San Jose", lat: 37.34, lng: -121.89 },
+      { name: "San Diego", lat: 32.72, lng: -117.16 } ] },
+    { name: "Wyoming" }, { name: "Montana" }, { name: "Idaho" },
+    { name: "Utah" }, { name: "Colorado" }, { name: "Nevada" },
+    { name: "New York" },
+    { name: "Florida", cities: [
+      { name: "Orlando", lat: 28.54, lng: -81.38 },
+      { name: "Tampa", lat: 27.95, lng: -82.46 } ] },
+    { name: "Massachusetts", cities: [ { name: "Boston", lat: 42.36, lng: -71.06 } ] },
+    { name: "Connecticut" }, { name: "Indiana" },
+    { name: "Texas", cities: [ { name: "Dallas", lat: 32.78, lng: -96.80 } ] },
+    { name: "Illinois", cities: [
+      { name: "Champaign", lat: 40.12, lng: -88.24 },
+      { name: "Chicago", lat: 41.88, lng: -87.63 } ] },
+  ] },
+  SG: { name: "Singapore", visited: true, regions: [
+    { name: "Singapore", cities: [ { name: "Singapore", lat: 1.35, lng: 103.82 } ] } ] },
+  ID: { name: "Indonesia", visited: true, regions: [
+    { name: "Bali", cities: [ { name: "Bali", lat: -8.65, lng: 115.22 } ] } ] },
+  MX: { name: "Mexico", visited: true, regions: [
+    { name: "Tijuana", cities: [ { name: "Tijuana", lat: 32.51, lng: -117.04 } ] } ] },
+  AE: { name: "United Arab Emirates", visited: true, regions: [
+    { name: "Dubai", cities: [ { name: "Dubai", lat: 25.20, lng: 55.27 } ] } ] },
+  JP: { name: "Japan", visited: true, regions: [
+    { name: "Tokyo", cities: [ { name: "Tokyo", lat: 35.68, lng: 139.69 } ] },
+    { name: "Kyoto", cities: [ { name: "Kyoto", lat: 35.01, lng: 135.77 } ] },
+    { name: "Osaka", cities: [ { name: "Osaka", lat: 34.69, lng: 135.50 } ] },
+    { name: "Nara", cities: [ { name: "Nara", lat: 34.69, lng: 135.80 } ] },
+  ] },
 };

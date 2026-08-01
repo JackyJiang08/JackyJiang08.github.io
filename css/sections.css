@@ -671,6 +671,94 @@
   stroke-width: calc(var(--fp-inv, 1) * 2px);
 }
 
+/* Region popover: anchored card opened by clicking a visited region */
+.fp-pop {
+  position: absolute;
+  z-index: 8;
+  min-width: 180px;
+  max-width: 260px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 0.8rem 0.95rem;
+}
+
+.fp-pop-title {
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.fp-pop-date {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.fp-pop-cities {
+  list-style: none;
+  margin-top: 0.4rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.fp-pop-cities li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.fp-pop-photos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.55rem;
+}
+
+.fp-pop-photos-label {
+  flex-basis: 100%;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.fp-pop-thumb {
+  width: 52px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: none;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.fp-pop-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fp-pop-soon {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+/* HK/MO live in the CN admin-1 layer; hide their admin-0 shapes when the
+   detail layer is showing so they don't double-render */
+.fp-map .fp-zoomed #countries path#c-HK,
+.fp-map .fp-zoomed #countries path#c-MO {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* single reused tooltip; positioned via transform only */
 .fp-tip {
   position: absolute;

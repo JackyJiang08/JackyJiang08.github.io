@@ -87,6 +87,21 @@ async function main() {
     });
   }
 
+  // Natural Earth treats Hong Kong and Macau as separate admin-0
+  // territories, so they are absent from the CN admin-1 dataset. Append
+  // their admin-0 polygons into the CN detail layer (the runtime hides
+  // their country-level paths whenever the detail layer is active).
+  function cnExtras() {
+    return [["HK", "Hong Kong", "hong-kong"], ["MO", "Macau", "macau"]]
+      .map(([iso, label, s]) => {
+        const f = a0.features.find((x) => x.properties.iso_a2 === iso);
+        if (!f) return "";
+        const d = simplifyPath(path(f.geometry), 0.25);
+        return `<path id="r-CN-${s}" name="${label}" d="${d}"/>`;
+      })
+      .filter(Boolean);
+  }
+
   const k = projection.scale();
   const [tx, ty] = projection.translate();
 
@@ -115,6 +130,7 @@ ${countries.join("\n")}
 </g>
 <g id="admin1-CN" hidden="hidden">
 ${admin1(cn, "CN").join("\n")}
+${cnExtras().join("\n")}
 </g>
 <g id="admin1-US" hidden="hidden">
 ${admin1(us, "US").join("\n")}
