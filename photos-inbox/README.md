@@ -8,19 +8,22 @@ links it to the Footprints map, and empties the inbox.
 
 ## Where things land
 
-| You do | Result |
-|---|---|
-| Upload into **any** tag folder | Photo joins the album masonry (always) |
-| Filename ends in **`-feat`** (e.g. `kyoto-sunset-feat.jpg`) | Also joins the Misc. page carousel (suffix stripped from public name) |
-| Folder tag = country/region/city (e.g. `US-IL/`, `JP-kyoto/`, `SG/`) | Photo is linked to that place's album in the Footprints map popover |
-| Folder = `general/` | Masonry only — no map link |
-| Filename starts with **`YYYY-MM_`** (e.g. `2024-07_beach.jpg`) | Sets the photo's date — this prefix IS the date input (stripped from the public name) |
+There are exactly **two filename forms** — no hybrids:
 
-Dates are **manual only**: the filename prefix at upload, or editing the
-`date` field in `js/data/photos.js` afterwards. There is no automatic
-detection. Undated photos simply sort after all dated ones (the album is
-newest-first), and their captions omit the date. Both conventions combine:
-`2025-08_kyoto-sunset-feat.jpg` → dated August 2025 **and** featured.
+| Filename | Result |
+|---|---|
+| `YYYY-MM_Region-Num.jpg` (e.g. `2023-06_Hainan-01.jpg`) | Masonry only |
+| `YYYY-MM_Region-feat.jpg` (e.g. `2023-06_Hainan-feat.jpg`) | Carousel **+** masonry |
+
+Both yield date = `YYYY-MM` and caption = `Region` (shown as
+"Region · YYYY-MM" in the lightbox). Other notes:
+
+- The **folder tag** (e.g. `CN-hainan/`, `US-IL/`, `SG/`) links the photo to
+  that map country/region/city's popover album; `general/` = masonry only.
+- Dates are **manual only** — the filename prefix, or editing the `date`
+  field in `js/data/photos.js` afterwards. No date prefix = undated: the
+  photo sinks below all dated ones and its lightbox caption shows just the
+  region.
 
 ## Uploading from your phone
 

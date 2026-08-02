@@ -54,6 +54,68 @@ function prettify(name) {
   return name.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// ---- filename parsing ---------------------------------------------------
+// Canonical forms (see photos-inbox/README.md):
+//   YYYY-MM_Region-Num.jpg   → masonry only        (id keeps the number)
+//   YYYY-MM_Region-feat.jpg  → carousel + masonry  (id = date+region+"-feat",
+//                                                   never collides with -Num)
+// Both yield date = YYYY-MM and caption = "Region" (original casing).
+// Strip order: date prefix → "-feat" → trailing "-<digits>".
+function parseName(filename) {
+  let raw = filename.replace(/\.[^.]+$/, "");
+
+  let date = "";
+  const mDate = /^(\d{4})-(\d{2})[_-]/.exec(raw);
+  if (mDate) {
+    const yr = +mDate[1], mo = +mDate[2];
+    if (yr >= 2000 && yr <= 2099 && mo >= 1 && mo <= 12) {
+      date = `${mDate[1]}-${mDate[2]}`;
+      raw = raw.slice(mDate[0].length);
+    } else {
+      console.warn(`warn: "${filename}" has an invalid date prefix ` +
+        `("${mDate[0]}"); treating it as part of the name`);
+    }
+  }
+
+  let featured = false;
+  if (/-feat$/i.test(raw)) {
+    featured = true;
+    raw = raw.replace(/-feat$/i, "");
+  }
+
+  let num = "";
+  const mNum = /-(\d+)$/.exec(raw);
+  if (mNum) {
+    num = mNum[1];
+    raw = raw.slice(0, -mNum[0].length);
+  }
+
+  const caption = prettify(raw) || "photo";
+  const slug = slugify(raw) || "photo";
+  let id;
+  if (featured) id = (date ? date + "-" : "") + slug + "-feat";
+  else if (num) id = slug + "-" + num;
+  else id = slug;
+
+  return { date, featured, caption, id };
+}
+
+// unit-style checks: fail LOUDLY if parsing of the canonical forms regresses
+(function selfTest() {
+  const a = parseName("2023-06_Hainan-01.jpg");
+  const b = parseName("2023-06_Hainan-feat.jpg");
+  const ok =
+    a.date === "2023-06" && a.caption === "Hainan" &&
+    a.id === "hainan-01" && a.featured === false &&
+    b.date === "2023-06" && b.caption === "Hainan" &&
+    b.id === "2023-06-hainan-feat" && b.featured === true &&
+    a.id !== b.id;
+  if (!ok) {
+    console.error("FATAL: filename parser self-test failed", { a, b });
+    process.exit(1);
+  }
+})();
+
 async function readManifest() {
   const map = new Map();
   let order = [];
@@ -104,6 +166,7 @@ function linkCountry(src, cc, countryName, id) {
 }
 
 function linkRegion(src, regionName, id) {
+  // form A: `{ name: "X", ...` (has more properties)
   const marker = `{ name: "${regionName}",`;
   let idx = -1, from = 0;
   while (true) {
@@ -112,15 +175,23 @@ function linkRegion(src, regionName, id) {
     if (!src.slice(i + marker.length).trimStart().startsWith("lat:")) { idx = i; break; }
     from = i + 1;
   }
-  if (idx === -1) return null;
-  const head = idx + marker.length;
-  const end = Math.min(
-    ...[src.indexOf("cities:", head), src.indexOf("}", head)].filter((x) => x !== -1));
-  const win = src.slice(head, end);
-  if (/photoIds: \[/.test(win)) {
-    return src.slice(0, head) + appendIntoArray(win, id) + src.slice(end);
+  if (idx !== -1) {
+    const head = idx + marker.length;
+    const end = Math.min(
+      ...[src.indexOf("cities:", head), src.indexOf("}", head)].filter((x) => x !== -1));
+    const win = src.slice(head, end);
+    if (/photoIds: \[/.test(win)) {
+      return src.slice(0, head) + appendIntoArray(win, id) + src.slice(end);
+    }
+    return src.slice(0, head) + ` photoIds: ["${id}"],` + src.slice(head);
   }
-  return src.slice(0, head) + ` photoIds: ["${id}"],` + src.slice(head);
+  // form B: bare `{ name: "X" }` (no other properties yet)
+  const bare = `{ name: "${regionName}" }`;
+  const j = src.indexOf(bare);
+  if (j === -1) return null;
+  return src.slice(0, j) +
+    `{ name: "${regionName}", photoIds: ["${id}"] }` +
+    src.slice(j + bare.length);
 }
 
 function linkCity(src, cityName, id) {
@@ -189,34 +260,13 @@ async function main() {
 
     for (const file of files) {
       const srcFile = path.join(INBOX, tag, file);
-      let base = path.basename(file, path.extname(file)).toLowerCase();
+      const parsed = parseName(path.basename(file));
+      const date = parsed.date;
+      const featured = parsed.featured;
 
-      // date: MANUAL ONLY — a validated "YYYY-MM_" filename prefix (or a
-      // later hand-edit of the manifest). An invalid-looking prefix stays
-      // part of the name.
-      let date = "";
-      const mDate = /^(\d{4})-(\d{2})[_-]/.exec(base);
-      if (mDate) {
-        const yr = +mDate[1], mo = +mDate[2];
-        if (yr >= 2000 && yr <= 2099 && mo >= 1 && mo <= 12) {
-          date = `${mDate[1]}-${mDate[2]}`;
-          base = base.slice(mDate[0].length);
-        } else {
-          console.warn(`warn: "${file}" has an invalid date prefix ` +
-            `("${mDate[0]}"); treating it as part of the name`);
-        }
-      }
-
-      let featured = false;
-      if (base.endsWith("-feat")) {
-        featured = true;
-        base = base.slice(0, -5);
-      }
-      base = slugify(base) || "photo";
-
-      // id: slug; if a DIFFERENT new photo took it this run, disambiguate
-      let id = base;
-      if (usedThisRun.has(id)) id = `${base}-${date || 'x'}`;
+      // if a DIFFERENT new photo took this id in the same run, disambiguate
+      let id = parsed.id;
+      if (usedThisRun.has(id)) id = `${id}-${date || "x"}`;
       usedThisRun.add(id);
 
       const bucket = date || "undated";
@@ -224,8 +274,8 @@ async function main() {
       const thumbDir = path.join(THUMB_DIR, bucket);
       await mkdir(outDir, { recursive: true });
       await mkdir(thumbDir, { recursive: true });
-      const webPath = path.join(outDir, `${base}.webp`);
-      const thumbPath = path.join(thumbDir, `${base}.webp`);
+      const webPath = path.join(outDir, `${id}.webp`);
+      const thumbPath = path.join(thumbDir, `${id}.webp`);
 
       const image = sharp(srcFile, { failOn: "none" }).rotate();
       const full = await image.clone()
@@ -240,7 +290,7 @@ async function main() {
         id,
         src: webPath.split(path.sep).join("/"),
         thumb: thumbPath.split(path.sep).join("/"),
-        caption: old.caption || prettify(base),
+        caption: old.caption || parsed.caption,
         date: old.date || date,
         featured: old.featured !== undefined ? old.featured : featured,
         w: full.width,

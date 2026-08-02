@@ -155,11 +155,12 @@ npm run photos     # runs the same processor the Action uses
 git add -A && git commit && git push
 ```
 
-Conventions: a `YYYY-MM_` filename prefix sets the photo's date (dates are
-manual only — no EXIF/auto detection; undated photos sort last); a `-feat`
-suffix puts the photo in the Misc. carousel; both combine
-(`2025-08_kyoto-sunset-feat.jpg`). Manual edits to
-`caption`/`date`/`featured` in `js/data/photos.js` survive reprocessing.
+Filenames follow exactly two forms: `YYYY-MM_Region-Num.jpg` (masonry only)
+or `YYYY-MM_Region-feat.jpg` (carousel + masonry) — both yield date
+`YYYY-MM` and caption `Region` ("Region · YYYY-MM" in the lightbox). Dates
+are manual only (the prefix, or editing `date` in `js/data/photos.js`);
+undated photos sort last. Manual edits to `caption`/`date`/`featured`
+survive reprocessing.
 
 ## Deployment
 

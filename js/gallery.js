@@ -138,11 +138,8 @@
       }
       btn.appendChild(img);
 
-      var cap = document.createElement("figcaption");
-      cap.textContent = p.caption + (p.date ? " · " + p.date : "");
-
+      // tiles are caption-free — "Region · YYYY-MM" appears in the lightbox
       fig.appendChild(btn);
-      fig.appendChild(cap);
       grid.appendChild(fig);
     });
   }
