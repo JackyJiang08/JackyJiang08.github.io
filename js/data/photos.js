@@ -20,9 +20,9 @@
 
 const PHOTOS = [
   {
-    id: "hainan-01",
-    src: "assets/photos/2023-06/hainan-01.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-01.webp",
+    id: "2023-06-hainan-01",
+    src: "assets/photos/2023-06/2023-06-hainan-01.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-01.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -30,9 +30,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "hainan-02",
-    src: "assets/photos/2023-06/hainan-02.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-02.webp",
+    id: "2023-06-hainan-02",
+    src: "assets/photos/2023-06/2023-06-hainan-02.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-02.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -40,9 +40,9 @@ const PHOTOS = [
     h: 1200
   },
   {
-    id: "hainan-03",
-    src: "assets/photos/2023-06/hainan-03.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-03.webp",
+    id: "2023-06-hainan-03",
+    src: "assets/photos/2023-06/2023-06-hainan-03.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-03.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -50,9 +50,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "hainan-04",
-    src: "assets/photos/2023-06/hainan-04.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-04.webp",
+    id: "2023-06-hainan-04",
+    src: "assets/photos/2023-06/2023-06-hainan-04.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-04.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -60,9 +60,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "hainan-05",
-    src: "assets/photos/2023-06/hainan-05.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-05.webp",
+    id: "2023-06-hainan-05",
+    src: "assets/photos/2023-06/2023-06-hainan-05.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-05.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -70,9 +70,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "hainan-06",
-    src: "assets/photos/2023-06/hainan-06.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-06.webp",
+    id: "2023-06-hainan-06",
+    src: "assets/photos/2023-06/2023-06-hainan-06.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-06.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -80,9 +80,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "hainan-07",
-    src: "assets/photos/2023-06/hainan-07.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-07.webp",
+    id: "2023-06-hainan-07",
+    src: "assets/photos/2023-06/2023-06-hainan-07.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-07.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -90,9 +90,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "hainan-08",
-    src: "assets/photos/2023-06/hainan-08.webp",
-    thumb: "assets/photos/thumbs/2023-06/hainan-08.webp",
+    id: "2023-06-hainan-08",
+    src: "assets/photos/2023-06/2023-06-hainan-08.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-08.webp",
     caption: "Hainan",
     date: "2023-06",
     featured: false,
@@ -110,9 +110,9 @@ const PHOTOS = [
     h: 946
   },
   {
-    id: "new-york-city-01",
-    src: "assets/photos/2023-12/new-york-city-01.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-01.webp",
+    id: "2023-12-new-york-city-01",
+    src: "assets/photos/2023-12/2023-12-new-york-city-01.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-01.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -120,9 +120,9 @@ const PHOTOS = [
     h: 1440
   },
   {
-    id: "new-york-city-02",
-    src: "assets/photos/2023-12/new-york-city-02.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-02.webp",
+    id: "2023-12-new-york-city-02",
+    src: "assets/photos/2023-12/2023-12-new-york-city-02.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-02.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -130,9 +130,9 @@ const PHOTOS = [
     h: 1440
   },
   {
-    id: "new-york-city-03",
-    src: "assets/photos/2023-12/new-york-city-03.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-03.webp",
+    id: "2023-12-new-york-city-03",
+    src: "assets/photos/2023-12/2023-12-new-york-city-03.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-03.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -140,9 +140,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "new-york-city-04",
-    src: "assets/photos/2023-12/new-york-city-04.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-04.webp",
+    id: "2023-12-new-york-city-04",
+    src: "assets/photos/2023-12/2023-12-new-york-city-04.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-04.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -150,9 +150,9 @@ const PHOTOS = [
     h: 714
   },
   {
-    id: "new-york-city-05",
-    src: "assets/photos/2023-12/new-york-city-05.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-05.webp",
+    id: "2023-12-new-york-city-05",
+    src: "assets/photos/2023-12/2023-12-new-york-city-05.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-05.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -160,9 +160,9 @@ const PHOTOS = [
     h: 1440
   },
   {
-    id: "new-york-city-06",
-    src: "assets/photos/2023-12/new-york-city-06.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-06.webp",
+    id: "2023-12-new-york-city-06",
+    src: "assets/photos/2023-12/2023-12-new-york-city-06.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-06.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -170,9 +170,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "new-york-city-07",
-    src: "assets/photos/2023-12/new-york-city-07.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-07.webp",
+    id: "2023-12-new-york-city-07",
+    src: "assets/photos/2023-12/2023-12-new-york-city-07.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-07.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -180,9 +180,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "new-york-city-08",
-    src: "assets/photos/2023-12/new-york-city-08.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-08.webp",
+    id: "2023-12-new-york-city-08",
+    src: "assets/photos/2023-12/2023-12-new-york-city-08.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-08.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,
@@ -190,9 +190,9 @@ const PHOTOS = [
     h: 1080
   },
   {
-    id: "new-york-city-09",
-    src: "assets/photos/2023-12/new-york-city-09.webp",
-    thumb: "assets/photos/thumbs/2023-12/new-york-city-09.webp",
+    id: "2023-12-new-york-city-09",
+    src: "assets/photos/2023-12/2023-12-new-york-city-09.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-new-york-city-09.webp",
     caption: "New York City",
     date: "2023-12",
     featured: false,

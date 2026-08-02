@@ -1,6 +1,7 @@
 # photos-inbox/ — upload photos from anywhere
 
-Drop image files (jpg / jpeg / png / heic, **≤ 25 MB each**) into one of the
+Drop image files (jpg / jpeg / png / heic — iPhone HEIC works, but files
+over **25 MB** still can't be uploaded via the GitHub web UI) into one of the
 tag folders below and push (or upload via the GitHub web UI). A GitHub
 Action processes the inbox automatically in **~1–2 minutes**: it converts
 each photo to web-ready WebP + thumbnail, adds it to the site's album,
@@ -43,6 +44,9 @@ Both yield date = `YYYY-MM` and caption = `Region` (shown as
   `CN-hongkong` `CN-macau`
 - `SG/` · `ID-bali/` · `MX-tijuana/` · `AE-dubai/`
 - Japan: `JP` `JP-tokyo` `JP-kyoto` `JP-osaka` `JP-nara`
+
+Files the pipeline can't read are moved to `photos-inbox/_failed/` (visible
+on GitHub) instead of blocking the batch — the rest still publish.
 
 New tags: create a folder named `<ISO2>` (country) or `<ISO2>-<place>` where
 `<place>` matches a region/city name in `js/data/footprints.js` (lowercase,

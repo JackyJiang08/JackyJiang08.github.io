@@ -34,6 +34,7 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Process inbox
+        id: process
         run: node scripts/process-inbox.mjs
 
       - name: Commit results
@@ -44,6 +45,11 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: process photo inbox [photo-pipeline]"
+            MSG="chore: process photo inbox [photo-pipeline]"
+            SKIPPED="${{ steps.process.outputs.skipped }}"
+            if [ -n "$SKIPPED" ] && [ "$SKIPPED" != "0" ]; then
+              MSG="$MSG ($SKIPPED skipped)"
+            fi
+            git commit -m "$MSG"
             git push
           fi

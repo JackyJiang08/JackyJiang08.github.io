@@ -15,7 +15,7 @@
 //      "general"→no link. Unresolvable tags warn but still process.
 //   6. deletes the processed original (keeps .gitkeep / README.md)
 
-import { readdir, mkdir, readFile, writeFile, rm } from "node:fs/promises";
+import { readdir, mkdir, readFile, writeFile, rm, rename } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
@@ -25,7 +25,7 @@ const OUT_DIR = "assets/photos";
 const THUMB_DIR = "assets/photos/thumbs";
 const MANIFEST = "js/data/photos.js";
 const FOOTPRINTS_FILE = "js/data/footprints.js";
-const EXTS = new Set([".jpg", ".jpeg", ".png", ".heic"]);
+const EXTS = new Set([".jpg", ".jpeg", ".png", ".heic", ".heif"]);
 
 const US_STATES = {
   AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California",
@@ -94,7 +94,7 @@ function parseName(filename) {
   const slug = slugify(raw) || "photo";
   let id;
   if (featured) id = (date ? date + "-" : "") + slug + "-feat";
-  else if (num) id = slug + "-" + num;
+  else if (num) id = (date ? date + "-" : "") + slug + "-" + num;
   else id = slug;
 
   return { date, featured, caption, id };
@@ -104,14 +104,20 @@ function parseName(filename) {
 (function selfTest() {
   const a = parseName("2023-06_Hainan-01.jpg");
   const b = parseName("2023-06_Hainan-feat.jpg");
+  const c = parseName("2023-12_New York City-01.jpg");
+  const d = parseName("2023-12_New York City-feat.jpg");
   const ok =
     a.date === "2023-06" && a.caption === "Hainan" &&
-    a.id === "hainan-01" && a.featured === false &&
+    a.id === "2023-06-hainan-01" && a.featured === false &&
     b.date === "2023-06" && b.caption === "Hainan" &&
     b.id === "2023-06-hainan-feat" && b.featured === true &&
-    a.id !== b.id;
+    c.date === "2023-12" && c.caption === "New York City" &&
+    c.id === "2023-12-new-york-city-01" && c.featured === false &&
+    d.date === "2023-12" && d.caption === "New York City" &&
+    d.id === "2023-12-new-york-city-feat" && d.featured === true &&
+    a.id !== b.id && c.id !== d.id;
   if (!ok) {
-    console.error("FATAL: filename parser self-test failed", { a, b });
+    console.error("FATAL: filename parser self-test failed", { a, b, c, d });
     process.exit(1);
   }
 })();
@@ -246,11 +252,12 @@ async function main() {
   const fp = { data: fpState.data };
 
   const tags = (await readdir(INBOX, { withFileTypes: true }))
-    .filter((d) => d.isDirectory())
+    .filter((d) => d.isDirectory() && !d.name.startsWith("_")) // skip _failed/
     .map((d) => d.name)
     .sort();
 
   let processed = 0;
+  let skipped = 0;
   const usedThisRun = new Set();
 
   for (const tag of tags) {
@@ -260,6 +267,7 @@ async function main() {
 
     for (const file of files) {
       const srcFile = path.join(INBOX, tag, file);
+      try {
       const parsed = parseName(path.basename(file));
       const date = parsed.date;
       const featured = parsed.featured;
@@ -277,7 +285,19 @@ async function main() {
       const webPath = path.join(outDir, `${id}.webp`);
       const thumbPath = path.join(thumbDir, `${id}.webp`);
 
-      const image = sharp(srcFile, { failOn: "none" }).rotate();
+      // sharp's prebuilt libvips cannot decode HEIC/HEIF — convert to a
+      // JPEG buffer first; a conversion failure flows into the skip path
+      let input = srcFile;
+      const ext = path.extname(file).toLowerCase();
+      if (ext === ".heic" || ext === ".heif") {
+        const { default: heicConvert } = await import("heic-convert");
+        const rawBytes = await readFile(srcFile);
+        input = Buffer.from(await heicConvert({
+          buffer: rawBytes, format: "JPEG", quality: 0.9,
+        }));
+      }
+
+      const image = sharp(input, { failOn: "none" }).rotate();
       const full = await image.clone()
         .resize(1600, 1600, { fit: "inside", withoutEnlargement: true })
         .webp({ quality: 80 }).toFile(webPath);
@@ -317,10 +337,18 @@ async function main() {
       processed++;
       console.log(`✓ ${tag}/${file} → ${id}  (${full.width}×${full.height}, ${date || "undated"}` +
         `${featured ? ", featured" : ""})`);
+      } catch (err) {
+        // one bad file must never sink the batch: quarantine and move on
+        skipped++;
+        console.error(`SKIP ${tag}/${file}: ${(err && err.message) || err}`);
+        const failDir = path.join(INBOX, "_failed", tag);
+        await mkdir(failDir, { recursive: true });
+        await rename(srcFile, path.join(failDir, file)).catch(function () {});
+      }
     }
   }
 
-  if (!processed) {
+  if (!processed && !skipped) {
     console.log("Inbox empty — nothing to do.");
     return;
   }
@@ -350,9 +378,15 @@ async function main() {
 const PHOTOS = `;
   const body = JSON.stringify(entries, null, 2)
     .replace(/"([a-zA-Z_][a-zA-Z0-9_]*)":/g, "$1:");
-  await writeFile(MANIFEST, header + body + ";\n");
-  await writeFile(FOOTPRINTS_FILE, fpSrc);
-  console.log(`\nProcessed ${processed} photo(s); manifest now has ${entries.length} entries.`);
+  if (processed) {
+    await writeFile(MANIFEST, header + body + ";\n");
+    await writeFile(FOOTPRINTS_FILE, fpSrc);
+  }
+  console.log(`\nprocessed ${processed}, skipped ${skipped}` +
+    (skipped ? " (see photos-inbox/_failed/)" : ""));
+  if (process.env.GITHUB_OUTPUT) {
+    await writeFile(process.env.GITHUB_OUTPUT, `skipped=${skipped}\n`, { flag: "a" });
+  }
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

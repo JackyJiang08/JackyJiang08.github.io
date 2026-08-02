@@ -32,7 +32,7 @@ const FOOTPRINTS = {
   CN: { name: "China", visited: true, regions: [
     { name: "Shanghai" }, { name: "Jiangsu" }, { name: "Zhejiang" }, { name: "Beijing" },
     { name: "Heilongjiang" }, { name: "Shandong" }, { name: "Shaanxi" }, { name: "Sichuan" },
-    { name: "Hainan", photoIds: ["hainan-01", "hainan-02", "hainan-03", "hainan-04", "hainan-05", "hainan-06", "hainan-07", "hainan-08", "2023-06-hainan-feat"] }, { name: "Fujian" }, { name: "Hong Kong" }, { name: "Macau" },
+    { name: "Hainan", photoIds: ["2023-06-hainan-01", "2023-06-hainan-02", "2023-06-hainan-03", "2023-06-hainan-04", "2023-06-hainan-05", "2023-06-hainan-06", "2023-06-hainan-07", "2023-06-hainan-08", "2023-06-hainan-feat"] }, { name: "Fujian" }, { name: "Hong Kong" }, { name: "Macau" },
   ] },
   US: { name: "United States", visited: true,
     zoomBox: "conus",
@@ -47,7 +47,7 @@ const FOOTPRINTS = {
     { name: "Wyoming" }, { name: "Montana" }, { name: "Idaho" },
     { name: "Utah" }, { name: "Colorado" },
     { name: "Nevada", cities: [ { name: "Las Vegas", lat: 36.17, lng: -115.14 } ] },
-    { name: "New York", photoIds: ["new-york-city-01", "new-york-city-02", "new-york-city-03", "new-york-city-04", "new-york-city-05", "new-york-city-06", "new-york-city-07", "new-york-city-08", "new-york-city-09"], cities: [ { name: "New York City", lat: 40.71, lng: -74.01 } ] },
+    { name: "New York", photoIds: ["2023-12-new-york-city-01", "2023-12-new-york-city-02", "2023-12-new-york-city-03", "2023-12-new-york-city-04", "2023-12-new-york-city-05", "2023-12-new-york-city-06", "2023-12-new-york-city-07", "2023-12-new-york-city-08", "2023-12-new-york-city-09"], cities: [ { name: "New York City", lat: 40.71, lng: -74.01 } ] },
     { name: "District of Columbia", countAsState: false,
       cities: [ { name: "Washington, D.C.", lat: 38.91, lng: -77.04 } ] },
     { name: "Florida", cities: [
