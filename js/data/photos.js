@@ -18,7 +18,7 @@
 // photo id is reprocessed. Hand-appending an entry also works.
 // ============================================================
 
-const PHOTOS = [,
+const PHOTOS = [
   {
     id: "hainan-01",
     src: "assets/photos/2023-06/hainan-01.webp",
