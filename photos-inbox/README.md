@@ -45,6 +45,9 @@ Both yield date = `YYYY-MM` and caption = `Region` (shown as
 - `SG/` · `ID-bali/` · `MX-tijuana/` · `AE-dubai/`
 - Japan: `JP` `JP-tokyo` `JP-kyoto` `JP-osaka` `JP-nara`
 
+After the Action finishes, the site redeploys automatically; allow ~2 minutes
+and hard-refresh (Cmd/Ctrl+Shift+R) if your browser caches the old page.
+
 Files the pipeline can't read are moved to `photos-inbox/_failed/` (visible
 on GitHub) instead of blocking the batch — the rest still publish.
 
