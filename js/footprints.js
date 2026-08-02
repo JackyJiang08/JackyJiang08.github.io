@@ -396,22 +396,7 @@
     ensurePop();
     pop.innerHTML = "";
 
-    // header row: bold name left, muted date right (omitted when unset)
-    var head = document.createElement("div");
-    head.className = "fp-pop-head";
-    var title = document.createElement("h4");
-    title.className = "fp-pop-title";
-    title.textContent = rg.name;
-    head.appendChild(title);
-    if (rg.date) {
-      var dt = document.createElement("span");
-      dt.className = "fp-pop-date";
-      dt.textContent = rg.date;
-      head.appendChild(dt);
-    }
-    pop.appendChild(head);
-
-    // single album entry point (city names already label the map dots)
+    // scoped photos first — also feeds the header's date fallback
     var ids = (rg.photoIds || []).slice();
     (rg.cities || []).forEach(function (c) {
       (c.photoIds || []).forEach(function (id) {
@@ -419,17 +404,35 @@
       });
     });
     var photos = ids.map(photoById).filter(Boolean);
+
+    // date: an explicit date on the node always wins; otherwise the most
+    // recent date among its scoped photos; otherwise omitted
+    var date = rg.date || "";
+    if (!date && photos.length) {
+      var dates = photos.map(function (p) { return p.date; })
+        .filter(Boolean).sort();
+      if (dates.length) date = dates[dates.length - 1];
+    }
+
+    // header row: bold name left, muted date right
+    var head = document.createElement("div");
+    head.className = "fp-pop-head";
+    var title = document.createElement("h4");
+    title.className = "fp-pop-title";
+    title.textContent = rg.name;
+    head.appendChild(title);
+    if (date) {
+      var dt = document.createElement("span");
+      dt.className = "fp-pop-date";
+      dt.textContent = date;
+      head.appendChild(dt);
+    }
+    pop.appendChild(head);
+
+    // body: thumbnails left + "View ALL →" vertically centered to their right
     if (photos.length) {
       var row = document.createElement("div");
       row.className = "fp-pop-photos";
-      var lbl = document.createElement("button");
-      lbl.type = "button";
-      lbl.className = "fp-pop-photos-label link-button";
-      lbl.textContent = "View album →";
-      lbl.addEventListener("click", function () {
-        if (window.SiteLightbox) window.SiteLightbox.open(photos, 0);
-      });
-      row.appendChild(lbl);
       photos.slice(0, 3).forEach(function (p, idx) {
         var b = document.createElement("button");
         b.type = "button";
@@ -445,6 +448,14 @@
         });
         row.appendChild(b);
       });
+      var lbl = document.createElement("button");
+      lbl.type = "button";
+      lbl.className = "fp-pop-photos-label link-button";
+      lbl.textContent = "View ALL →";
+      lbl.addEventListener("click", function () {
+        if (window.SiteLightbox) window.SiteLightbox.open(photos, 0);
+      });
+      row.appendChild(lbl);
       pop.appendChild(row);
     } else {
       var soon = document.createElement("p");

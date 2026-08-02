@@ -710,17 +710,18 @@
 
 .fp-pop-photos {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem;
   margin-top: 0.55rem;
 }
 
 .fp-pop-photos-label {
-  flex-basis: 100%;
   font-size: 0.78rem;
   font-weight: 500;
   color: var(--accent);
+  white-space: nowrap;
+  align-self: center; /* vertically centered beside the thumbnails */
+  margin-left: 0.15rem;
 }
 
 .fp-pop-thumb {

@@ -18,37 +18,7 @@
 // photo id is reprocessed. Hand-appending an entry also works.
 // ============================================================
 
-const PHOTOS = [
-  {
-    id: "milky-way-01",
-    src: "assets/photos/2025-08/milky-way-01.webp",
-    thumb: "assets/photos/thumbs/2025-08/milky-way-01.webp",
-    caption: "Placeholder — Milky Way over central Illinois",
-    date: "2025-08",
-    featured: true,
-    w: 1200,
-    h: 800
-  },
-  {
-    id: "dusk-01",
-    src: "assets/photos/2025-06/dusk-01.webp",
-    thumb: "assets/photos/thumbs/2025-06/dusk-01.webp",
-    caption: "Placeholder — dusk on the road",
-    date: "2025-06",
-    featured: true,
-    w: 900,
-    h: 1200
-  },
-  {
-    id: "quad-01",
-    src: "assets/photos/2025-04/quad-01.webp",
-    thumb: "assets/photos/thumbs/2025-04/quad-01.webp",
-    caption: "Placeholder — the UIUC Main Quad",
-    date: "2025-04",
-    featured: true,
-    w: 1200,
-    h: 900
-  },
+const PHOTOS = [,
   {
     id: "hainan-01",
     src: "assets/photos/2023-06/hainan-01.webp",
