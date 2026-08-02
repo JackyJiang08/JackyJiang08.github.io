@@ -198,5 +198,45 @@ const PHOTOS = [
     featured: false,
     w: 1440,
     h: 1080
+  },
+  {
+    id: "2023-12-washington-dc-01",
+    src: "assets/photos/2023-12/2023-12-washington-dc-01.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-washington-dc-01.webp",
+    caption: "Washington DC",
+    date: "2023-12",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "2023-12-washington-dc-02",
+    src: "assets/photos/2023-12/2023-12-washington-dc-02.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-washington-dc-02.webp",
+    caption: "Washington DC",
+    date: "2023-12",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "2023-12-washington-dc-03",
+    src: "assets/photos/2023-12/2023-12-washington-dc-03.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-washington-dc-03.webp",
+    caption: "Washington DC",
+    date: "2023-12",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "2023-12-washington-dc-04",
+    src: "assets/photos/2023-12/2023-12-washington-dc-04.webp",
+    thumb: "assets/photos/thumbs/2023-12/2023-12-washington-dc-04.webp",
+    caption: "Washington DC",
+    date: "2023-12",
+    featured: false,
+    w: 1080,
+    h: 1440
   }
 ];

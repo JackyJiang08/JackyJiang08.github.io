@@ -48,7 +48,7 @@ const FOOTPRINTS = {
     { name: "Utah" }, { name: "Colorado" },
     { name: "Nevada", cities: [ { name: "Las Vegas", lat: 36.17, lng: -115.14 } ] },
     { name: "New York", photoIds: ["2023-12-new-york-city-01", "2023-12-new-york-city-02", "2023-12-new-york-city-03", "2023-12-new-york-city-04", "2023-12-new-york-city-05", "2023-12-new-york-city-06", "2023-12-new-york-city-07", "2023-12-new-york-city-08", "2023-12-new-york-city-09"], cities: [ { name: "New York City", lat: 40.71, lng: -74.01 } ] },
-    { name: "District of Columbia", countAsState: false,
+    { name: "District of Columbia", photoIds: ["2023-12-washington-dc-01", "2023-12-washington-dc-02", "2023-12-washington-dc-03", "2023-12-washington-dc-04"], countAsState: false,
       cities: [ { name: "Washington, D.C.", lat: 38.91, lng: -77.04 } ] },
     { name: "Florida", cities: [
       { name: "Orlando", lat: 28.54, lng: -81.38 },
