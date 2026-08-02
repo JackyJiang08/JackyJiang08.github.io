@@ -238,5 +238,85 @@ const PHOTOS = [
     featured: false,
     w: 1080,
     h: 1440
+  },
+  {
+    id: "2024-03-chicago-01",
+    src: "assets/photos/2024-03/2024-03-chicago-01.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-01.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-03-chicago-02",
+    src: "assets/photos/2024-03/2024-03-chicago-02.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-02.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: false,
+    w: 1067,
+    h: 1600
+  },
+  {
+    id: "2024-03-chicago-03",
+    src: "assets/photos/2024-03/2024-03-chicago-03.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-03.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "2024-03-chicago-04",
+    src: "assets/photos/2024-03/2024-03-chicago-04.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-04.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: false,
+    w: 1600,
+    h: 1067
+  },
+  {
+    id: "2024-03-chicago-05",
+    src: "assets/photos/2024-03/2024-03-chicago-05.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-05.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: false,
+    w: 1600,
+    h: 1067
+  },
+  {
+    id: "2024-03-chicago-06",
+    src: "assets/photos/2024-03/2024-03-chicago-06.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-06.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: false,
+    w: 1067,
+    h: 1600
+  },
+  {
+    id: "2024-03-chicago-07",
+    src: "assets/photos/2024-03/2024-03-chicago-07.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-07.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "2024-03-chicago-feat",
+    src: "assets/photos/2024-03/2024-03-chicago-feat.webp",
+    thumb: "assets/photos/thumbs/2024-03/2024-03-chicago-feat.webp",
+    caption: "Chicago",
+    date: "2024-03",
+    featured: true,
+    w: 1600,
+    h: 1200
   }
 ];
