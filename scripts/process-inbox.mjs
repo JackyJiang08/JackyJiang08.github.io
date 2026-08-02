@@ -212,7 +212,11 @@ function linkCity(src, cityName, id) {
   return src.slice(0, end) + `, photoIds: ["${id}"] ` + src.slice(end);
 }
 
-// resolve a folder tag against FOOTPRINTS → a link operation or null
+// resolve a folder tag against FOOTPRINTS → a link operation or null.
+// Three tiers: COUNTRY (JP), COUNTRY-REGION (US-IL, CN-hainan), and
+// COUNTRY-REGION-CITY (US-IL-chicago) — the city slug is scoped to its
+// region. A valid region with an unresolvable city segment falls back to
+// the region link (result carries .cityMiss) so a typo never loses photos.
 function resolveTag(tag, fp) {
   if (tag === "general") return { type: "none" };
   const mCountry = /^([A-Z]{2})$/.exec(tag);
@@ -224,17 +228,33 @@ function resolveTag(tag, fp) {
   if (!mTagged || !fp.data[mTagged[1]]) return null;
   const cc = mTagged[1];
   const country = fp.data[cc];
-  let part = mTagged[2];
-  if (cc === "US" && US_STATES[part.toUpperCase()]) {
-    part = US_STATES[part.toUpperCase()];
-  }
-  const want = norm(part);
+  const expand = (p) =>
+    cc === "US" && US_STATES[p.toUpperCase()] ? US_STATES[p.toUpperCase()] : p;
+  const rest = mTagged[2];
+
+  // two-level: the whole rest names a region (or, legacy, a city anywhere)
+  const want = norm(expand(rest));
   for (const rg of country.regions || []) {
     if (norm(rg.name) === want) return { type: "region", name: rg.name };
   }
   for (const rg of country.regions || []) {
     for (const c of rg.cities || []) {
       if (norm(c.name) === want) return { type: "city", name: c.name };
+    }
+  }
+
+  // three-level: first segment = region code/slug, remainder = city slug
+  const dash = rest.indexOf("-");
+  if (dash !== -1) {
+    const wantR = norm(expand(rest.slice(0, dash)));
+    const cityPart = rest.slice(dash + 1);
+    for (const rg of country.regions || []) {
+      if (norm(rg.name) !== wantR) continue;
+      const wantC = norm(cityPart);
+      for (const c of rg.cities || []) {
+        if (norm(c.name) === wantC) return { type: "city", name: c.name };
+      }
+      return { type: "region", name: rg.name, cityMiss: cityPart };
     }
   }
   return null;
@@ -274,6 +294,7 @@ async function main() {
 
   let processed = 0;
   let skipped = 0;
+  const cityFallbacks = []; // three-level tags whose city segment missed
   const usedThisRun = new Set();
 
   for (const tag of tags) {
@@ -341,6 +362,11 @@ async function main() {
         console.warn(`warn: tag "${tag}" doesn't match any footprints node — ` +
           `"${id}" added to the masonry only`);
       } else if (link.type !== "none") {
+        if (link.cityMiss) {
+          console.warn(`warn: tag "${tag}": no city "${link.cityMiss}" under ` +
+            `${link.name} — "${id}" attached at the region level instead`);
+          cityFallbacks.push(`${tag}/${file} → ${link.name}`);
+        }
         let next = null;
         if (link.type === "country") next = linkCountry(fpSrc, link.cc, link.name, id);
         else if (link.type === "region") next = linkRegion(fpSrc, link.name, id);
@@ -401,6 +427,10 @@ const PHOTOS = `;
   }
   console.log(`\nprocessed ${processed}, skipped ${skipped}` +
     (skipped ? " (see photos-inbox/_failed/)" : ""));
+  if (cityFallbacks.length) {
+    console.log(`note: ${cityFallbacks.length} photo(s) attached at region ` +
+      `level (unresolved city segment):\n  - ${cityFallbacks.join("\n  - ")}`);
+  }
   if (process.env.GITHUB_OUTPUT) {
     await writeFile(process.env.GITHUB_OUTPUT, `skipped=${skipped}\n`, { flag: "a" });
   }
