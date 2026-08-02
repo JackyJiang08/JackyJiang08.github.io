@@ -108,5 +108,95 @@ const PHOTOS = [
     featured: true,
     w: 1600,
     h: 946
+  },
+  {
+    id: "new-york-city-01",
+    src: "assets/photos/2023-12/new-york-city-01.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-01.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "new-york-city-02",
+    src: "assets/photos/2023-12/new-york-city-02.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-02.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "new-york-city-03",
+    src: "assets/photos/2023-12/new-york-city-03.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-03.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "new-york-city-04",
+    src: "assets/photos/2023-12/new-york-city-04.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-04.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1600,
+    h: 714
+  },
+  {
+    id: "new-york-city-05",
+    src: "assets/photos/2023-12/new-york-city-05.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-05.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "new-york-city-06",
+    src: "assets/photos/2023-12/new-york-city-06.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-06.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "new-york-city-07",
+    src: "assets/photos/2023-12/new-york-city-07.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-07.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "new-york-city-08",
+    src: "assets/photos/2023-12/new-york-city-08.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-08.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "new-york-city-09",
+    src: "assets/photos/2023-12/new-york-city-09.webp",
+    thumb: "assets/photos/thumbs/2023-12/new-york-city-09.webp",
+    caption: "New York City",
+    date: "2023-12",
+    featured: false,
+    w: 1440,
+    h: 1080
   }
 ];

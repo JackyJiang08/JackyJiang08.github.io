@@ -47,7 +47,7 @@ const FOOTPRINTS = {
     { name: "Wyoming" }, { name: "Montana" }, { name: "Idaho" },
     { name: "Utah" }, { name: "Colorado" },
     { name: "Nevada", cities: [ { name: "Las Vegas", lat: 36.17, lng: -115.14 } ] },
-    { name: "New York", cities: [ { name: "New York City", lat: 40.71, lng: -74.01 } ] },
+    { name: "New York", photoIds: ["new-york-city-01", "new-york-city-02", "new-york-city-03", "new-york-city-04", "new-york-city-05", "new-york-city-06", "new-york-city-07", "new-york-city-08", "new-york-city-09"], cities: [ { name: "New York City", lat: 40.71, lng: -74.01 } ] },
     { name: "District of Columbia", countAsState: false,
       cities: [ { name: "Washington, D.C.", lat: 38.91, lng: -77.04 } ] },
     { name: "Florida", cities: [
