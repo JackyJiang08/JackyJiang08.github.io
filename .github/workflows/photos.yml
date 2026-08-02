@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pages: write # the "request a Pages build" API call needs this
 
 concurrency:
   group: photo-pipeline
