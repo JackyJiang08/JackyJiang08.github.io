@@ -25,6 +25,9 @@ Both yield date = `YYYY-MM` and caption = `Region` (shown as
   field in `js/data/photos.js` afterwards. No date prefix = undated: the
   photo sinks below all dated ones and its lightbox caption shows just the
   region.
+- Only `-feat` photos enter the featured carousel on the Misc. page.
+  Numbered photos landing in the album masonry (and their map popover) but
+  **not** the carousel is expected behavior, not a bug.
 
 ## Uploading from your phone
 

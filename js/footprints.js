@@ -247,6 +247,49 @@
       if (g) g.removeAttribute("hidden");
     });
 
+    // Tiny visited regions (e.g. District of Columbia) are only a few px
+    // on screen even when the admin1 layer is revealed — effectively
+    // invisible and unclickable. Any visited region whose screen bbox at
+    // the reveal threshold is under TINY_PX gets a permanent marker at its
+    // centroid: constant screen size, same visibility as the layer,
+    // clickable exactly like the region path. Generic bbox test — nothing
+    // is hardcoded to DC.
+    var TINY_PX = 12;
+    var tinyRects = [];
+    var tinyMarks = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    tinyMarks.setAttribute("class", "fp-tiny-marks");
+    Object.keys(regionMeta).forEach(function (id) {
+      var rp = svg.querySelector('[id="' + id + '"]');
+      if (!rp) return;
+      var bb;
+      try { bb = rp.getBBox(); } catch (e) { return; }
+      // a zero-SIZE bbox is still a valid centroid (Macau's path collapses
+      // to a single point at the map's precision); only an all-zero bbox
+      // means the element isn't rendered at all
+      if (!bb.x && !bb.y && !bb.width && !bb.height) return;
+      // screen px when the admin1 layer first becomes visible
+      var revealPx = Math.max(bb.width, bb.height) * (W / VW0) * DETAIL_ZOOM;
+      if (revealPx >= TINY_PX) return;
+      tinyRects.push(bb);
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "fp-tiny");
+      g.dataset.region = id;
+      g.dataset.name = regionMeta[id].name;
+      g.setAttribute("transform", "translate(" +
+        (bb.x + bb.width / 2).toFixed(2) + " " +
+        (bb.y + bb.height / 2).toFixed(2) + ")");
+      var ring = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      ring.setAttribute("class", "fp-tiny-ring");
+      var core = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      core.setAttribute("class", "fp-tiny-core");
+      var label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      label.textContent = regionMeta[id].name;
+      g.appendChild(ring);
+      g.appendChild(core);
+      g.appendChild(label);
+      tinyMarks.appendChild(g);
+    });
+
     var cities = document.createElementNS("http://www.w3.org/2000/svg", "g");
     cities.setAttribute("class", "fp-cities");
     Object.keys(FOOTPRINTS).forEach(function (code) {
@@ -255,6 +298,14 @@
         (rg.cities || []).forEach(function (city) {
           if (typeof city.lat !== "number" || typeof city.lng !== "number") return;
           var pt = proj(city.lat, city.lng);
+          // a tiny-region marker already stands here (e.g. Washington,
+          // D.C. inside District of Columbia) — keep ONE clickable thing
+          for (var ti = 0; ti < tinyRects.length; ti++) {
+            var tr = tinyRects[ti];
+            var pad = Math.max(tr.width, tr.height);
+            if (pt.x >= tr.x - pad && pt.x <= tr.x + tr.width + pad &&
+                pt.y >= tr.y - pad && pt.y <= tr.y + tr.height + pad) return;
+          }
           var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
           g.setAttribute("class", "fp-city");
           g.dataset.ci = String(cityList.length);
@@ -271,6 +322,7 @@
       });
     });
     svg.appendChild(cities);
+    svg.appendChild(tinyMarks); // markers render above city dots
   }
 
   // ---- Interaction -------------------------------------------------------
@@ -546,6 +598,14 @@
     svg.addEventListener("click", function (e) {
       if (moved) return;
 
+      // tiny-region marker: identical to clicking the region path itself
+      var tinyG = e.target.closest(".fp-tiny");
+      if (tinyG) {
+        var trg = regionMeta[tinyG.dataset.region];
+        if (trg) openPopover(trg, hostPoint(e));
+        return;
+      }
+
       // city dot: its own popover (applies in every country, incl. CN/US)
       var cityG = e.target.closest(".fp-city");
       if (cityG) {
@@ -600,6 +660,13 @@
     });
 
     svg.addEventListener("mouseover", function (e) {
+      var tg = e.target.closest(".fp-tiny");
+      if (tg) {
+        tip.textContent = tg.dataset.name || "";
+        tip.classList.remove("muted");
+        tip.hidden = false;
+        return;
+      }
       var p = e.target.closest("path");
       if (!p) { tip.hidden = true; return; }
       var g = p.closest("g[id^='admin1-']");

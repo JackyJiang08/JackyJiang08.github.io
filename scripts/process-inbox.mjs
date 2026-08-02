@@ -240,6 +240,22 @@ function resolveTag(tag, fp) {
   return null;
 }
 
+// GitHub Pages serves js/data/*.js with ~10-minute cache headers, so a
+// deploy can look stale in browsers that hold the old data files. Bumping
+// the ?v= query on the <script> tags makes every page refetch them.
+const HTML_PAGES = ["index.html", "misc.html", "album.html"];
+
+async function bumpDataVersion() {
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 13);
+  const re = /(js\/data\/(?:photos|footprints|highlights)\.js)\?v=[0-9TZ]+/g;
+  for (const page of HTML_PAGES) {
+    if (!existsSync(page)) continue;
+    const html = await readFile(page, "utf8");
+    const next = html.replace(re, `$1?v=${stamp}`);
+    if (next !== html) await writeFile(page, next);
+  }
+}
+
 async function main() {
   if (!existsSync(INBOX)) {
     console.error(`No ${INBOX}/ directory found.`);
@@ -381,6 +397,7 @@ const PHOTOS = `;
   if (processed) {
     await writeFile(MANIFEST, header + body + ";\n");
     await writeFile(FOOTPRINTS_FILE, fpSrc);
+    await bumpDataVersion();
   }
   console.log(`\nprocessed ${processed}, skipped ${skipped}` +
     (skipped ? " (see photos-inbox/_failed/)" : ""));

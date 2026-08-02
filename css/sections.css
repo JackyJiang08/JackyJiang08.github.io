@@ -676,6 +676,53 @@
   stroke-width: calc(var(--fp-inv, 1) * 2px);
 }
 
+/* Tiny-region markers (e.g. District of Columbia): a ring/dot + label at
+   the region centroid, revealed together with the admin1 layer and
+   counter-scaled so they hold a constant screen size at any zoom */
+.fp-map .fp-tiny-marks {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.fp-map .fp-zoomed .fp-tiny-marks {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fp-map .fp-zoomed .fp-tiny {
+  cursor: pointer;
+}
+
+.fp-tiny .fp-tiny-ring {
+  r: calc(var(--fp-inv, 1) * 6px);
+  fill: rgba(255, 255, 255, 0.85);
+  stroke: #274c72;
+  stroke-width: calc(var(--fp-inv, 1) * 1.5px);
+  transition: filter 0.12s ease;
+}
+
+.fp-tiny .fp-tiny-core {
+  r: calc(var(--fp-inv, 1) * 2.5px);
+  fill: #274c72;
+}
+
+.fp-tiny text {
+  font-family: var(--font-body);
+  font-size: calc(var(--fp-inv, 1) * 9px);
+  font-weight: 600;
+  fill: #17202c;
+  text-anchor: middle;
+  transform: translateY(calc(var(--fp-inv, 1) * -10px));
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: calc(var(--fp-inv, 1) * 2px);
+}
+
+.fp-tiny:hover .fp-tiny-ring {
+  filter: brightness(1.35);
+}
+
 /* Region popover: anchored card opened by clicking a visited region */
 .fp-pop {
   position: absolute;
@@ -925,6 +972,20 @@
 }
 
 :root[data-theme="dark"] .fp-city text {
+  fill: #e5eaf3;
+  stroke: #0b0f19;
+}
+
+:root[data-theme="dark"] .fp-tiny .fp-tiny-ring {
+  fill: rgba(11, 15, 25, 0.85);
+  stroke: #7fa3c9;
+}
+
+:root[data-theme="dark"] .fp-tiny .fp-tiny-core {
+  fill: #7fa3c9;
+}
+
+:root[data-theme="dark"] .fp-tiny text {
   fill: #e5eaf3;
   stroke: #0b0f19;
 }
