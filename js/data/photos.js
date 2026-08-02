@@ -348,5 +348,25 @@ const PHOTOS = [
     featured: false,
     w: 1600,
     h: 1200
+  },
+  {
+    id: "2024-06-beijing-01",
+    src: "assets/photos/2024-06/2024-06-beijing-01.webp",
+    thumb: "assets/photos/thumbs/2024-06/2024-06-beijing-01.webp",
+    caption: "Beijing",
+    date: "2024-06",
+    featured: false,
+    w: 1442,
+    h: 1082
+  },
+  {
+    id: "2024-06-beijing-02",
+    src: "assets/photos/2024-06/2024-06-beijing-02.webp",
+    thumb: "assets/photos/thumbs/2024-06/2024-06-beijing-02.webp",
+    caption: "Beijing",
+    date: "2024-06",
+    featured: false,
+    w: 1200,
+    h: 1600
   }
 ];

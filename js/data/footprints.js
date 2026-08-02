@@ -30,7 +30,7 @@
 
 const FOOTPRINTS = {
   CN: { name: "China", visited: true, regions: [
-    { name: "Shanghai" }, { name: "Jiangsu" }, { name: "Zhejiang" }, { name: "Beijing" },
+    { name: "Shanghai" }, { name: "Jiangsu" }, { name: "Zhejiang" }, { name: "Beijing", photoIds: ["2024-06-beijing-01", "2024-06-beijing-02"] },
     { name: "Heilongjiang" }, { name: "Shandong" }, { name: "Shaanxi" }, { name: "Sichuan" },
     { name: "Hainan", photoIds: ["2023-06-hainan-01", "2023-06-hainan-02", "2023-06-hainan-03", "2023-06-hainan-04", "2023-06-hainan-05", "2023-06-hainan-06", "2023-06-hainan-07", "2023-06-hainan-08", "2023-06-hainan-feat"] }, { name: "Fujian" }, { name: "Hong Kong" }, { name: "Macau" },
   ] },
