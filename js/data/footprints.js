@@ -26,6 +26,10 @@
 //     are never guessed.
 //   - countAsState: false — the region is colored/clickable like a state
 //     but excluded from the "States" stat ring (e.g. DC).
+//   - albumLevel: "country" — clicking the country OR any of its city
+//     dots opens the COUNTRY popover with the merged national album;
+//     city dots become visual markers with name-only tooltips (e.g. JP).
+//     Never set on CN/US: their region/city popovers stay.
 // ============================================================
 
 const FOOTPRINTS = {
@@ -69,7 +73,7 @@ const FOOTPRINTS = {
     { name: "Tijuana", cities: [ { name: "Tijuana", lat: 32.51, lng: -117.04 } ] } ] },
   AE: { name: "United Arab Emirates", visited: true, regions: [
     { name: "Dubai", cities: [ { name: "Dubai", lat: 25.20, lng: 55.27 } ] } ] },
-  JP: { name: "Japan", visited: true, regions: [
+  JP: { name: "Japan", visited: true, albumLevel: "country", regions: [
     { name: "Tokyo", photoIds: ["2024-08-tokyo-01", "2024-08-tokyo-02", "2024-08-kamakura-01"], cities: [ { name: "Tokyo", lat: 35.68, lng: 139.69 } ] },
     { name: "Kyoto", photoIds: ["2024-08-kyoto-01"], cities: [ { name: "Kyoto", lat: 35.01, lng: 135.77 } ] },
     { name: "Osaka", photoIds: ["2024-08-osaka-01"], cities: [ { name: "Osaka", lat: 34.69, lng: 135.50 } ] },

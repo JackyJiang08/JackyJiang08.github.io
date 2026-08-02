@@ -84,14 +84,20 @@
     var z = effZoom();
     var wantDetail = z >= DETAIL_ZOOM;
     var wantCities = z >= CITY_ZOOM;
+    var flagsFlipped = false;
     if (wantDetail !== zoomedFlags.detail) {
       zoomedFlags.detail = wantDetail;
       svg.classList.toggle("fp-zoomed", wantDetail);
+      flagsFlipped = true;
     }
     if (wantCities !== zoomedFlags.cities) {
       zoomedFlags.cities = wantCities;
       svg.classList.toggle("fp-cities-on", wantCities);
+      flagsFlipped = true;
     }
+    // relayout labels when their visibility set changes (rare, not per
+    // frame); the settle bake does the final pass for the resting zoom
+    if (flagsFlipped) declutter();
     var bucket = Math.round(z * 4);
     if (bucket !== zoomBucket) {
       zoomBucket = bucket;
@@ -187,6 +193,7 @@
     // screen(u) before = t + s·(u−vbOld)·ppu ; after = (u−vbNew)·ppu·s
     svg.setAttribute("viewBox", nx + " " + ny + " " + nw + " " + nh);
     cam.style.transform = "translate(0px,0px) scale(1)";
+    declutter(); // labels re-place at the resting zoom — never per frame
   }
 
   function markActivity() {
@@ -218,8 +225,11 @@
 
   // ---- Build-once decorations -------------------------------------------
   var regionMeta = {};
-  var cityList = []; // indexed by data-ci on the dot groups
+  var cityList = []; // indexed by data-ci on the dot groups: { c, code }
   var bboxCache = {};
+  // every marker label, registered once for the declutter pass:
+  // { g, text, x, y, w (label px width), pr (priority), idx, kind, leader }
+  var labelItems = [];
 
   function decorate() {
     Object.keys(FOOTPRINTS).forEach(function (code) {
@@ -256,6 +266,9 @@
     // is hardcoded to DC.
     var TINY_PX = 12;
     var tinyRects = [];
+    // labels are a constant 9px on screen — measure their widths once
+    var labelCtx = document.createElement("canvas").getContext("2d");
+    labelCtx.font = "600 9px Inter, 'Segoe UI', sans-serif";
     var tinyMarks = document.createElementNS("http://www.w3.org/2000/svg", "g");
     tinyMarks.setAttribute("class", "fp-tiny-marks");
     Object.keys(regionMeta).forEach(function (id) {
@@ -271,23 +284,29 @@
       var revealPx = Math.max(bb.width, bb.height) * (W / VW0) * DETAIL_ZOOM;
       if (revealPx >= TINY_PX) return;
       tinyRects.push(bb);
+      var rg = regionMeta[id];
+      var cx = bb.x + bb.width / 2, cy = bb.y + bb.height / 2;
       var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
       g.setAttribute("class", "fp-tiny");
       g.dataset.region = id;
-      g.dataset.name = regionMeta[id].name;
-      g.setAttribute("transform", "translate(" +
-        (bb.x + bb.width / 2).toFixed(2) + " " +
-        (bb.y + bb.height / 2).toFixed(2) + ")");
+      g.dataset.name = rg.name;
+      g.setAttribute("transform", "translate(" + cx.toFixed(2) + " " + cy.toFixed(2) + ")");
       var ring = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       ring.setAttribute("class", "fp-tiny-ring");
       var core = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       core.setAttribute("class", "fp-tiny-core");
       var label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      label.textContent = regionMeta[id].name;
+      label.textContent = rg.name;
       g.appendChild(ring);
       g.appendChild(core);
       g.appendChild(label);
       tinyMarks.appendChild(g);
+      // region markers outrank city labels — they are the region's only
+      // clickable representation
+      labelItems.push({ g: g, text: label, x: cx, y: cy,
+        w: labelCtx.measureText(rg.name).width,
+        pr: 10000 + (rg.photoIds || []).length,
+        idx: labelItems.length, kind: "region", leader: null });
     });
 
     var cities = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -309,7 +328,7 @@
           var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
           g.setAttribute("class", "fp-city");
           g.dataset.ci = String(cityList.length);
-          cityList.push(city);
+          cityList.push({ c: city, code: code });
           g.setAttribute("transform", "translate(" + pt.x.toFixed(2) + " " + pt.y.toFixed(2) + ")");
           var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           dot.setAttribute("r", "1.4");
@@ -318,11 +337,100 @@
           g.appendChild(dot);
           g.appendChild(label);
           cities.appendChild(g);
+          labelItems.push({ g: g, text: label, x: pt.x, y: pt.y,
+            w: labelCtx.measureText(city.name).width,
+            pr: (city.photoIds || []).length * 10 + (rg.photoIds || []).length,
+            idx: labelItems.length, kind: "city", leader: null });
         });
       });
     });
     svg.appendChild(cities);
     svg.appendChild(tinyMarks); // markers render above city dots
+    declutter();
+  }
+
+  // ---- Label declutter ----------------------------------------------------
+  // Runs on zoom SETTLE (the viewBox bake) and when a visibility threshold
+  // flips — never per frame. Higher-priority labels place first at their
+  // default anchor (above the dot); a colliding label tries right / left /
+  // below, then a far offset with a 1px leader line, and finally hides
+  // (the dot stays) until a deeper zoom frees up room.
+  var LABEL_H = 12; // 9px type + halo, screen px
+
+  function applyLabelVariant(it, v, scale) {
+    var t = it.text;
+    if (it.leader) { it.leader.parentNode.removeChild(it.leader); it.leader = null; }
+    if (!v) {
+      t.style.display = "none";
+      return;
+    }
+    t.style.display = "";
+    var inv = "var(--fp-inv, 1)";
+    if (v.k === "top") {
+      t.style.textAnchor = "";
+      t.style.transform = ""; // the stylesheet default: above the dot
+    } else if (v.k === "right" || v.k === "far-right") {
+      t.style.textAnchor = "start";
+      t.style.transform = "translate(calc(" + inv + " * " +
+        (v.k === "right" ? 9 : 25) + "px), calc(" + inv + " * 3px))";
+    } else if (v.k === "left" || v.k === "far-left") {
+      t.style.textAnchor = "end";
+      t.style.transform = "translate(calc(" + inv + " * " +
+        (v.k === "left" ? -9 : -25) + "px), calc(" + inv + " * 3px))";
+    } else { // bottom
+      t.style.textAnchor = "";
+      t.style.transform = "translate(0px, calc(" + inv + " * 14px))";
+    }
+    if (v.k === "far-right" || v.k === "far-left") {
+      var u = 1 / scale; // svg units per screen px at pass time
+      var sgn = v.k === "far-right" ? 1 : -1;
+      var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("class", "fp-leader");
+      line.setAttribute("x1", String(sgn * 7 * u));
+      line.setAttribute("y1", "0");
+      line.setAttribute("x2", String(sgn * 23 * u));
+      line.setAttribute("y2", "0");
+      it.g.appendChild(line);
+      it.leader = line;
+    }
+  }
+
+  function declutter() {
+    if (!svg || !labelItems.length) return;
+    var scale = (W / vb.w) * cur.s; // screen px per svg unit right now
+    var active = labelItems.filter(function (it) {
+      return it.kind === "region" ? zoomedFlags.detail : zoomedFlags.cities;
+    });
+    var sorted = active.slice().sort(function (a, b) {
+      return (b.pr - a.pr) || (a.idx - b.idx);
+    });
+    var placed = [];
+    sorted.forEach(function (it) {
+      var sx = (it.x - vb.x) * scale + cur.x;
+      var sy = (it.y - vb.y) * scale + cur.y;
+      var w = it.w + 4;
+      var variants = [
+        { k: "top", x: sx - w / 2, y: sy - 19 },
+        { k: "right", x: sx + 8, y: sy - 6 },
+        { k: "left", x: sx - 8 - w, y: sy - 6 },
+        { k: "bottom", x: sx - w / 2, y: sy + 8 },
+        { k: "far-right", x: sx + 24, y: sy - 6 },
+        { k: "far-left", x: sx - 24 - w, y: sy - 6 },
+      ];
+      var chosen = null;
+      for (var i = 0; i < variants.length; i++) {
+        var v = variants[i];
+        var hit = false;
+        for (var j = 0; j < placed.length; j++) {
+          var b = placed[j];
+          if (v.x < b.x + b.w && v.x + w > b.x &&
+              v.y < b.y + b.h && v.y + LABEL_H > b.y) { hit = true; break; }
+        }
+        if (!hit) { chosen = v; break; }
+      }
+      applyLabelVariant(it, chosen, scale);
+      if (chosen) placed.push({ x: chosen.x, y: chosen.y, w: w, h: LABEL_H });
+    });
   }
 
   // ---- Interaction -------------------------------------------------------
@@ -606,13 +714,21 @@
         return;
       }
 
-      // city dot: its own popover (applies in every country, incl. CN/US)
+      // city dot: its own popover — EXCEPT in albumLevel:"country"
+      // countries (e.g. JP), where every dot opens the shared country
+      // album and the dots are otherwise just visual markers
       var cityG = e.target.closest(".fp-city");
       if (cityG) {
-        var c = cityList[parseInt(cityG.dataset.ci, 10)];
-        if (c) {
-          openPopover({ name: c.name, date: c.date, photoIds: c.photoIds || [] },
-            hostPoint(e));
+        var entry = cityList[parseInt(cityG.dataset.ci, 10)];
+        if (entry) {
+          var cCountry = FOOTPRINTS[entry.code];
+          if (cCountry && cCountry.albumLevel === "country") {
+            openPopover({ name: cCountry.name, date: cCountry.date,
+              photoIds: countryPhotoIds(cCountry) }, hostPoint(e));
+          } else {
+            openPopover({ name: entry.c.name, date: entry.c.date,
+              photoIds: entry.c.photoIds || [] }, hostPoint(e));
+          }
         }
         return;
       }
@@ -665,6 +781,15 @@
         tip.textContent = tg.dataset.name || "";
         tip.classList.remove("muted");
         tip.hidden = false;
+        return;
+      }
+      // city dots: name-only tooltip (useful when declutter hid the label)
+      var cg = e.target.closest(".fp-city");
+      if (cg) {
+        var ce = cityList[parseInt(cg.dataset.ci, 10)];
+        tip.textContent = ce ? ce.c.name : "";
+        tip.classList.remove("muted");
+        tip.hidden = !ce;
         return;
       }
       var p = e.target.closest("path");

@@ -597,6 +597,29 @@
   background: rgba(255, 255, 255, 0.18);
 }
 
+.lightbox-btn[hidden] {
+  display: none; /* the author display would otherwise beat [hidden] */
+}
+
+/* prev/next are anchored to the lightbox VIEWPORT, not the photo — a fixed
+   distance from the screen edges, vertically centered, so they sit in the
+   exact same place for every image regardless of aspect ratio */
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.lightbox-prev {
+  left: 1.1rem;
+}
+
+.lightbox-next {
+  right: 1.1rem;
+}
+
 .lightbox-close {
   position: absolute;
   top: 1.1rem;
@@ -614,6 +637,14 @@
 
   .lightbox-figure {
     max-width: 88vw;
+  }
+
+  .lightbox-prev {
+    left: 0.5rem;
+  }
+
+  .lightbox-next {
+    right: 0.5rem;
   }
 }
 

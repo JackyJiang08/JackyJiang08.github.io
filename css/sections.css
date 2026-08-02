@@ -664,7 +664,11 @@
   stroke-width: calc(var(--fp-inv, 1) * 1px);
 }
 
-.fp-city text {
+/* ONE label typography for the whole marker family (city dots and
+   tiny-region markers) — the declutter pass may override anchor/transform
+   inline to resolve collisions */
+.fp-city text,
+.fp-tiny text {
   font-family: var(--font-body);
   font-size: calc(var(--fp-inv, 1) * 9px);
   font-weight: 600;
@@ -674,6 +678,12 @@
   paint-order: stroke;
   stroke: #ffffff;
   stroke-width: calc(var(--fp-inv, 1) * 2px);
+}
+
+/* 1px leader line drawn by the declutter pass for far-displaced labels */
+.fp-leader {
+  stroke: #274c72;
+  stroke-width: calc(var(--fp-inv, 1) * 1px);
 }
 
 /* Tiny-region markers (e.g. District of Columbia): a ring/dot + label at
@@ -694,31 +704,24 @@
   cursor: pointer;
 }
 
+/* Unified marker family: the tiny-region core IS the city dot (same size,
+   same stroke); the only distinction is the thin outer ring */
+.fp-tiny .fp-tiny-core {
+  r: calc(var(--fp-inv, 1) * 4px);
+  fill: #274c72;
+  stroke: #ffffff;
+  stroke-width: calc(var(--fp-inv, 1) * 1px);
+}
+
 .fp-tiny .fp-tiny-ring {
-  r: calc(var(--fp-inv, 1) * 6px);
-  fill: rgba(255, 255, 255, 0.85);
+  r: calc(var(--fp-inv, 1) * 7px);
+  fill: none;
   stroke: #274c72;
-  stroke-width: calc(var(--fp-inv, 1) * 1.5px);
+  stroke-width: calc(var(--fp-inv, 1) * 1px);
   transition: filter 0.12s ease;
 }
 
-.fp-tiny .fp-tiny-core {
-  r: calc(var(--fp-inv, 1) * 2.5px);
-  fill: #274c72;
-}
-
-.fp-tiny text {
-  font-family: var(--font-body);
-  font-size: calc(var(--fp-inv, 1) * 9px);
-  font-weight: 600;
-  fill: #17202c;
-  text-anchor: middle;
-  transform: translateY(calc(var(--fp-inv, 1) * -10px));
-  paint-order: stroke;
-  stroke: #ffffff;
-  stroke-width: calc(var(--fp-inv, 1) * 2px);
-}
-
+.fp-tiny:hover .fp-tiny-core,
 .fp-tiny:hover .fp-tiny-ring {
   filter: brightness(1.35);
 }
@@ -971,23 +974,23 @@
   stroke: #0b0f19;
 }
 
-:root[data-theme="dark"] .fp-city text {
+:root[data-theme="dark"] .fp-city text,
+:root[data-theme="dark"] .fp-tiny text {
   fill: #e5eaf3;
   stroke: #0b0f19;
-}
-
-:root[data-theme="dark"] .fp-tiny .fp-tiny-ring {
-  fill: rgba(11, 15, 25, 0.85);
-  stroke: #7fa3c9;
 }
 
 :root[data-theme="dark"] .fp-tiny .fp-tiny-core {
   fill: #7fa3c9;
+  stroke: #0b0f19;
 }
 
-:root[data-theme="dark"] .fp-tiny text {
-  fill: #e5eaf3;
-  stroke: #0b0f19;
+:root[data-theme="dark"] .fp-tiny .fp-tiny-ring {
+  stroke: #7fa3c9;
+}
+
+:root[data-theme="dark"] .fp-leader {
+  stroke: #7fa3c9;
 }
 
 
@@ -1053,10 +1056,29 @@
   }
 }
 
-/* Masonry-style responsive columns; items keep natural aspect ratios */
+/* Masonry-style responsive columns; items keep natural aspect ratios.
+   Explicit counts per breakpoint: 2 mobile → 3 tablet → 4 → 5 desktop */
 .photo-grid {
-  columns: 3 260px;
+  columns: 2;
   column-gap: 1rem;
+}
+
+@media (min-width: 700px) {
+  .photo-grid {
+    columns: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .photo-grid {
+    columns: 4;
+  }
+}
+
+@media (min-width: 1200px) {
+  .photo-grid {
+    columns: 5;
+  }
 }
 
 .photo-item {
