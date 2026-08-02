@@ -63,7 +63,7 @@ const FOOTPRINTS = {
     { name: "Texas", cities: [ { name: "Dallas", lat: 32.78, lng: -96.80 } ] },
     { name: "Illinois", photoIds: ["2024-03-chicago-01", "2024-03-chicago-02", "2024-03-chicago-03", "2024-03-chicago-04", "2024-03-chicago-05", "2024-03-chicago-06", "2024-03-chicago-07", "2024-03-chicago-feat"], cities: [
       { name: "Champaign", lat: 40.12, lng: -88.24 },
-      { name: "Chicago", lat: 41.88, lng: -87.63 , photoIds: ["2026-08-test-shot-01"] } ] },
+      { name: "Chicago", lat: 41.88, lng: -87.63 } ] },
   ] },
   SG: { name: "Singapore", visited: true, regions: [
     { name: "Singapore", cities: [ { name: "Singapore", lat: 1.35, lng: 103.82 } ] } ] },

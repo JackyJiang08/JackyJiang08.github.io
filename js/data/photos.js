@@ -428,25 +428,5 @@ const PHOTOS = [
     featured: false,
     w: 1440,
     h: 1080
-  },
-  {
-    id: "2026-08-test-shot-01",
-    src: "assets/photos/2026-08/2026-08-test-shot-01.webp",
-    thumb: "assets/photos/thumbs/2026-08/2026-08-test-shot-01.webp",
-    caption: "Test Shot",
-    date: "2026-08",
-    featured: false,
-    w: 1200,
-    h: 800
-  },
-  {
-    id: "2026-08-deploy-check-01",
-    src: "assets/photos/2026-08/2026-08-deploy-check-01.webp",
-    thumb: "assets/photos/thumbs/2026-08/2026-08-deploy-check-01.webp",
-    caption: "Deploy Check",
-    date: "2026-08",
-    featured: false,
-    w: 900,
-    h: 600
   }
 ];
