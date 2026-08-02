@@ -48,5 +48,95 @@ const PHOTOS = [
     featured: true,
     w: 1200,
     h: 900
+  },
+  {
+    id: "hainan-01",
+    src: "assets/photos/2023-06/hainan-01.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-01.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "hainan-02",
+    src: "assets/photos/2023-06/hainan-02.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-02.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "hainan-03",
+    src: "assets/photos/2023-06/hainan-03.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-03.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "hainan-04",
+    src: "assets/photos/2023-06/hainan-04.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-04.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "hainan-05",
+    src: "assets/photos/2023-06/hainan-05.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-05.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "hainan-06",
+    src: "assets/photos/2023-06/hainan-06.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-06.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "hainan-07",
+    src: "assets/photos/2023-06/hainan-07.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-07.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "hainan-08",
+    src: "assets/photos/2023-06/hainan-08.webp",
+    thumb: "assets/photos/thumbs/2023-06/hainan-08.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: false,
+    w: 1440,
+    h: 1080
+  },
+  {
+    id: "2023-06-hainan-feat",
+    src: "assets/photos/2023-06/2023-06-hainan-feat.webp",
+    thumb: "assets/photos/thumbs/2023-06/2023-06-hainan-feat.webp",
+    caption: "Hainan",
+    date: "2023-06",
+    featured: true,
+    w: 1600,
+    h: 946
   }
 ];
