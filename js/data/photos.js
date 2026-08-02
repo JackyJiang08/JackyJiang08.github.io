@@ -368,5 +368,25 @@ const PHOTOS = [
     featured: false,
     w: 1200,
     h: 1600
+  },
+  {
+    id: "2024-08-tokyo-01",
+    src: "assets/photos/2024-08/2024-08-tokyo-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-tokyo-01.webp",
+    caption: "Tokyo",
+    date: "2024-08",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "2024-08-tokyo-02",
+    src: "assets/photos/2024-08/2024-08-tokyo-02.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-tokyo-02.webp",
+    caption: "Tokyo",
+    date: "2024-08",
+    featured: false,
+    w: 1200,
+    h: 1600
   }
 ];
