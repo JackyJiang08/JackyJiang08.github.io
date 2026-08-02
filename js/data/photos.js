@@ -318,5 +318,35 @@ const PHOTOS = [
     featured: true,
     w: 1600,
     h: 1200
+  },
+  {
+    id: "2024-04-indianapolis-01",
+    src: "assets/photos/2024-04/2024-04-indianapolis-01.webp",
+    thumb: "assets/photos/thumbs/2024-04/2024-04-indianapolis-01.webp",
+    caption: "Indianapolis",
+    date: "2024-04",
+    featured: false,
+    w: 1600,
+    h: 1067
+  },
+  {
+    id: "2024-04-indianapolis-02",
+    src: "assets/photos/2024-04/2024-04-indianapolis-02.webp",
+    thumb: "assets/photos/thumbs/2024-04/2024-04-indianapolis-02.webp",
+    caption: "Indianapolis",
+    date: "2024-04",
+    featured: false,
+    w: 807,
+    h: 1076
+  },
+  {
+    id: "2024-04-indianapolis-03",
+    src: "assets/photos/2024-04/2024-04-indianapolis-03.webp",
+    thumb: "assets/photos/thumbs/2024-04/2024-04-indianapolis-03.webp",
+    caption: "Indianapolis",
+    date: "2024-04",
+    featured: false,
+    w: 1600,
+    h: 1200
   }
 ];
