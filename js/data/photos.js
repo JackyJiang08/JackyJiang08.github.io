@@ -428,5 +428,25 @@ const PHOTOS = [
     featured: false,
     w: 1440,
     h: 1080
+  },
+  {
+    id: "2024-08-san-francisco-01",
+    src: "assets/photos/2024-08/2024-08-san-francisco-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-san-francisco-01.webp",
+    caption: "San Francisco",
+    date: "2024-08",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-08-san-francisco-02",
+    src: "assets/photos/2024-08/2024-08-san-francisco-02.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-san-francisco-02.webp",
+    caption: "San Francisco",
+    date: "2024-08",
+    featured: false,
+    w: 1600,
+    h: 1200
   }
 ];

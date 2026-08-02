@@ -44,7 +44,7 @@ const FOOTPRINTS = {
     { name: "Washington", cities: [ { name: "Seattle", lat: 47.61, lng: -122.33 } ] },
     { name: "Oregon", cities: [ { name: "Portland", lat: 45.52, lng: -122.68 } ] },
     { name: "California", cities: [
-      { name: "San Francisco", lat: 37.77, lng: -122.42 },
+      { name: "San Francisco", lat: 37.77, lng: -122.42 , photoIds: ["2024-08-san-francisco-01", "2024-08-san-francisco-02"] },
       { name: "Los Angeles", lat: 34.05, lng: -118.24 },
       { name: "San Jose", lat: 37.34, lng: -121.89 },
       { name: "San Diego", lat: 32.72, lng: -117.16 } ] },
