@@ -388,5 +388,45 @@ const PHOTOS = [
     featured: false,
     w: 1200,
     h: 1600
+  },
+  {
+    id: "2024-08-kyoto-01",
+    src: "assets/photos/2024-08/2024-08-kyoto-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-kyoto-01.webp",
+    caption: "Kyoto",
+    date: "2024-08",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-08-nara-01",
+    src: "assets/photos/2024-08/2024-08-nara-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-nara-01.webp",
+    caption: "Nara",
+    date: "2024-08",
+    featured: false,
+    w: 1200,
+    h: 1600
+  },
+  {
+    id: "2024-08-osaka-01",
+    src: "assets/photos/2024-08/2024-08-osaka-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-osaka-01.webp",
+    caption: "Osaka",
+    date: "2024-08",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-08-kamakura-01",
+    src: "assets/photos/2024-08/2024-08-kamakura-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-kamakura-01.webp",
+    caption: "Kamakura",
+    date: "2024-08",
+    featured: false,
+    w: 1440,
+    h: 1080
   }
 ];

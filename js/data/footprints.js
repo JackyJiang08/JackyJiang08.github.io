@@ -70,9 +70,9 @@ const FOOTPRINTS = {
   AE: { name: "United Arab Emirates", visited: true, regions: [
     { name: "Dubai", cities: [ { name: "Dubai", lat: 25.20, lng: 55.27 } ] } ] },
   JP: { name: "Japan", visited: true, regions: [
-    { name: "Tokyo", photoIds: ["2024-08-tokyo-01", "2024-08-tokyo-02"], cities: [ { name: "Tokyo", lat: 35.68, lng: 139.69 } ] },
-    { name: "Kyoto", cities: [ { name: "Kyoto", lat: 35.01, lng: 135.77 } ] },
-    { name: "Osaka", cities: [ { name: "Osaka", lat: 34.69, lng: 135.50 } ] },
-    { name: "Nara", cities: [ { name: "Nara", lat: 34.69, lng: 135.80 } ] },
+    { name: "Tokyo", photoIds: ["2024-08-tokyo-01", "2024-08-tokyo-02", "2024-08-kamakura-01"], cities: [ { name: "Tokyo", lat: 35.68, lng: 139.69 } ] },
+    { name: "Kyoto", photoIds: ["2024-08-kyoto-01"], cities: [ { name: "Kyoto", lat: 35.01, lng: 135.77 } ] },
+    { name: "Osaka", photoIds: ["2024-08-osaka-01"], cities: [ { name: "Osaka", lat: 34.69, lng: 135.50 } ] },
+    { name: "Nara", photoIds: ["2024-08-nara-01"], cities: [ { name: "Nara", lat: 34.69, lng: 135.80 } ] },
   ] },
 };
