@@ -448,5 +448,75 @@ const PHOTOS = [
     featured: false,
     w: 1600,
     h: 1200
+  },
+  {
+    id: "2024-08-apple-park-feat",
+    src: "assets/photos/2024-08/2024-08-apple-park-feat.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-apple-park-feat.webp",
+    caption: "Apple Park",
+    date: "2024-08",
+    featured: true,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-08-cupertino-01",
+    src: "assets/photos/2024-08/2024-08-cupertino-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-cupertino-01.webp",
+    caption: "Cupertino",
+    date: "2024-08",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-08-google-01",
+    src: "assets/photos/2024-08/2024-08-google-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-google-01.webp",
+    caption: "Google",
+    date: "2024-08",
+    featured: false,
+    w: 1200,
+    h: 1600
+  },
+  {
+    id: "2024-08-google-02",
+    src: "assets/photos/2024-08/2024-08-google-02.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-google-02.webp",
+    caption: "Google",
+    date: "2024-08",
+    featured: false,
+    w: 1434,
+    h: 1076
+  },
+  {
+    id: "2024-08-stanford-01",
+    src: "assets/photos/2024-08/2024-08-stanford-01.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-stanford-01.webp",
+    caption: "Stanford",
+    date: "2024-08",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-08-stanford-02",
+    src: "assets/photos/2024-08/2024-08-stanford-02.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-stanford-02.webp",
+    caption: "Stanford",
+    date: "2024-08",
+    featured: false,
+    w: 1080,
+    h: 1440
+  },
+  {
+    id: "2024-08-stanford-03",
+    src: "assets/photos/2024-08/2024-08-stanford-03.webp",
+    thumb: "assets/photos/thumbs/2024-08/2024-08-stanford-03.webp",
+    caption: "Stanford",
+    date: "2024-08",
+    featured: false,
+    w: 1200,
+    h: 1600
   }
 ];

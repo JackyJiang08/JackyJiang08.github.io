@@ -46,7 +46,7 @@ const FOOTPRINTS = {
     { name: "California", cities: [
       { name: "San Francisco", lat: 37.77, lng: -122.42 , photoIds: ["2024-08-san-francisco-01", "2024-08-san-francisco-02"] },
       { name: "Los Angeles", lat: 34.05, lng: -118.24 },
-      { name: "San Jose", lat: 37.34, lng: -121.89 },
+      { name: "San Jose", lat: 37.34, lng: -121.89 , photoIds: ["2024-08-apple-park-feat", "2024-08-cupertino-01", "2024-08-google-01", "2024-08-google-02", "2024-08-stanford-01", "2024-08-stanford-02", "2024-08-stanford-03"] },
       { name: "San Diego", lat: 32.72, lng: -117.16 } ] },
     { name: "Wyoming" }, { name: "Montana" }, { name: "Idaho" },
     { name: "Utah" }, { name: "Colorado" },
