@@ -328,7 +328,7 @@
           var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
           g.setAttribute("class", "fp-city");
           g.dataset.ci = String(cityList.length);
-          cityList.push({ c: city, code: code });
+          cityList.push({ c: city, code: code, rg: rg });
           g.setAttribute("transform", "translate(" + pt.x.toFixed(2) + " " + pt.y.toFixed(2) + ")");
           var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           dot.setAttribute("r", "1.4");
@@ -552,6 +552,39 @@
     return null;
   }
 
+  // city popover scope: the city's own photos first, then the parent
+  // state/province's set (a state-tagged upload shows on its city dots too)
+  function cityScopeIds(entry) {
+    var ids = (entry.c.photoIds || []).slice();
+    ((entry.rg && entry.rg.photoIds) || []).forEach(function (id) {
+      if (ids.indexOf(id) === -1) ids.push(id);
+    });
+    return ids;
+  }
+
+  // warm the browser cache for a popover's thumbnails ahead of the click,
+  // so the card opens with images instead of empty placeholders
+  var preloaded = {};
+
+  function preloadThumbs(ids) {
+    ids.slice(0, 3).forEach(function (id) {
+      if (preloaded[id]) return;
+      preloaded[id] = true;
+      var p = photoById(id);
+      if (p) new Image().src = p.thumb || p.src;
+    });
+  }
+
+  function regionScopeIds(rg) {
+    var ids = (rg.photoIds || []).slice();
+    (rg.cities || []).forEach(function (c) {
+      (c.photoIds || []).forEach(function (id) {
+        if (ids.indexOf(id) === -1) ids.push(id);
+      });
+    });
+    return ids;
+  }
+
   function openPopover(rg, at) {
     ensurePop();
     pop.innerHTML = "";
@@ -601,7 +634,10 @@
         var img = document.createElement("img");
         img.src = p.thumb || p.src;
         img.alt = p.caption;
-        img.loading = "lazy";
+        // popover thumbs are needed the instant the card opens — load
+        // eagerly (hover preloading usually has them cached already)
+        img.decoding = "async";
+        img.setAttribute("fetchpriority", "high");
         b.appendChild(img);
         b.addEventListener("click", function () {
           if (window.SiteLightbox) window.SiteLightbox.open(photos, idx);
@@ -727,7 +763,7 @@
               photoIds: countryPhotoIds(cCountry) }, hostPoint(e));
           } else {
             openPopover({ name: entry.c.name, date: entry.c.date,
-              photoIds: entry.c.photoIds || [] }, hostPoint(e));
+              photoIds: cityScopeIds(entry) }, hostPoint(e));
           }
         }
         return;
@@ -781,6 +817,8 @@
         tip.textContent = tg.dataset.name || "";
         tip.classList.remove("muted");
         tip.hidden = false;
+        var trg = regionMeta[tg.dataset.region];
+        if (trg) preloadThumbs(regionScopeIds(trg));
         return;
       }
       // city dots: name-only tooltip (useful when declutter hid the label)
@@ -790,6 +828,11 @@
         tip.textContent = ce ? ce.c.name : "";
         tip.classList.remove("muted");
         tip.hidden = !ce;
+        if (ce) {
+          var hCountry = FOOTPRINTS[ce.code];
+          preloadThumbs(hCountry && hCountry.albumLevel === "country"
+            ? countryPhotoIds(hCountry) : cityScopeIds(ce));
+        }
         return;
       }
       var p = e.target.closest("path");
@@ -800,12 +843,15 @@
         tip.textContent = p.getAttribute("name") || "";
         tip.classList.toggle("muted", !p.classList.contains("visited"));
         tip.hidden = false;
+        var hrg = regionMeta[p.id];
+        if (hrg && p.classList.contains("visited")) preloadThumbs(regionScopeIds(hrg));
         return;
       }
       var code = p.id.slice(2);
       var d = FOOTPRINTS[code];
       var name = p.getAttribute("name") || (d && d.name) || "";
       if (d && d.visited) {
+        preloadThumbs(countryPhotoIds(d));
         var n = (d.regions || []).length;
         tip.textContent = name + " · " + n + (n === 1 ? " region" : " regions");
         tip.classList.remove("muted");
