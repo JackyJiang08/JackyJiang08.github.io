@@ -11,12 +11,9 @@
 
   if (typeof PHOTOS === "undefined") return;
 
-  // newest first; undated photos sink to the bottom, ordered by filename
-  var items = PHOTOS.slice().sort(function (a, b) {
-    var d = (b.date || "").localeCompare(a.date || "");
-    if (d !== 0) return d;
-    return (a.id || a.src).localeCompare(b.id || b.src);
-  });
+  // ONE shared order everywhere (js/photo-order.js): newest month first,
+  // hand-numbered order (-feat, -01, -02 …) within the month
+  var items = window.PhotoOrder ? window.PhotoOrder.sort(PHOTOS) : PHOTOS.slice();
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

@@ -564,11 +564,14 @@
   var preloaded = {};
 
   function preloadThumbs(ids) {
-    ids.slice(0, 3).forEach(function (id) {
-      if (preloaded[id]) return;
-      preloaded[id] = true;
-      var p = photoById(id);
-      if (p) new Image().src = p.thumb || p.src;
+    // warm exactly the thumbs the popover will show: the first three in
+    // the shared order (js/photo-order.js)
+    var photos = ids.map(photoById).filter(Boolean);
+    if (window.PhotoOrder) photos = window.PhotoOrder.sort(photos);
+    photos.slice(0, 3).forEach(function (p) {
+      if (preloaded[p.id]) return;
+      preloaded[p.id] = true;
+      new Image().src = p.thumb || p.src;
     });
   }
 
@@ -594,6 +597,9 @@
       });
     });
     var photos = ids.map(photoById).filter(Boolean);
+    // shared order (js/photo-order.js): the up-to-3 thumbs are the FIRST
+    // three — the newest trip's opening shots — and View ALL starts there
+    if (window.PhotoOrder) photos = window.PhotoOrder.sort(photos);
 
     // date: an explicit date on the node always wins; otherwise the most
     // recent date among its scoped photos; otherwise omitted
