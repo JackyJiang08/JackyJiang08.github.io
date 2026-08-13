@@ -518,5 +518,65 @@ const PHOTOS = [
     featured: false,
     w: 1200,
     h: 1600
+  },
+  {
+    id: "2024-09-middle-fork-01",
+    src: "assets/photos/2024-09/2024-09-middle-fork-01.webp",
+    thumb: "assets/photos/thumbs/2024-09/2024-09-middle-fork-01.webp",
+    caption: "Middle Fork",
+    date: "2024-09",
+    featured: false,
+    w: 1600,
+    h: 1067
+  },
+  {
+    id: "2024-09-middle-fork-02",
+    src: "assets/photos/2024-09/2024-09-middle-fork-02.webp",
+    thumb: "assets/photos/thumbs/2024-09/2024-09-middle-fork-02.webp",
+    caption: "Middle Fork",
+    date: "2024-09",
+    featured: false,
+    w: 1600,
+    h: 1066
+  },
+  {
+    id: "2024-10-middle-fork-03",
+    src: "assets/photos/2024-10/2024-10-middle-fork-03.webp",
+    thumb: "assets/photos/thumbs/2024-10/2024-10-middle-fork-03.webp",
+    caption: "Middle Fork",
+    date: "2024-10",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-10-middle-fork-04",
+    src: "assets/photos/2024-10/2024-10-middle-fork-04.webp",
+    thumb: "assets/photos/thumbs/2024-10/2024-10-middle-fork-04.webp",
+    caption: "Middle Fork",
+    date: "2024-10",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-10-uiuc-01",
+    src: "assets/photos/2024-10/2024-10-uiuc-01.webp",
+    thumb: "assets/photos/thumbs/2024-10/2024-10-uiuc-01.webp",
+    caption: "UIUC",
+    date: "2024-10",
+    featured: false,
+    w: 1600,
+    h: 1068
+  },
+  {
+    id: "2024-10-uiuc-02",
+    src: "assets/photos/2024-10/2024-10-uiuc-02.webp",
+    thumb: "assets/photos/thumbs/2024-10/2024-10-uiuc-02.webp",
+    caption: "UIUC",
+    date: "2024-10",
+    featured: false,
+    w: 1600,
+    h: 1200
   }
 ];
