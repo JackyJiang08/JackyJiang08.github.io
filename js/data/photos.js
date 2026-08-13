@@ -598,5 +598,15 @@ const PHOTOS = [
     featured: false,
     w: 1200,
     h: 1600
+  },
+  {
+    id: "2025-04-crce-01",
+    src: "assets/photos/2025-04/2025-04-crce-01.webp",
+    thumb: "assets/photos/thumbs/2025-04/2025-04-crce-01.webp",
+    caption: "CRCE",
+    date: "2025-04",
+    featured: false,
+    w: 1600,
+    h: 1200
   }
 ];
