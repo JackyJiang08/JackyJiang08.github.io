@@ -552,14 +552,11 @@
     return null;
   }
 
-  // city popover scope: the city's own photos first, then the parent
-  // state/province's set (a state-tagged upload shows on its city dots too)
+  // city popover scope: EXACTLY the city's own photoIds — never the parent
+  // state/province's (those stay in the state popover, which merges its own
+  // set with all of its cities')
   function cityScopeIds(entry) {
-    var ids = (entry.c.photoIds || []).slice();
-    ((entry.rg && entry.rg.photoIds) || []).forEach(function (id) {
-      if (ids.indexOf(id) === -1) ids.push(id);
-    });
-    return ids;
+    return (entry.c.photoIds || []).slice();
   }
 
   // warm the browser cache for a popover's thumbnails ahead of the click,

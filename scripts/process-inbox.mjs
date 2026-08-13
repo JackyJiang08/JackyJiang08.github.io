@@ -235,7 +235,9 @@ function resolveTag(tag, fp) {
   // two-level: the whole rest names a region (or, legacy, a city anywhere)
   const want = norm(expand(rest));
   for (const rg of country.regions || []) {
-    if (norm(rg.name) === want) return { type: "region", name: rg.name };
+    if (norm(rg.name) === want) {
+      return { type: "region", name: rg.name, cities: rg.cities || [] };
+    }
   }
   for (const rg of country.regions || []) {
     for (const c of rg.cities || []) {
@@ -256,6 +258,18 @@ function resolveTag(tag, fp) {
       }
       return { type: "region", name: rg.name, cityMiss: cityPart };
     }
+  }
+  return null;
+}
+
+// A file whose parsed Region word names a KNOWN city inside the tagged
+// state/province is auto-routed to that city node (e.g. "2024-03_Chicago-09.jpg"
+// uploaded to US-IL/ lands on Chicago, not Illinois). No match → state level.
+function autoRouteToCity(link, caption) {
+  if (!link || link.type !== "region" || link.cityMiss || !link.cities) return null;
+  const want = norm(caption);
+  for (const c of link.cities) {
+    if (norm(c.name) === want) return { type: "city", name: c.name };
   }
   return null;
 }
@@ -357,7 +371,12 @@ async function main() {
       prior.set(id, entry);
 
       // map linking
-      const link = resolveTag(tag, fp);
+      let link = resolveTag(tag, fp);
+      const routed = autoRouteToCity(link, parsed.caption);
+      if (routed) {
+        console.log(`auto-routed to city ${routed.name}: ${tag}/${file}`);
+        link = routed;
+      }
       if (!link) {
         console.warn(`warn: tag "${tag}" doesn't match any footprints node — ` +
           `"${id}" added to the masonry only`);

@@ -45,6 +45,10 @@ Both yield date = `YYYY-MM` and caption = `Region` (shown as
 | State/province tag | `US-IL/`, `CN-hainan/` | State album — the state/province popover shows these **plus** all of its cities' photos |
 | City tag | `US-IL-chicago/` | City album — that city dot's popover shows **exactly** these |
 
+Filenames that name a known city are auto-routed to it, even from the state
+folder — `2024-03_Chicago-09.jpg` uploaded to `US-IL/` lands on the Chicago
+dot, not the Illinois state album.
+
 Available folders:
 
 - `general/` — no map link

@@ -51,7 +51,7 @@ const FOOTPRINTS = {
     { name: "Wyoming" }, { name: "Montana" }, { name: "Idaho" },
     { name: "Utah" }, { name: "Colorado" },
     { name: "Nevada", cities: [ { name: "Las Vegas", lat: 36.17, lng: -115.14 } ] },
-    { name: "New York", photoIds: ["2023-12-new-york-city-01", "2023-12-new-york-city-02", "2023-12-new-york-city-03", "2023-12-new-york-city-04", "2023-12-new-york-city-05", "2023-12-new-york-city-06", "2023-12-new-york-city-07", "2023-12-new-york-city-08", "2023-12-new-york-city-09"], cities: [ { name: "New York City", lat: 40.71, lng: -74.01 } ] },
+    { name: "New York", cities: [ { name: "New York City", lat: 40.71, lng: -74.01, photoIds: ["2023-12-new-york-city-01", "2023-12-new-york-city-02", "2023-12-new-york-city-03", "2023-12-new-york-city-04", "2023-12-new-york-city-05", "2023-12-new-york-city-06", "2023-12-new-york-city-07", "2023-12-new-york-city-08", "2023-12-new-york-city-09"] } ] },
     { name: "District of Columbia", photoIds: ["2023-12-washington-dc-01", "2023-12-washington-dc-02", "2023-12-washington-dc-03", "2023-12-washington-dc-04"], countAsState: false,
       cities: [ { name: "Washington, D.C.", lat: 38.91, lng: -77.04 } ] },
     { name: "Florida", cities: [
@@ -59,11 +59,11 @@ const FOOTPRINTS = {
       { name: "Tampa", lat: 27.95, lng: -82.46 } ] },
     { name: "Massachusetts", cities: [ { name: "Boston", lat: 42.36, lng: -71.06 } ] },
     { name: "Connecticut" },
-    { name: "Indiana", photoIds: ["2024-04-indianapolis-01", "2024-04-indianapolis-02", "2024-04-indianapolis-03"], cities: [ { name: "Indianapolis", lat: 39.77, lng: -86.16 } ] },
+    { name: "Indiana", cities: [ { name: "Indianapolis", lat: 39.77, lng: -86.16, photoIds: ["2024-04-indianapolis-01", "2024-04-indianapolis-02", "2024-04-indianapolis-03"] } ] },
     { name: "Texas", cities: [ { name: "Dallas", lat: 32.78, lng: -96.80 } ] },
-    { name: "Illinois", photoIds: ["2024-03-chicago-01", "2024-03-chicago-02", "2024-03-chicago-03", "2024-03-chicago-04", "2024-03-chicago-05", "2024-03-chicago-06", "2024-03-chicago-07", "2024-03-chicago-feat"], cities: [
+    { name: "Illinois", cities: [
       { name: "Champaign", lat: 40.12, lng: -88.24 , photoIds: ["2024-09-middle-fork-01", "2024-09-middle-fork-02", "2024-10-middle-fork-03", "2024-10-middle-fork-04", "2024-10-uiuc-01", "2024-10-uiuc-02"] },
-      { name: "Chicago", lat: 41.88, lng: -87.63 } ] },
+      { name: "Chicago", lat: 41.88, lng: -87.63, photoIds: ["2024-03-chicago-01", "2024-03-chicago-02", "2024-03-chicago-03", "2024-03-chicago-04", "2024-03-chicago-05", "2024-03-chicago-06", "2024-03-chicago-07", "2024-03-chicago-feat"] } ] },
   ] },
   SG: { name: "Singapore", visited: true, regions: [
     { name: "Singapore", cities: [ { name: "Singapore", lat: 1.35, lng: 103.82 } ] } ] },
