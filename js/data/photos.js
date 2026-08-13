@@ -578,5 +578,25 @@ const PHOTOS = [
     featured: false,
     w: 1600,
     h: 1200
+  },
+  {
+    id: "2024-12-boston-01",
+    src: "assets/photos/2024-12/2024-12-boston-01.webp",
+    thumb: "assets/photos/thumbs/2024-12/2024-12-boston-01.webp",
+    caption: "Boston",
+    date: "2024-12",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2024-12-boston-02",
+    src: "assets/photos/2024-12/2024-12-boston-02.webp",
+    thumb: "assets/photos/thumbs/2024-12/2024-12-boston-02.webp",
+    caption: "Boston",
+    date: "2024-12",
+    featured: false,
+    w: 1200,
+    h: 1600
   }
 ];

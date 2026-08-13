@@ -57,7 +57,7 @@ const FOOTPRINTS = {
     { name: "Florida", cities: [
       { name: "Orlando", lat: 28.54, lng: -81.38 },
       { name: "Tampa", lat: 27.95, lng: -82.46 } ] },
-    { name: "Massachusetts", cities: [ { name: "Boston", lat: 42.36, lng: -71.06 } ] },
+    { name: "Massachusetts", cities: [ { name: "Boston", lat: 42.36, lng: -71.06 , photoIds: ["2024-12-boston-01", "2024-12-boston-02"] } ] },
     { name: "Connecticut" },
     { name: "Indiana", cities: [ { name: "Indianapolis", lat: 39.77, lng: -86.16, photoIds: ["2024-04-indianapolis-01", "2024-04-indianapolis-02", "2024-04-indianapolis-03"] } ] },
     { name: "Texas", cities: [ { name: "Dallas", lat: 32.78, lng: -96.80 } ] },
