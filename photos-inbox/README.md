@@ -57,7 +57,7 @@ Available folders:
   `US-IL` `US-DC`
 - United States (city): `US-WA-seattle` `US-OR-portland`
   `US-CA-san-francisco` `US-CA-los-angeles` `US-CA-san-jose`
-  `US-CA-san-diego` `US-NV-las-vegas` `US-NY-new-york-city` `US-FL-orlando`
+  `US-CA-san-diego` `US-CA-irvine` `US-NV-las-vegas` `US-NY-new-york-city` `US-FL-orlando`
   `US-FL-tampa` `US-MA-boston` `US-IN-indianapolis` `US-TX-dallas`
   `US-IL-chicago` `US-IL-champaign`
 - China: `CN-shanghai` `CN-jiangsu` `CN-zhejiang` `CN-beijing`
