@@ -608,5 +608,25 @@ const PHOTOS = [
     featured: false,
     w: 1600,
     h: 1200
+  },
+  {
+    id: "2025-05-anaheim-disneyland-01",
+    src: "assets/photos/2025-05/2025-05-anaheim-disneyland-01.webp",
+    thumb: "assets/photos/thumbs/2025-05/2025-05-anaheim-disneyland-01.webp",
+    caption: "Anaheim Disneyland",
+    date: "2025-05",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2025-05-anaheim-disneyland-02",
+    src: "assets/photos/2025-05/2025-05-anaheim-disneyland-02.webp",
+    thumb: "assets/photos/thumbs/2025-05/2025-05-anaheim-disneyland-02.webp",
+    caption: "Anaheim Disneyland",
+    date: "2025-05",
+    featured: false,
+    w: 1200,
+    h: 1600
   }
 ];
