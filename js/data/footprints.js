@@ -56,7 +56,7 @@ const FOOTPRINTS = {
     { name: "District of Columbia", photoIds: ["2023-12-washington-dc-01", "2023-12-washington-dc-02", "2023-12-washington-dc-03", "2023-12-washington-dc-04"], countAsState: false,
       cities: [ { name: "Washington, D.C.", lat: 38.91, lng: -77.04 } ] },
     { name: "Florida", cities: [
-      { name: "Orlando", lat: 28.54, lng: -81.38 },
+      { name: "Orlando", lat: 28.54, lng: -81.38 , photoIds: ["2025-06-disney-s-magic-kingdom-01", "2025-06-disney-s-magic-kingdom-02", "2025-06-disney-s-magic-kingdom-feat", "2025-07-disney-s-epcot-01", "2025-07-disney-s-epcot-02"] },
       { name: "Tampa", lat: 27.95, lng: -82.46 } ] },
     { name: "Massachusetts", cities: [ { name: "Boston", lat: 42.36, lng: -71.06 , photoIds: ["2024-12-boston-01", "2024-12-boston-02"] } ] },
     { name: "Connecticut" },

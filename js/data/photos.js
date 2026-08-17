@@ -658,5 +658,55 @@ const PHOTOS = [
     featured: true,
     w: 1600,
     h: 1489
+  },
+  {
+    id: "2025-06-disney-s-magic-kingdom-01",
+    src: "assets/photos/2025-06/2025-06-disney-s-magic-kingdom-01.webp",
+    thumb: "assets/photos/thumbs/2025-06/2025-06-disney-s-magic-kingdom-01.webp",
+    caption: "Disney's Magic Kingdom",
+    date: "2025-06",
+    featured: false,
+    w: 1067,
+    h: 1600
+  },
+  {
+    id: "2025-06-disney-s-magic-kingdom-02",
+    src: "assets/photos/2025-06/2025-06-disney-s-magic-kingdom-02.webp",
+    thumb: "assets/photos/thumbs/2025-06/2025-06-disney-s-magic-kingdom-02.webp",
+    caption: "Disney's Magic Kingdom",
+    date: "2025-06",
+    featured: false,
+    w: 1067,
+    h: 1600
+  },
+  {
+    id: "2025-06-disney-s-magic-kingdom-feat",
+    src: "assets/photos/2025-06/2025-06-disney-s-magic-kingdom-feat.webp",
+    thumb: "assets/photos/thumbs/2025-06/2025-06-disney-s-magic-kingdom-feat.webp",
+    caption: "Disney's Magic Kingdom",
+    date: "2025-06",
+    featured: true,
+    w: 1066,
+    h: 1600
+  },
+  {
+    id: "2025-07-disney-s-epcot-01",
+    src: "assets/photos/2025-07/2025-07-disney-s-epcot-01.webp",
+    thumb: "assets/photos/thumbs/2025-07/2025-07-disney-s-epcot-01.webp",
+    caption: "Disney's Epcot",
+    date: "2025-07",
+    featured: false,
+    w: 1600,
+    h: 1075
+  },
+  {
+    id: "2025-07-disney-s-epcot-02",
+    src: "assets/photos/2025-07/2025-07-disney-s-epcot-02.webp",
+    thumb: "assets/photos/thumbs/2025-07/2025-07-disney-s-epcot-02.webp",
+    caption: "Disney's Epcot",
+    date: "2025-07",
+    featured: false,
+    w: 1600,
+    h: 1067
   }
 ];
