@@ -708,5 +708,45 @@ const PHOTOS = [
     featured: false,
     w: 1600,
     h: 1067
+  },
+  {
+    id: "2025-07-disney-starlight-01",
+    src: "assets/photos/2025-07/2025-07-disney-starlight-01.webp",
+    thumb: "assets/photos/thumbs/2025-07/2025-07-disney-starlight-01.webp",
+    caption: "Disney Starlight",
+    date: "2025-07",
+    featured: false,
+    w: 1600,
+    h: 1067
+  },
+  {
+    id: "2025-07-disney-s-epcot-03",
+    src: "assets/photos/2025-07/2025-07-disney-s-epcot-03.webp",
+    thumb: "assets/photos/thumbs/2025-07/2025-07-disney-s-epcot-03.webp",
+    caption: "Disney's Epcot",
+    date: "2025-07",
+    featured: false,
+    w: 1067,
+    h: 1600
+  },
+  {
+    id: "2025-08-team-disney-01",
+    src: "assets/photos/2025-08/2025-08-team-disney-01.webp",
+    thumb: "assets/photos/thumbs/2025-08/2025-08-team-disney-01.webp",
+    caption: "Team Disney",
+    date: "2025-08",
+    featured: false,
+    w: 1600,
+    h: 1200
+  },
+  {
+    id: "2025-08-universal-studio-florida-01",
+    src: "assets/photos/2025-08/2025-08-universal-studio-florida-01.webp",
+    thumb: "assets/photos/thumbs/2025-08/2025-08-universal-studio-florida-01.webp",
+    caption: "Universal Studio Florida",
+    date: "2025-08",
+    featured: false,
+    w: 1600,
+    h: 1201
   }
 ];
