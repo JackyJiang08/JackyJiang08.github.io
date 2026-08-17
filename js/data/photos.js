@@ -628,5 +628,35 @@ const PHOTOS = [
     featured: false,
     w: 1200,
     h: 1600
+  },
+  {
+    id: "2025-05-newport-beach-01",
+    src: "assets/photos/2025-05/2025-05-newport-beach-01.webp",
+    thumb: "assets/photos/thumbs/2025-05/2025-05-newport-beach-01.webp",
+    caption: "Newport Beach",
+    date: "2025-05",
+    featured: false,
+    w: 1600,
+    h: 1067
+  },
+  {
+    id: "2025-05-newport-beach-02",
+    src: "assets/photos/2025-05/2025-05-newport-beach-02.webp",
+    thumb: "assets/photos/thumbs/2025-05/2025-05-newport-beach-02.webp",
+    caption: "Newport Beach",
+    date: "2025-05",
+    featured: false,
+    w: 1066,
+    h: 1600
+  },
+  {
+    id: "2025-05-newport-beach-feat",
+    src: "assets/photos/2025-05/2025-05-newport-beach-feat.webp",
+    thumb: "assets/photos/thumbs/2025-05/2025-05-newport-beach-feat.webp",
+    caption: "Newport Beach",
+    date: "2025-05",
+    featured: true,
+    w: 1600,
+    h: 1489
   }
 ];
