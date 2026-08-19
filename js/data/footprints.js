@@ -57,7 +57,7 @@ const FOOTPRINTS = {
       cities: [ { name: "Washington, D.C.", lat: 38.91, lng: -77.04 } ] },
     { name: "Florida", cities: [
       { name: "Orlando", lat: 28.54, lng: -81.38 , photoIds: ["2025-06-disney-s-magic-kingdom-01", "2025-06-disney-s-magic-kingdom-02", "2025-06-disney-s-magic-kingdom-feat", "2025-07-disney-s-epcot-01", "2025-07-disney-s-epcot-02", "2025-07-disney-starlight-01", "2025-07-disney-s-epcot-03", "2025-08-team-disney-01", "2025-08-universal-studio-florida-01"] },
-      { name: "Tampa", lat: 27.95, lng: -82.46 } ] },
+      { name: "Tampa", lat: 27.95, lng: -82.46 , photoIds: ["2025-08-tampa-01", "2025-08-tampa-02", "2025-08-tampa-03", "2025-08-tampa-04", "2025-08-tampa-feat"] } ] },
     { name: "Massachusetts", cities: [ { name: "Boston", lat: 42.36, lng: -71.06 , photoIds: ["2024-12-boston-01", "2024-12-boston-02"] } ] },
     { name: "Connecticut" },
     { name: "Indiana", cities: [ { name: "Indianapolis", lat: 39.77, lng: -86.16, photoIds: ["2024-04-indianapolis-01", "2024-04-indianapolis-02", "2024-04-indianapolis-03"] } ] },

@@ -748,5 +748,55 @@ const PHOTOS = [
     featured: false,
     w: 1600,
     h: 1201
+  },
+  {
+    id: "2025-08-tampa-01",
+    src: "assets/photos/2025-08/2025-08-tampa-01.webp",
+    thumb: "assets/photos/thumbs/2025-08/2025-08-tampa-01.webp",
+    caption: "Tampa",
+    date: "2025-08",
+    featured: false,
+    w: 1200,
+    h: 1600
+  },
+  {
+    id: "2025-08-tampa-02",
+    src: "assets/photos/2025-08/2025-08-tampa-02.webp",
+    thumb: "assets/photos/thumbs/2025-08/2025-08-tampa-02.webp",
+    caption: "Tampa",
+    date: "2025-08",
+    featured: false,
+    w: 961,
+    h: 1600
+  },
+  {
+    id: "2025-08-tampa-03",
+    src: "assets/photos/2025-08/2025-08-tampa-03.webp",
+    thumb: "assets/photos/thumbs/2025-08/2025-08-tampa-03.webp",
+    caption: "Tampa",
+    date: "2025-08",
+    featured: false,
+    w: 1200,
+    h: 1600
+  },
+  {
+    id: "2025-08-tampa-04",
+    src: "assets/photos/2025-08/2025-08-tampa-04.webp",
+    thumb: "assets/photos/thumbs/2025-08/2025-08-tampa-04.webp",
+    caption: "Tampa",
+    date: "2025-08",
+    featured: false,
+    w: 1200,
+    h: 1600
+  },
+  {
+    id: "2025-08-tampa-feat",
+    src: "assets/photos/2025-08/2025-08-tampa-feat.webp",
+    thumb: "assets/photos/thumbs/2025-08/2025-08-tampa-feat.webp",
+    caption: "Tampa",
+    date: "2025-08",
+    featured: true,
+    w: 1600,
+    h: 1200
   }
 ];
