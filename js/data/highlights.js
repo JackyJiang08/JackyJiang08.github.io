@@ -20,6 +20,12 @@
 const HIGHLIGHTS = [
   {
     date: "2026-08",
+    text: "Launched Interview Prep Agent, an evidence-backed AI agent for grounded interview preparation.",
+    link: "https://interview-prep-agent.livelytree-f16ea3df.centralus.azurecontainerapps.io/",
+    linkText: "Interview Prep Agent",
+  },
+  {
+    date: "2026-08",
     text: "Released Market-Based Credit Rating, a KMV/Merton structural pipeline for banks.",
     link: "https://jackyjiang08.github.io/market-based-credit-rating/",
     linkText: "Market-Based Credit Rating",

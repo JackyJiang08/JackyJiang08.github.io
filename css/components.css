@@ -382,9 +382,22 @@
 }
 
 /* ---------- News archive modal ---------- */
+/* Roomier than the shared default (this modal ONLY): wider, taller, more
+   inner air; the header (title, subtitle, year chips) stays pinned while
+   .archive-groups scrolls */
 .modal-archive .modal-panel {
-  width: min(640px, 100%);
-  height: min(80vh, 680px);
+  width: min(880px, 92vw);
+  height: min(85vh, 900px);
+  max-height: 85vh;
+}
+
+.modal-archive .modal-body {
+  padding: 1.5rem 1.75rem 1.6rem;
+}
+
+.modal-archive .archive-list .hl-row {
+  line-height: 1.7;
+  padding: 0.28rem 0;
 }
 
 .archive-title {
@@ -416,7 +429,9 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--accent);
-  margin: 1.1rem 0 0.5rem;
+  margin: 1.6rem 0 0.7rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border); /* subtle full-width hairline */
 }
 
 .archive-group:first-child .archive-year {
@@ -426,6 +441,21 @@
 /* archive rows may wrap — the one-line clamp applies to the page list only */
 .archive-list .hl-row {
   white-space: normal;
+}
+
+/* mobile: the archive modal goes near-fullscreen like the shared default
+   (needed explicitly — .modal-archive .modal-panel outweighs the generic
+   mobile rule) */
+@media (max-width: 640px) {
+  .modal-archive .modal-panel {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+  }
+
+  .modal-archive .modal-body {
+    padding: 1.1rem 1rem 1.2rem;
+  }
 }
 
 /* ---------- Segmented switch ---------- */
