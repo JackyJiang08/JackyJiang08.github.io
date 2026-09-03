@@ -31,6 +31,15 @@
     };
   }
 
+  // Open the résumé viewer on a specific variant ("da" or "ai"); the viewer
+  // only exists on index.html, so fall back to navigating there.
+  function openResume(variant) {
+    return function () {
+      if (window.ResumeViewer) window.ResumeViewer.open(variant);
+      else window.location.href = "index.html";
+    };
+  }
+
   // `keywords` are extra search aliases (numbers, ASCII spellings, synonyms).
   // Adding a new alias is a one-line change on the entry.
   var ACTIONS = [
@@ -43,14 +52,16 @@
     { label: "Jump to Education", hint: "07", keywords: ["07", "7"], run: jump("education") },
     { label: "Jump to Contact", hint: "08", keywords: ["08", "8", "email form"], run: jump("contact") },
     {
-      label: "Open résumé",
+      label: "Open résumé (Data)",
       hint: "PDF",
-      keywords: ["resume", "cv", "pdf"],
-      run: function () {
-        var btn = document.getElementById("resume-open");
-        if (btn) btn.click();
-        else window.location.href = "index.html";
-      },
+      keywords: ["resume", "cv", "pdf", "data", "da"],
+      run: openResume("da"),
+    },
+    {
+      label: "Open résumé (AI)",
+      hint: "PDF",
+      keywords: ["resume", "cv", "pdf", "ai", "llm"],
+      run: openResume("ai"),
     },
     {
       label: "Open Misc. page",

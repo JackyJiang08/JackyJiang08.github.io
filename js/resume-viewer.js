@@ -11,9 +11,12 @@
   "use strict";
 
   var FILES = {
-    ai: "assets/resume/Jacky_Jiang_Resume_AI.pdf",
+    ai: "assets/resume/Jacky_Jiang_Resume_LLM.pdf",
     da: "assets/resume/Jacky_Jiang_Resume_DA.pdf",
   };
+  // cache-bust the PDFs: DA keeps its old filename across content updates,
+  // so a bare URL could serve a stale cached copy
+  var CACHE_VERSION = "20260903T1720";
   var STORE_KEY = "resumeVariant";
 
   var trigger = document.getElementById("resume-open");
@@ -33,6 +36,7 @@
 
   try {
     var saved = localStorage.getItem(STORE_KEY);
+    if (saved === "llm") saved = "ai"; // legacy alias for the AI/LLM variant
     if (saved === "ai" || saved === "da") variant = saved;
   } catch (err) { /* ignore */ }
 
@@ -131,7 +135,7 @@
     var token = ++renderToken;
     pagesBox.innerHTML = "<p class='pdf-status'>Loading…</p>";
     pageLabel.textContent = "";
-    window.pdfjsLib.getDocument(FILES[variant]).promise.then(function (doc) {
+    window.pdfjsLib.getDocument(FILES[variant] + "?v=" + CACHE_VERSION).promise.then(function (doc) {
       if (token !== renderToken) return;
       pdfDoc = doc;
       currentPage = 1;
@@ -215,13 +219,18 @@
     nextBtn.hidden = single;
   }
 
-  trigger.addEventListener("click", function () {
+  function openViewer(v) {
     if (!modal) buildModal();
     modal.open();
     loadLib().then(function () {
-      setVariant(variant);
+      setVariant(v === "ai" || v === "da" ? v : variant);
     }).catch(function () {
       pagesBox.innerHTML = "<p class='pdf-status'>Couldn't load the PDF viewer.</p>";
     });
-  });
+  }
+
+  trigger.addEventListener("click", function () { openViewer(); });
+
+  // lets the command palette open a specific variant directly
+  window.ResumeViewer = { open: openViewer };
 })();

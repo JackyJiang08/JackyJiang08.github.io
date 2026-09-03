@@ -460,7 +460,10 @@
 
 /* ---------- Segmented switch ---------- */
 .segmented {
-  display: inline-flex;
+  /* equal columns so segments stay the same width regardless of label length */
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 2px;
   padding: 3px;
   background: var(--bg-alt);
@@ -477,6 +480,7 @@
   border: none;
   border-radius: var(--radius-full);
   padding: 0.24rem 0.9rem;
+  text-align: center;
   cursor: pointer;
   transition: color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
